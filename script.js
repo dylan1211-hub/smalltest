@@ -32,7 +32,7 @@ window.onload = () => {
 
 function staticLoadPlaces() { 
     
-    var https = require("https");
+    /*var https = require("https");
     var fs = require('fs');
 
     var url = "https://a288-2001-b011-e004-18ef-1a2-b976-4ef-86f6.ngrok.io/smalltest";
@@ -50,26 +50,23 @@ function staticLoadPlaces() {
         data = JSON.parse(data);
         //console.log(data);
     });
-});
+});*/
 
-    return data;
-    /*[
+    return [
         
         {
-            name: "Your place name",
-            location: {
-                lat: 0, // add here latitude if using static data
-                lng: 0, // add here longitude if using static data
-            }
+            name: "大韓名鍋",
+                lat: 22.997834235861426, // add here latitude if using static data
+                lon: 120.22748679070871, // add here longitude if using static data
+            
         },
         {
-            name: 'Another place name',
-            location: {
-                lat: 0,
-                lng: 0,
-            }
+            name: '金湖餃子館',
+                lat: 22.99902284960256,
+                lon: 120.22667163249339,
+            
         }
-    ];*/
+    ];
 }
 
 // getting places from REST APIs
