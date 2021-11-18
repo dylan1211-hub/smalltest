@@ -114,8 +114,8 @@ function renderPlaces(places) {
         const icon = document.createElement('a-image');
         icon.setAttribute('gps-entity-place', `latitude: ${latitude}; longitude: ${longitude}`);
         //icon.setAttribute('name', place.name);         修改前
-        icon.setAttribute('name', place.recommand);      //修改後
-        icon.setAttribute('building', place.building);   //修改後
+        icon.setAttribute('name', place.name);      //修改後
+        //icon.setAttribute('building', place.building);   //修改後
         icon.setAttribute('src', 'map-marker.png');
 
         // for debug purposes, just show in a bigger scale, otherwise I have to personally go on places...
