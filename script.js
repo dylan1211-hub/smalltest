@@ -32,13 +32,14 @@ window.onload = () => {
 
 function staticLoadPlaces() { 
     
-    /*var https = require("https");
+    var https = require("https");
     var fs = require('fs');
 
-    var url = "https://a288-2001-b011-e004-18ef-1a2-b976-4ef-86f6.ngrok.io/smalltest";
+    var url = "https://21fb-2001-b011-e004-1cc5-2d5e-1fe-403a-4fb8.ngrok.io/smalltest";
 
 
-    https.get(url, function (response) {
+    https.get(url, function (response) 
+    {
     var data = "";
     console.log("start");
     response.on("data", chunk => {
@@ -46,13 +47,17 @@ function staticLoadPlaces() {
         data += chunk;
     });
 
-    response.on("end", () => {
+    response.on("end", () => 
+    {
         data = JSON.parse(data);
         //console.log(data);
     });
-});*/
 
-    return [
+    });
+
+    return data;
+    
+    /*[
         
         {
             name: "大韓名鍋",
@@ -66,7 +71,7 @@ function staticLoadPlaces() {
             lon: 120.22667163249339,
             
         }
-    ];
+    ];*/
 }
 
 // getting places from REST APIs
