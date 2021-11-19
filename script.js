@@ -30,30 +30,30 @@ window.onload = () => {
     }
 };
 
+var https = require("https");
+var fs = require('fs');
+
+var url = "https://21fb-2001-b011-e004-1cc5-2d5e-1fe-403a-4fb8.ngrok.io/smalltest";
+
+
+https.get(url, function (response) 
+{
+var data = "";
+console.log("start");
+response.on("data", chunk => {
+    console.log("on data");
+    data += chunk;
+});
+
+response.on("end", () => 
+{
+    data = JSON.parse(data);
+    //console.log(data);
+});
+
+});
+
 function staticLoadPlaces() { 
-    
-    var https = require("https");
-    var fs = require('fs');
-
-    var url = "https://21fb-2001-b011-e004-1cc5-2d5e-1fe-403a-4fb8.ngrok.io/smalltest";
-
-
-    https.get(url, function (response) 
-    {
-    var data = "";
-    console.log("start");
-    response.on("data", chunk => {
-        console.log("on data");
-        data += chunk;
-    });
-
-    response.on("end", () => 
-    {
-        data = JSON.parse(data);
-        //console.log(data);
-    });
-
-    });
 
     return data;
     
