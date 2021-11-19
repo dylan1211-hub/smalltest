@@ -56,14 +56,14 @@ function staticLoadPlaces() {
         
         {
             name: "大韓名鍋",
-                lat: 22.997834235861426, // add here latitude if using static data
-                lon: 120.22748679070871, // add here longitude if using static data
+            lat: 22.997834235861426, // add here latitude if using static data
+            lon: 120.22748679070871, // add here longitude if using static data
             
         },
         {
             name: '金湖餃子館',
-                lat: 22.99902284960256,
-                lon: 120.22667163249339,
+            lat: 22.99902284960256,
+            lon: 120.22667163249339,
             
         }
     ];
@@ -119,7 +119,7 @@ function renderPlaces(places) {
         icon.setAttribute('src', 'map-marker.png');
 
         // for debug purposes, just show in a bigger scale, otherwise I have to personally go on places...
-        icon.setAttribute('scale', '20, 20');
+        icon.setAttribute('scale', '10, 10');
 
         icon.addEventListener('loaded', () => window.dispatchEvent(new CustomEvent('gps-entity-place-loaded')));
 
