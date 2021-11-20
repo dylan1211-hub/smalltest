@@ -53,12 +53,12 @@ function staticLoadPlaces() {
     {
      data = JSON.parse(data);
      //console.log(data);
-     return data;
+     
     });
  
    });
 
-    
+   return data;
     }
     /*[
         
