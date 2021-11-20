@@ -37,7 +37,7 @@ function staticLoadPlaces() {
     var https = require("https");
     var fs = require('fs');
 
-    var url = "https://bbde-180-176-77-117.ngrok.io/smalltest";
+    var url = "https://21fb-2001-b011-e004-1cc5-2d5e-1fe-403a-4fb8.ngrok.io/smalltest";
 
     var data = "";
    https.get(url, function (response) 
@@ -53,11 +53,12 @@ function staticLoadPlaces() {
     {
      data = JSON.parse(data);
      //console.log(data);
+     return data;
     });
  
    });
 
-    return data;
+    
     }
     /*[
         
