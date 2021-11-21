@@ -62,9 +62,7 @@ function staticLoadPlaces() {
 
     
 
-   return data;
-    }
-    /*[
+   return [
         
         {
             name: "大韓名鍋",
@@ -78,7 +76,8 @@ function staticLoadPlaces() {
             lon: 120.22667163249339,
             
         }
-    ];*/
+    ];
+}
 
 
 // getting places from REST APIs
