@@ -7,7 +7,33 @@ window.onload = () => {
     if (method === 'static') {
         let places = staticLoadPlaces();
         renderPlaces(places);
-    }
+
+
+    var https = require("https");
+    var fs = require('fs');
+
+    var url = "https://d571-180-176-77-117.ngrok.io/smalltest";
+
+    var data = "";
+   https.get(url, function (response) 
+   {
+    
+    console.log("start");
+    response.on("data", chunk => {
+    console.log("on data");
+    data += chunk;
+   });
+
+    response.on("end", () => 
+    {
+     data = JSON.parse(data);
+     //console.log(data);
+     
+    });
+ 
+   });
+
+ }
 
     if (method !== 'static') {
 
@@ -34,29 +60,7 @@ window.onload = () => {
 
 function staticLoadPlaces() { 
 
-    var https = require("https");
-    var fs = require('fs');
-
-    var url = "https://bbde-180-176-77-117.ngrok.io/smalltest";
-
-    var data = "";
-   https.get(url, function (response) 
-   {
     
-    console.log("start");
-    response.on("data", chunk => {
-    console.log("on data");
-    data += chunk;
-   });
-
-    response.on("end", () => 
-    {
-     data = JSON.parse(data);
-     //console.log(data);
-     
-    });
- 
-   });
 
    return data;
     }
