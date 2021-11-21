@@ -9,7 +9,7 @@ window.onload = () => {
         renderPlaces(places);
 
 
-    var https = require("https");
+    /*var https = require("https");
     var fs = require('fs');
 
     var url = "https://d571-180-176-77-117.ngrok.io/smalltest";
@@ -31,7 +31,7 @@ window.onload = () => {
      
     });
  
-   });
+   });*/
 
  }
 
