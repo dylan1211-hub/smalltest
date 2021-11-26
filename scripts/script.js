@@ -1,16 +1,39 @@
 window.onload = () => {
 
-        let places = staticLoadPlaces();
-        renderPlaces(places);
+
+    var https = require("https");
+
+    var url = "https://f865-2001-b011-e004-3b8a-79f4-47e3-3d4b-4f28.ngrok.io/smalltest";
+
+    var data = "";
+   https.get(url, function (response) 
+   {
+    
+    console.log("start");
+    response.on("data", chunk => {
+    console.log("on data");
+    data += chunk;
+   });
+
+    response.on("end", () => 
+    {
+     data = JSON.parse(data);
+     let places = data;
+    renderPlaces(places);
+     
+    });
+ 
+   });
+        
 
 };
 
 
-function staticLoadPlaces() { 
+/*function staticLoadPlaces() { 
 
-    /*var https = require("https");
+    var https = require("https");
 
-    var url = "https://47dd-2001-b011-e004-3b8a-55fc-aecf-5579-9338.ngrok.io/smalltest";
+    var url = "https://f865-2001-b011-e004-3b8a-79f4-47e3-3d4b-4f28.ngrok.io/smalltest";
 
     var data = "";
    https.get(url, function (response) 
@@ -30,7 +53,7 @@ function staticLoadPlaces() {
      
     });
  
-   });*/
+   });
 
    
    return[
@@ -48,7 +71,7 @@ function staticLoadPlaces() {
             
         }
     ];
-}
+}*/
 
 
 
