@@ -34,7 +34,7 @@ function staticLoadPlaces() {
    });*/
 
    
-   return [
+   return[
         
         {
             name: "大韓名鍋",
@@ -68,7 +68,7 @@ function renderPlaces(places) {
         //icon.setAttribute('name', place.name);         修改前
         icon.setAttribute('name', place.name);      //修改後
         //icon.setAttribute('building', place.building);   //修改後
-        icon.setAttribute('src', 'map-marker.png');
+        icon.setAttribute('map-marker.png');
 
         // for debug purposes, just show in a bigger scale, otherwise I have to personally go on places...
         icon.setAttribute('scale', '10, 10');
