@@ -8691,7 +8691,7 @@ function renderPlaces(places) {
         //icon.setAttribute('name', place.name);         修改前
         icon.setAttribute('name', place.name);      //修改後
         //icon.setAttribute('building', place.building);   //修改後
-        icon.setAttribute('r4.png');
+        icon.setAttribute('src', r4.png);
 
         // for debug purposes, just show in a bigger scale, otherwise I have to personally go on places...
         icon.setAttribute('scale', '10, 10');
