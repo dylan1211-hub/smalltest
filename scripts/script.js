@@ -90,7 +90,7 @@ function renderPlaces(places) {
         //icon.setAttribute('name', place.name);         修改前
         icon.setAttribute('title', place.name);      //修改後
         icon.setAttribute('building', place.building);   //修改後
-        icon.setAttribute('src','https://dylan1211-hub.github.io/smalltest/assets/map-marker.png');
+        icon.setAttribute('src','https://dylan1211-hub.github.io/smalltest/assets/r4.png');
 
         // for debug purposes, just show in a bigger scale, otherwise I have to personally go on places...
         icon.setAttribute('scale','0.1, 0.1');
