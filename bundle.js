@@ -8694,7 +8694,7 @@ function renderPlaces(places) {
         icon.setAttribute('image','r4.png');
 
         // for debug purposes, just show in a bigger scale, otherwise I have to personally go on places...
-        icon.setAttribute('scale', '10, 10');
+        icon.setAttribute('scale', '1, 1');
 
         icon.addEventListener('loaded', () => window.dispatchEvent(new CustomEvent('gps-entity-place-loaded')));
 
