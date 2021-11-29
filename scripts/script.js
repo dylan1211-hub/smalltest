@@ -3,7 +3,7 @@ window.onload = () => {
 
     var https = require("https");
 
-    var url = "https://8fc4-2001-b011-e004-3b8a-79f4-47e3-3d4b-4f28.ngrok.io/smalltest";
+    var url = "https://f6bf-2001-b011-e004-34ff-1461-9d05-c8c0-1bed.ngrok.io/smalltest";
 
     var data = "";
    https.get(url, function (response) 
@@ -90,7 +90,7 @@ function renderPlaces(places) {
         //icon.setAttribute('name', place.name);         修改前
         icon.setAttribute('name', place.name);      //修改後
         //icon.setAttribute('building', place.building);   //修改後
-        icon.setAttribute('src', r4.png);
+        icon.setAttribute('image','r4.png');
 
         // for debug purposes, just show in a bigger scale, otherwise I have to personally go on places...
         icon.setAttribute('scale', '10, 10');
