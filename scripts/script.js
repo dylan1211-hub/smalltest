@@ -50,11 +50,13 @@ function renderPlaces(places) {
 
         icon.addEventListener('loaded', () => window.dispatchEvent(new CustomEvent('gps-entity-place-loaded')));
 
+        icon.addEventListener('click', clickListener);
+
         const clickListener = function (ev) {
             ev.stopPropagation();
             ev.preventDefault();
 
-            const name = ev.target.getAttribute('src');
+            const name = ev.target.getAttribute('name');
 
             const el = ev.detail.intersection && ev.detail.intersection.object.el;
 
@@ -72,8 +74,7 @@ function renderPlaces(places) {
             }
         };
 
-        icon.addEventListener('click', clickListener);
-
+    
         scene.appendChild(icon);
     });
 }
