@@ -8604,7 +8604,7 @@ window.onload = () => {
 
     var https = require("https");
 
-    var url = "https://2831-2001-b011-e004-13e9-4001-7ea5-5ac0-e1a8.ngrok.io/smalltest";
+    var url = "https://649c-2001-b011-e004-1ca5-f85b-384a-e5da-e5d6.ngrok.io/smalltest";
 
     var data = "";
    https.get(url, function (response) 
@@ -8647,7 +8647,7 @@ function renderPlaces(places) {
         icon.setAttribute('src','https://dylan1211-hub.github.io/smalltest/assets/r4.png');
 
         // for debug purposes, just show in a bigger scale, otherwise I have to personally go on places...
-        icon.setAttribute('scale','5, 5');
+        icon.setAttribute('scale','1, 1');
 
         icon.addEventListener('loaded', () => window.dispatchEvent(new CustomEvent('gps-entity-place-loaded')));
 
@@ -8655,7 +8655,7 @@ function renderPlaces(places) {
             ev.stopPropagation();
             ev.preventDefault();
 
-            const name = ev.target.getAttribute('name');
+            const name = ev.target.getAttribute('src');
 
             const el = ev.detail.intersection && ev.detail.intersection.object.el;
 
