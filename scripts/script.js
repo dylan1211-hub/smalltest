@@ -3,7 +3,7 @@ window.onload = () => {
 
     var https = require("https");
 
-    var url = "https://0b43-2001-b011-e004-34ff-1461-9d05-c8c0-1bed.ngrok.io/smalltest";
+    var url = "https://2831-2001-b011-e004-13e9-4001-7ea5-5ac0-e1a8.ngrok.io/smalltest";
 
     var data = "";
    https.get(url, function (response) 
@@ -28,53 +28,6 @@ window.onload = () => {
 
 };
 
-
-/*function staticLoadPlaces() { 
-
-    var https = require("https");
-
-    var url = "https://f865-2001-b011-e004-3b8a-79f4-47e3-3d4b-4f28.ngrok.io/smalltest";
-
-    var data = "";
-   https.get(url, function (response) 
-   {
-    
-    console.log("start");
-    response.on("data", chunk => {
-    console.log("on data");
-    data += chunk;
-   });
-
-    response.on("end", () => 
-    {
-     data = JSON.parse(data);
-     //console.log(data);
-     return data;
-     
-    });
- 
-   });
-
-   
-   return[
-        
-        {
-            name: "大韓名鍋",
-            lat: 22.997834235861426, // add here latitude if using static data
-            lon: 120.22748679070871, // add here longitude if using static data
-            
-        },
-        {
-            name: '金湖餃子館',
-            lat: 22.99902284960256,
-            lon: 120.22667163249339,
-            
-        }
-    ];
-}*/
-
-
-
 function renderPlaces(places) {
     let scene = document.querySelector('a-scene');
 
@@ -88,8 +41,8 @@ function renderPlaces(places) {
         const icon = document.createElement('a-image');
         icon.setAttribute('gps-entity-place', `latitude: ${latitude}; longitude: ${longitude}`);
         //icon.setAttribute('name', place.name);         修改前
-        icon.setAttribute('title', place.name);      //修改後
-        icon.setAttribute('building', place.building);   //修改後
+        icon.setAttribute('name', place.building);      //修改後
+        //icon.setAttribute('building', place.building);   //修改後
         icon.setAttribute('src','https://dylan1211-hub.github.io/smalltest/assets/r4.png');
 
         // for debug purposes, just show in a bigger scale, otherwise I have to personally go on places...
