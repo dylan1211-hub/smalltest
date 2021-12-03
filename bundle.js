@@ -8620,7 +8620,7 @@ window.onload = () => {
     {
      data = JSON.parse(data);
      let places = data;
-    renderPlaces(places);
+    renderPlaces(places)
      
     });
  
