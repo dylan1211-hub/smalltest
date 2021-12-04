@@ -8633,15 +8633,14 @@ function renderPlaces(places) {
     let scene = document.querySelector('a-scene');
 
     for(let i = 0 ; i<=10;i++){
-        places[i]=place;
-        const latitude = place.lat;  //修改後
-        const longitude = place.lon; //修改後
+        const latitude = places[i].lat;  //修改後
+        const longitude = places[i].lon; //修改後
 
         // add place icon 
         const icon = document.createElement('a-image');
         icon.setAttribute('gps-entity-place', `latitude: ${latitude}; longitude: ${longitude}`);
         //icon.setAttribute('name', place.name);         修改前
-        icon.setAttribute('name', place.building);      //修改後
+        icon.setAttribute('name', places[i].building);      //修改後
         //icon.setAttribute('building', place.building);   //修改後
         icon.setAttribute('src','https://dylan1211-hub.github.io/smalltest/assets/r1.png');
 
@@ -8680,15 +8679,14 @@ function renderPlaces(places) {
     }
 
     for(let i = 11 ; i<=20;i++){
-        places[i]=place;
-        const latitude = place.lat;  //修改後
-        const longitude = place.lon; //修改後
+        const latitude = places[i].lat;  //修改後
+        const longitude = places[i].lon; //修改後
 
         // add place icon 
         const icon = document.createElement('a-image');
         icon.setAttribute('gps-entity-place', `latitude: ${latitude}; longitude: ${longitude}`);
         //icon.setAttribute('name', place.name);         修改前
-        icon.setAttribute('name', place.building);      //修改後
+        icon.setAttribute('name', places[i].building);      //修改後
         //icon.setAttribute('building', place.building);   //修改後
         icon.setAttribute('src','https://dylan1211-hub.github.io/smalltest/assets/r2.png');
 
@@ -8727,15 +8725,14 @@ function renderPlaces(places) {
     }
 
     for(let i = 21 ; i<=30;i++){
-        places[i]=place;
-        const latitude = place.lat;  //修改後
-        const longitude = place.lon; //修改後
+        const latitude = places[i].lat;  //修改後
+        const longitude = places[i].lon; //修改後
 
         // add place icon 
         const icon = document.createElement('a-image');
         icon.setAttribute('gps-entity-place', `latitude: ${latitude}; longitude: ${longitude}`);
         //icon.setAttribute('name', place.name);         修改前
-        icon.setAttribute('name', place.building);      //修改後
+        icon.setAttribute('name', places[i].building);      //修改後
         //icon.setAttribute('building', place.building);   //修改後
         icon.setAttribute('src','https://dylan1211-hub.github.io/smalltest/assets/r3.png');
 
@@ -8774,15 +8771,14 @@ function renderPlaces(places) {
     }
 
     for(let i = 31 ; i<=65;i++){
-        places[i]=place;
-        const latitude = place.lat;  //修改後
-        const longitude = place.lon; //修改後
+        const latitude = places[i].lat;  //修改後
+        const longitude = places[i].lon; //修改後
 
         // add place icon 
         const icon = document.createElement('a-image');
         icon.setAttribute('gps-entity-place', `latitude: ${latitude}; longitude: ${longitude}`);
         //icon.setAttribute('name', place.name);         修改前
-        icon.setAttribute('name', place.building);      //修改後
+        icon.setAttribute('name', places[i].building);      //修改後
         //icon.setAttribute('building', place.building);   //修改後
         icon.setAttribute('src','https://dylan1211-hub.github.io/smalltest/assets/r4.png');
 
