@@ -8645,7 +8645,7 @@ function renderPlaces(places) {
         icon.setAttribute('src','https://dylan1211-hub.github.io/smalltest/assets/r1.png');
 
         // for debug purposes, just show in a bigger scale, otherwise I have to personally go on places...
-        icon.setAttribute('scale','5, 5');
+        icon.setAttribute('scale','25, 25');
 
         icon.addEventListener('loaded', () => window.dispatchEvent(new CustomEvent('gps-entity-place-loaded')));
 
@@ -8691,7 +8691,7 @@ function renderPlaces(places) {
         icon.setAttribute('src','https://dylan1211-hub.github.io/smalltest/assets/r2.png');
 
         // for debug purposes, just show in a bigger scale, otherwise I have to personally go on places...
-        icon.setAttribute('scale','5, 5');
+        icon.setAttribute('scale','25, 25');
 
         icon.addEventListener('loaded', () => window.dispatchEvent(new CustomEvent('gps-entity-place-loaded')));
 
@@ -8737,7 +8737,7 @@ function renderPlaces(places) {
         icon.setAttribute('src','https://dylan1211-hub.github.io/smalltest/assets/r3.png');
 
         // for debug purposes, just show in a bigger scale, otherwise I have to personally go on places...
-        icon.setAttribute('scale','5, 5');
+        icon.setAttribute('scale','25, 25');
 
         icon.addEventListener('loaded', () => window.dispatchEvent(new CustomEvent('gps-entity-place-loaded')));
 
@@ -8783,7 +8783,7 @@ function renderPlaces(places) {
         icon.setAttribute('src','https://dylan1211-hub.github.io/smalltest/assets/r4.png');
 
         // for debug purposes, just show in a bigger scale, otherwise I have to personally go on places...
-        icon.setAttribute('scale','5, 5');
+        icon.setAttribute('scale','25, 25');
 
         icon.addEventListener('loaded', () => window.dispatchEvent(new CustomEvent('gps-entity-place-loaded')));
 
