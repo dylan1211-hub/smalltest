@@ -31,7 +31,7 @@ window.onload = () => {
 function renderPlaces(places) {
     let scene = document.querySelector('a-scene');
 
-    for(let i = 0 ; i<=8;i++){
+    for(let i = 0 ; i<=7;i++){
         const latitude = places[i].lat;  //修改後
         const longitude = places[i].lon; //修改後
 
