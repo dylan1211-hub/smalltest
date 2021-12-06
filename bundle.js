@@ -8660,13 +8660,15 @@ function renderPlaces(places) {
             const el = ev.detail.intersection && ev.detail.intersection.object.el;
 
             if (el && el === ev.target) {
+                window.alert("有喔，有點到喔!");
                 const label = document.createElement('span');
                 const container = document.createElement('div');
                 container.setAttribute('id', 'place-label');
                 label.innerText = name;
                 container.appendChild(label);
                 document.body.appendChild(container);
-                window.alert("有喔，有點到喔!");
+                
+            
 
                 setTimeout(() => {
                     container.parentElement.removeChild(container);
