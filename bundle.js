@@ -8666,7 +8666,7 @@ function renderPlaces(places) {
                 label.innerText = name;
                 container.appendChild(label);
                 document.body.appendChild(container);
-                window.alert("有喔，有點到喔!")
+                window.alert("有喔，有點到喔!");
 
                 setTimeout(() => {
                     container.parentElement.removeChild(container);
