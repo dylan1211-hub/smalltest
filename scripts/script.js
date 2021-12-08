@@ -3,7 +3,7 @@ window.onload = () => {
 
     var https = require("https");
 
-    var url = "https://3756-2001-b011-e004-5671-9fe-27c1-400b-39db.ngrok.io/smalltest";
+    var url = "https://4824-2001-b400-e785-5d4a-919f-c840-9448-d179.ngrok.io/smalltest";
 
     var data = "";
    https.get(url, function (response) 
@@ -80,7 +80,7 @@ function renderPlaces(places) {
         scene.appendChild(icon);
     }
 
-    /*for(let i = 11 ; i<=20;i++){
+    for(let i = 11 ; i<=20;i++){
         const latitude = places[i].lat;  //修改後
         const longitude = places[i].lon; //修改後
 
