@@ -48,28 +48,28 @@ function renderPlaces(places) {
 
         //const touchListener = ;
 
-        icon.addEventListener('click', function (ev) {
-            ev.stopPropagation();
-            ev.preventDefault();
+        icon.addEventListener('click', function () {
+            //ev.stopPropagation();
+            //ev.preventDefault();
 
-            const name = ev.target.getAttribute('name');
+            //const name = ev.target.getAttribute('name');
 
-            const el = ev.detail.intersection && ev.detail.intersection.object.el;
+            //const el = ev.detail.intersection && ev.detail.intersection.object.el;
 
-            if (ev.target && el === ev.target) {
+            //if (el && el === ev.target) {
                 window.alert("有喔，有點到喔!");
 
-                const label = document.createElement('span');
-                const container = document.createElement('div');
-                container.setAttribute('id', 'place-label');
-                label.innerText = name;
-                container.appendChild(label);
-                document.body.appendChild(container);
+                //const label = document.createElement('span');
+                //const container = document.createElement('div');
+                //container.setAttribute('id', 'place-label');
+                //label.innerText = name;
+                //container.appendChild(label);
+                //document.body.appendChild(container);
 
-                setTimeout(() => {
-                    container.parentElement.removeChild(container);
-                }, 1500);
-            }
+                //setTimeout(() => {
+                    //container.parentElement.removeChild(container);
+                //}, 1500);
+            //}
         });
     
         scene.appendChild(icon);
