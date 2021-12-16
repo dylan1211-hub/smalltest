@@ -44,7 +44,7 @@ function renderPlaces(places) {
         icon.setAttribute('src','https://dylan1211-hub.github.io/smalltest/assets/r1.png');
 
         // for debug purposes, just show in a bigger scale, otherwise I have to personally go on places...
-        icon.setAttribute('scale','5, 5');
+        icon.setAttribute('scale','20, 20');
 
         icon.addEventListener('loaded', () => window.dispatchEvent(new CustomEvent('gps-entity-place-loaded')));
 
@@ -58,7 +58,7 @@ function renderPlaces(places) {
 
             const el = ev && ev.detail.intersection && ev.detail.intersection.object.el;
 
-            if (el === ev.target) {
+            //if (el === ev.target) {
                 window.alert("有喔，有點到喔!");
 
                 const label = document.createElement('span');
@@ -73,7 +73,7 @@ function renderPlaces(places) {
                 setTimeout(() => {
                     container.parentElement.removeChild(container);
                 }, 1500);
-            }
+            //}
         };
 
         icon.addEventListener('click', clickListener);
