@@ -8659,7 +8659,7 @@ function renderPlaces(places) {
 
             const el = ev && ev.detail.intersection && ev.detail.intersection.object.el;
 
-            //if (el === ev.target) {
+            if (el && el=== ev.target) {
                 window.alert("有喔，有點到喔!");
 
                 const label = document.createElement('span');
@@ -8674,7 +8674,7 @@ function renderPlaces(places) {
                 setTimeout(() => {
                     container.parentElement.removeChild(container);
                 }, 1500);
-            //}
+            }
         };
 
         icon.addEventListener('click', clickListener);
