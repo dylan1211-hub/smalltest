@@ -3,7 +3,7 @@ window.onload = () => {
 
     var https = require("https");
 
-    var url = "https://23b7-2001-b011-e004-19c8-a929-873b-aa31-2eab.ngrok.io/smalltest";
+    var url = "https://2d49-2001-b011-e004-19c8-a929-873b-aa31-2eab.ngrok.io/smalltest";
 
     var data = "";
    https.get(url, function (response) 
@@ -24,8 +24,7 @@ window.onload = () => {
     });
  
    });
-        
-
+    
 };
 
 function renderPlaces(places) {
@@ -40,7 +39,6 @@ function renderPlaces(places) {
         icon.setAttribute('gps-entity-place', `latitude: ${latitude}; longitude: ${longitude}`);
         //icon.setAttribute('name', place.name);         修改前
         icon.setAttribute('name', places[i].building);      //修改後
-        //icon.setAttribute('building', place.building);   //修改後
         icon.setAttribute('src','https://dylan1211-hub.github.io/smalltest/assets/r1.png');
 
         // for debug purposes, just show in a bigger scale, otherwise I have to personally go on places...
@@ -51,28 +49,26 @@ function renderPlaces(places) {
         //const touchListener = ;
 
         icon.addEventListener('click', function (ev) {
-            //ev.stopPropagation();
-            //ev.preventDefault();
+            ev.stopPropagation();
+            ev.preventDefault();
 
-            //const name = ev.target.getAttribute('name');
+            const name = ev.target.getAttribute('name');
 
-            const el = ev && ev.detail.intersection && ev.detail.intersection.object.el;
+            const el = ev.detail.intersection && ev.detail.intersection.object.el;
 
-            if (el && el === ev.target) {
+            if (ev.target && el === ev.target) {
                 window.alert("有喔，有點到喔!");
 
-                //const label = document.createElement('span');
-                //const container = document.createElement('div');
-                //container.setAttribute('id', 'place-label');
-                //label.innerText = name;
-                //container.appendChild(label);
-                // document.body.appendChild(container);
-                
-            
+                const label = document.createElement('span');
+                const container = document.createElement('div');
+                container.setAttribute('id', 'place-label');
+                label.innerText = name;
+                container.appendChild(label);
+                document.body.appendChild(container);
 
-                //setTimeout(() => {
-                  //  container.parentElement.removeChild(container);
-                //}, 1500);
+                setTimeout(() => {
+                    container.parentElement.removeChild(container);
+                }, 1500);
             }
         });
     
