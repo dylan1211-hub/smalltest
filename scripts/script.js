@@ -48,9 +48,9 @@ function renderPlaces(places) {
 
         icon.addEventListener('loaded', () => window.dispatchEvent(new CustomEvent('gps-entity-place-loaded')));
 
-        
+        //const touchListener = ;
 
-        const touchListener = function (ev) {
+        icon.addEventListener('touched', function (ev) {
             //ev.stopPropagation();
             //ev.preventDefault();
 
@@ -74,9 +74,7 @@ function renderPlaces(places) {
                   //  container.parentElement.removeChild(container);
                 //}, 1500);
             }
-        };
-
-        icon.addEventListener('touched', touchListener);
+        });
     
         scene.appendChild(icon);
     }
