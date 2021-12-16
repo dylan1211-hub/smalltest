@@ -8651,7 +8651,7 @@ function renderPlaces(places) {
 
         
 
-        const clickListener = function (ev) {
+        const touchListener = function (ev) {
             ev.stopPropagation();
             ev.preventDefault();
 
@@ -8677,7 +8677,7 @@ function renderPlaces(places) {
             }
         };
 
-        icon.addEventListener('click', clickListener);
+        icon.addEventListener('touched', touchListener);
     
         scene.appendChild(icon);
     }
