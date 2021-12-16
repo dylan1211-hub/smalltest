@@ -48,7 +48,7 @@ function renderPlaces(places) {
 
         //const touchListener = ;
 
-        icon.addEventListener('click', function () {
+        icon.addEventListener('touchend', function () {
             //ev.stopPropagation();
             //ev.preventDefault();
 
