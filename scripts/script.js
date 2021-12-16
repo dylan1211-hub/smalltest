@@ -3,7 +3,7 @@ window.onload = () => {
 
     var https = require("https");
 
-    var url = "https://4824-2001-b400-e785-5d4a-919f-c840-9448-d179.ngrok.io/position";
+    var url = "https://23b7-2001-b011-e004-19c8-a929-873b-aa31-2eab.ngrok.io/smalltest";
 
     var data = "";
    https.get(url, function (response) 
@@ -31,7 +31,7 @@ window.onload = () => {
 function renderPlaces(places) {
     let scene = document.querySelector('a-scene');
 
-    for(let i = 0 ; i<=10;i++){
+    for(let i = 0 ; i<=7;i++){
         const latitude = places[i].lat;  //修改後
         const longitude = places[i].lon; //修改後
 
@@ -56,10 +56,11 @@ function renderPlaces(places) {
 
             const name = ev.target.getAttribute('name');
 
-            const el = ev.detail.intersection && ev.detail.intersection.object.el;
+            const el = ev && ev.detail.intersection && ev.detail.intersection.object.el;
 
-            if (el && el === ev.target) {
+            if (el === ev.target) {
                 window.alert("有喔，有點到喔!");
+
                 const label = document.createElement('span');
                 const container = document.createElement('div');
                 container.setAttribute('id', 'place-label');
@@ -79,7 +80,7 @@ function renderPlaces(places) {
     
         scene.appendChild(icon);
     }
-
+/*
     for(let i = 11 ; i<=20;i++){
         const latitude = places[i].lat;  //修改後
         const longitude = places[i].lon; //修改後
