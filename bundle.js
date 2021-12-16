@@ -8652,28 +8652,28 @@ function renderPlaces(places) {
         
 
         const touchListener = function (ev) {
-            ev.stopPropagation();
-            ev.preventDefault();
+            //ev.stopPropagation();
+            //ev.preventDefault();
 
-            const name = ev.target.getAttribute('name');
+            //const name = ev.target.getAttribute('name');
 
             const el = ev && ev.detail.intersection && ev.detail.intersection.object.el;
 
-            if (el && el=== ev.target) {
+            if (el && el === ev.target) {
                 window.alert("有喔，有點到喔!");
 
-                const label = document.createElement('span');
-                const container = document.createElement('div');
-                container.setAttribute('id', 'place-label');
-                label.innerText = name;
-                container.appendChild(label);
-                document.body.appendChild(container);
+                //const label = document.createElement('span');
+                //const container = document.createElement('div');
+                //container.setAttribute('id', 'place-label');
+                //label.innerText = name;
+                //container.appendChild(label);
+                // document.body.appendChild(container);
                 
             
 
-                setTimeout(() => {
-                    container.parentElement.removeChild(container);
-                }, 1500);
+                //setTimeout(() => {
+                  //  container.parentElement.removeChild(container);
+                //}, 1500);
             }
         };
 
