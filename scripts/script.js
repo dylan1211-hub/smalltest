@@ -50,7 +50,7 @@ function renderPlaces(places) {
 
         //const touchListener = ;
 
-        icon.addEventListener('touched', function (ev) {
+        icon.addEventListener('click', function (ev) {
             //ev.stopPropagation();
             //ev.preventDefault();
 
