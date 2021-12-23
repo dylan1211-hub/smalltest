@@ -227,7 +227,7 @@ function renderPlaces(places) {
             title.setAttribute('scale','10 10');
             title.addEventListener('loaded', () => window.dispatchEvent(new CustomEvent('gps-entity-place-loaded')));
         
-            scene.appendChild(icon);
+            //scene.appendChild(icon);
             scene.appendChild(title);
         }
     
