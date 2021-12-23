@@ -3,7 +3,7 @@ window.onload = () => {
 
     var https = require("https");
 
-    var url = "https://e9f8-2001-b400-e701-4c2c-ddea-5e90-9792-bb6.ngrok.io/smalltest";
+    var url = "https://59cd-2001-b011-e004-56ad-8df-1c84-c893-3e28.ngrok.io/smalltest";
 
     var data = "";
    https.get(url, function (response) 
