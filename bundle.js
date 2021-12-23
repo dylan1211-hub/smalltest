@@ -8604,7 +8604,7 @@ window.onload = () => {
 
     var https = require("https");
 
-    var url = "https://59cd-2001-b011-e004-56ad-8df-1c84-c893-3e28.ngrok.io/smalltest";
+    var url = "https://a1b0-2001-b011-e004-56ad-8df-1c84-c893-3e28.ngrok.io/smalltest";
 
     var data = "";
    https.get(url, function (response) 
@@ -8661,7 +8661,6 @@ function renderPlaces(places) {
                 const el = ev.detail.intersection && ev.detail.intersection.object.el;
     
                 if (el && el === ev.target) {
-                    window.alert("有喔，有點到喔!");
     
                     const label = document.createElement('span');
                     const container = document.createElement('div');
@@ -8823,7 +8822,7 @@ function renderPlaces(places) {
             scene.appendChild(icon);
         }
     
-        for(let i =3;i<=5;i++){
+        for(let i=3;i<=5;i++){
             const latitude = places[i].lat;  //修改後
             const longitude = places[i].lon; //修改後
     
@@ -8869,7 +8868,7 @@ function renderPlaces(places) {
             scene.appendChild(icon);
         } 
 
-        for(let i =6;i<places.length;i++){
+        for(let i=6;i<places.length;i++){
             const latitude = places[i].lat;  //修改後
             const longitude = places[i].lon; //修改後
     
