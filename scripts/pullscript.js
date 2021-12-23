@@ -178,11 +178,14 @@ function renderPlaces(places) {
         for(let i =0;i<=2;i++){
             const latitude = places[i].lat;  //修改後
             const longitude = places[i].lon; //修改後
+
+            const title = document.createElement('a-text');
+            title.setAttribute('gps-entity-place', `latitude: ${latitude}; longitude: ${longitude}`)
+            title.setAttribute('value',places[i].building);
     
             // add place icon 
             const icon = document.createElement('a-image');
-            const title = document.createElement('a-text');
-            title.setAttribute('name',places[i].building);
+            
             icon.setAttribute('gps-entity-place', `latitude: ${latitude}; longitude: ${longitude}`);
             //icon.setAttribute('name', place.name);         修改前
             icon.setAttribute('name', places[i].building);      //修改後
