@@ -8643,7 +8643,7 @@ function renderPlaces(places) {
             icon.setAttribute('gps-entity-place', `latitude: ${latitude}; longitude: ${longitude}`);
             //icon.setAttribute('name', place.name);         修改前
             icon.setAttribute('name', places[i].building);      //修改後
-            icon.setAttribute('src','https://dylan1211-hub.github.io/smalltest/assets/gold.png');
+            icon.setAttribute('src','https://dylan1211-hub.github.io/smalltest/assets/g.png');
     
             // for debug purposes, just show in a bigger scale, otherwise I have to personally go on places...
             icon.setAttribute('scale','10, 10');
@@ -8680,7 +8680,7 @@ function renderPlaces(places) {
         }
     }
     
-    else if(3<places.length<=6)
+    if(3<places.length<=6)
     {
         for(let i =0;i<=2;i++){
             const latitude = places[i].lat;  //修改後
@@ -8692,7 +8692,7 @@ function renderPlaces(places) {
             //icon.setAttribute('name', place.name);         修改前
             icon.setAttribute('name', places[i].building);      //修改後
             //icon.setAttribute('building', place.building);   //修改後
-            icon.setAttribute('src','https://dylan1211-hub.github.io/smalltest/assets/gold.png');
+            icon.setAttribute('src','https://dylan1211-hub.github.io/smalltest/assets/g.png');
     
             // for debug purposes, just show in a bigger scale, otherwise I have to personally go on places...
             icon.setAttribute('scale','10, 10');
@@ -8738,7 +8738,7 @@ function renderPlaces(places) {
             //icon.setAttribute('name', place.name);         修改前
             icon.setAttribute('name', places[i].building);      //修改後
             //icon.setAttribute('building', place.building);   //修改後
-            icon.setAttribute('src','https://dylan1211-hub.github.io/smalltest/assets/silver.png');
+            icon.setAttribute('src','https://dylan1211-hub.github.io/smalltest/assets/s.png');
     
             // for debug purposes, just show in a bigger scale, otherwise I have to personally go on places...
             icon.setAttribute('scale','8, 8');
@@ -8775,7 +8775,7 @@ function renderPlaces(places) {
         }
     }
     
-    else if(6<places.length)
+    if(places.length>6)
     {
         for(let i =0;i<=2;i++){
             const latitude = places[i].lat;  //修改後
@@ -8787,7 +8787,7 @@ function renderPlaces(places) {
             //icon.setAttribute('name', place.name);         修改前
             icon.setAttribute('name', places[i].building);      //修改後
             //icon.setAttribute('building', place.building);   //修改後
-            icon.setAttribute('src','https://dylan1211-hub.github.io/smalltest/assets/gold.png');
+            icon.setAttribute('src','https://dylan1211-hub.github.io/smalltest/assets/g.png');
     
             // for debug purposes, just show in a bigger scale, otherwise I have to personally go on places...
             icon.setAttribute('scale','10, 10');
@@ -8833,7 +8833,7 @@ function renderPlaces(places) {
             //icon.setAttribute('name', place.name);         修改前
             icon.setAttribute('name', places[i].building);      //修改後
             //icon.setAttribute('building', place.building);   //修改後
-            icon.setAttribute('src','https://dylan1211-hub.github.io/smalltest/assets/silver.png');
+            icon.setAttribute('src','https://dylan1211-hub.github.io/smalltest/assets/s.png');
     
             // for debug purposes, just show in a bigger scale, otherwise I have to personally go on places...
             icon.setAttribute('scale','8, 8');
@@ -8879,7 +8879,7 @@ function renderPlaces(places) {
             //icon.setAttribute('name', place.name);         修改前
             icon.setAttribute('name', places[i].building);      //修改後
             //icon.setAttribute('building', place.building);   //修改後
-            icon.setAttribute('src','https://dylan1211-hub.github.io/smalltest/assets/copper.png');
+            icon.setAttribute('src','https://dylan1211-hub.github.io/smalltest/assets/c.png');
     
             // for debug purposes, just show in a bigger scale, otherwise I have to personally go on places...
             icon.setAttribute('scale','5, 5');

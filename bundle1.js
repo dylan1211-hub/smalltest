@@ -8640,7 +8640,7 @@ function renderPlaces(places) {
         icon.setAttribute('gps-entity-place', `latitude: ${latitude}; longitude: ${longitude}`);
         //icon.setAttribute('name', place.name);         修改前
         icon.setAttribute('name', places[i].building);      //修改後
-        icon.setAttribute('src','https://dylan1211-hub.github.io/smalltest/assets/red.png');
+        icon.setAttribute('src','https://dylan1211-hub.github.io/smalltest/assets/r.png');
 
         // for debug purposes, just show in a bigger scale, otherwise I have to personally go on places...
         icon.setAttribute('scale','10, 10');
