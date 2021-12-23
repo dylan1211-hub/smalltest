@@ -8782,6 +8782,8 @@ function renderPlaces(places) {
     
             // add place icon 
             const icon = document.createElement('a-image');
+            const title = document.createElement('a-text');
+            title.setAttribute('name',places[i].building);
             icon.setAttribute('gps-entity-place', `latitude: ${latitude}; longitude: ${longitude}`);
             //icon.setAttribute('name', place.name);         修改前
             icon.setAttribute('name', places[i].building);      //修改後
