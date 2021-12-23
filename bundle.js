@@ -8674,6 +8674,12 @@ function renderPlaces(places) {
                     }, 1500);
                 }
             });
+
+            const title = document.createElement('a-text');
+            title.setAttribute('gps-entity-place', `latitude: ${latitude}; longitude: ${longitude}`);
+            title.setAttribute('value',places[i].building);
+            title.setAttribute('scale','10 10');
+            title.addEventListener('loaded', () => window.dispatchEvent(new CustomEvent('gps-entity-place-loaded')));
         
             scene.appendChild(icon);
         }
@@ -8723,6 +8729,11 @@ function renderPlaces(places) {
             };
     
             icon.addEventListener('click', clickListener);
+            const title = document.createElement('a-text');
+            title.setAttribute('gps-entity-place', `latitude: ${latitude}; longitude: ${longitude}`);
+            title.setAttribute('value',places[i].building);
+            title.setAttribute('scale','10 10');
+            title.addEventListener('loaded', () => window.dispatchEvent(new CustomEvent('gps-entity-place-loaded')));
         
             scene.appendChild(icon);
         }
@@ -8828,7 +8839,7 @@ function renderPlaces(places) {
             title.setAttribute('scale','10 10');
             title.addEventListener('loaded', () => window.dispatchEvent(new CustomEvent('gps-entity-place-loaded')));
         
-            //scene.appendChild(icon);
+            scene.appendChild(icon);
             scene.appendChild(title);
         }
     
