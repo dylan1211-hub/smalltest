@@ -222,7 +222,7 @@ function renderPlaces(places) {
             scene.appendChild(icon);
         }
     
-        for(let i =3;i<=5;i++){
+        for(let i=3;i<=5;i++){
             const latitude = places[i].lat;  //修改後
             const longitude = places[i].lon; //修改後
     
@@ -268,7 +268,7 @@ function renderPlaces(places) {
             scene.appendChild(icon);
         } 
 
-        for(let i =6;i<places.length;i++){
+        for(let i=6;i<places.length;i++){
             const latitude = places[i].lat;  //修改後
             const longitude = places[i].lon; //修改後
     
