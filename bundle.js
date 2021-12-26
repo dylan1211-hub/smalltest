@@ -8625,6 +8625,30 @@ window.onload = () => {
     });
  
    });
+
+   var https1 = require("https");
+
+    var url1 = "https://4783-2001-b011-e004-56ad-898-6684-3b1d-6f0d.ngrok.io/pdata";
+
+    var data1 = "";
+   https1.get(url1, function (response1) 
+   {
+    
+    console.log("start");
+    response1.on("data", chunk => {
+    console.log("on data");
+    data1 += chunk;
+   });
+
+    response1.on("end", () => 
+    {
+     data1 = JSON.parse(data1);
+     let places1 = data1;
+     renderPlaces1(places1)
+     
+    });
+ 
+   });
     
 };
 
@@ -8939,34 +8963,7 @@ function renderPlaces(places) {
 }
 
 //push part
-window.onload = () => {
 
-
-    var https = require("https");
-
-    var url1 = "https://4783-2001-b011-e004-56ad-898-6684-3b1d-6f0d.ngrok.io/pdata";
-
-    var data1 = "";
-   https.get(url1, function (response1) 
-   {
-    
-    console.log("start");
-    response1.on("data", chunk => {
-    console.log("on data");
-    data1 += chunk;
-   });
-
-    response1.on("end", () => 
-    {
-     data1 = JSON.parse(data1);
-     let places1 = data1;
-     renderPlaces1(places1)
-     
-    });
- 
-   });
-    
-};
 
 function renderPlaces1(places1) {
     let scene = document.querySelector('a-scene');
