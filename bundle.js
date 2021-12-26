@@ -8604,7 +8604,7 @@ window.onload = () => {
 
     var https = require("https");
 
-    var url = "https://4783-2001-b011-e004-56ad-898-6684-3b1d-6f0d.ngrok.io/smalltest";
+    var url = "https://d9f7-2001-b011-e004-56ad-898-6684-3b1d-6f0d.ngrok.io/smalltest";
 
     var data = "";
    https.get(url, function (response) 
@@ -8628,7 +8628,7 @@ window.onload = () => {
 
    var https1 = require("https");
 
-    var url1 = "https://4783-2001-b011-e004-56ad-898-6684-3b1d-6f0d.ngrok.io/pdata";
+    var url1 = "https://d9f7-2001-b011-e004-56ad-898-6684-3b1d-6f0d.ngrok.io/pdata";
 
     var data1 = "";
    https1.get(url1, function (response1) 
