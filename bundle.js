@@ -8603,7 +8603,7 @@ window.onload = () => {
 
 
     var https = require("https");
-    var url = "https://87dd-2001-b011-e004-56ad-898-6684-3b1d-6f0d.ngrok.io/smalltest";
+    var url = "https://038f-2001-b011-e004-1055-74e4-df75-50c1-16f4.ngrok.io/smalltest"; //抓pull的資料
     var data = "";
    https.get(url, function (response) 
    {
@@ -8626,7 +8626,7 @@ window.onload = () => {
 
    var https1 = require("https");
 
-    var url1 = "https://87dd-2001-b011-e004-56ad-898-6684-3b1d-6f0d.ngrok.io/pdata";
+    var url1 = "https://038f-2001-b011-e004-1055-74e4-df75-50c1-16f4.ngrok.io/pdata"; //抓push的資料
 
     var data1 = "";
    https1.get(url1, function (response1) 
@@ -8664,7 +8664,12 @@ function renderPlaces(places) {
             const icon = document.createElement('a-image');
             icon.setAttribute('gps-entity-place', `latitude: ${latitude}; longitude: ${longitude}`);
             //icon.setAttribute('name', place.name);         修改前
-            icon.setAttribute('name', places[i].building);      //修改後
+            icon.setAttribute('name', places[i].name);      //修改後
+            icon.setAttribute('building', places[i].building);
+            icon.setAttribute('item', places[i].item);
+            icon.setAttribute('sales', places[i].sales);
+            icon.setAttribute('website', places[i].website);
+            icon.setAttribute('trek2there', places[i].trek2there);
             icon.setAttribute('src','https://dylan1211-hub.github.io/smalltest/assets/g.png');
     
             // for debug purposes, just show in a bigger scale, otherwise I have to personally go on places...
@@ -8679,6 +8684,13 @@ function renderPlaces(places) {
                 ev.preventDefault();
     
                 const name = ev.target.getAttribute('name');
+                const building = ev.target.getAttribute('building');
+                const item = ev.target.getAttribute('item');
+                const sales = ev.target.getAttribute('sales');
+                const website = ev.target.getAttribute('website');
+                const websitel = linkify(website);
+                const trek2there = ev.target.getAttribute('trek2there');
+                const trek2therel=linkify1(trek2there); //轉換為連結
     
                 const el = ev.detail.intersection && ev.detail.intersection.object.el;
     
@@ -8687,13 +8699,14 @@ function renderPlaces(places) {
                     const label = document.createElement('span');
                     const container = document.createElement('div');
                     container.setAttribute('id', 'place-label');
-                    label.innerText = name;
+                    label.innerHTML = "商店 : "+name+"<br/>"+"建築 : "+building+"<br/>"+"商品 : "+item+"<br/>"+"折扣 : "+
+                    sales+" %off"+"<br/>"+"網站 : "+websitel+"<br/>"+"導航 : "+trek2therel;
                     container.appendChild(label);
                     document.body.appendChild(container);
     
                     setTimeout(() => {
                         container.parentElement.removeChild(container);
-                    }, 1500);
+                    }, 3000);
                 }
             });
 
@@ -8717,7 +8730,12 @@ function renderPlaces(places) {
             const icon = document.createElement('a-image');
             icon.setAttribute('gps-entity-place', `latitude: ${latitude}; longitude: ${longitude}`);
             //icon.setAttribute('name', place.name);         修改前
-            icon.setAttribute('name', places[i].building);      //修改後
+            icon.setAttribute('name', places[i].name);      //修改後
+            icon.setAttribute('building', places[i].building);
+            icon.setAttribute('item', places[i].item);
+            icon.setAttribute('sales', places[i].sales);
+            icon.setAttribute('website', places[i].website);
+            icon.setAttribute('trek2there', places[i].trek2there);      //修改後
             //icon.setAttribute('building', place.building);   //修改後
             icon.setAttribute('src','https://dylan1211-hub.github.io/smalltest/assets/g.png');
     
@@ -8733,20 +8751,27 @@ function renderPlaces(places) {
                 ev.preventDefault();
     
                 const name = ev.target.getAttribute('name');
-    
+                const building = ev.target.getAttribute('building');
+                const item = ev.target.getAttribute('item');
+                const sales = ev.target.getAttribute('sales');
+                const website = ev.target.getAttribute('website');
+                const websitel = linkify(website);
+                const trek2there = ev.target.getAttribute('trek2there');
+                const trek2therel=linkify1(trek2there);
                 const el = ev.detail.intersection && ev.detail.intersection.object.el;
     
                 if (el && el === ev.target) {
                     const label = document.createElement('span');
                     const container = document.createElement('div');
                     container.setAttribute('id', 'place-label');
-                    label.innerText = name;
+                    label.innerHTML = "商店 : "+name+"<br/>"+"建築 : "+building+"<br/>"+"商品 : "+item+"<br/>"+"折扣 : "+
+                    sales+" %off"+"<br/>"+"網站 : "+websitel+"<br/>"+"導航 : "+trek2therel;
                     container.appendChild(label);
                     document.body.appendChild(container);
     
                     setTimeout(() => {
                         container.parentElement.removeChild(container);
-                    }, 1500);
+                    }, 3000);
                 }
             };
     
@@ -8768,7 +8793,12 @@ function renderPlaces(places) {
             const icon = document.createElement('a-image');
             icon.setAttribute('gps-entity-place', `latitude: ${latitude}; longitude: ${longitude}`);
             //icon.setAttribute('name', place.name);         修改前
-            icon.setAttribute('name', places[i].building);      //修改後
+            icon.setAttribute('name', places[i].name);      //修改後
+            icon.setAttribute('building', places[i].building);
+            icon.setAttribute('item', places[i].item);
+            icon.setAttribute('sales', places[i].sales);
+            icon.setAttribute('website', places[i].website);
+            icon.setAttribute('trek2there', places[i].trek2there);     //修改後
             //icon.setAttribute('building', place.building);   //修改後
             icon.setAttribute('src','https://dylan1211-hub.github.io/smalltest/assets/s.png');
     
@@ -8784,20 +8814,27 @@ function renderPlaces(places) {
                 ev.preventDefault();
     
                 const name = ev.target.getAttribute('name');
-    
+                const building = ev.target.getAttribute('building');
+                const item = ev.target.getAttribute('item');
+                const sales = ev.target.getAttribute('sales');
+                const website = ev.target.getAttribute('website');
+                const websitel = linkify(website);
+                const trek2there = ev.target.getAttribute('trek2there');
+                const trek2therel=linkify1(trek2there);
                 const el = ev.detail.intersection && ev.detail.intersection.object.el;
     
                 if (el && el === ev.target) {
                     const label = document.createElement('span');
                     const container = document.createElement('div');
                     container.setAttribute('id', 'place-label');
-                    label.innerText = name;
+                    label.innerHTML = "商店 : "+name+"<br/>"+"建築 : "+building+"<br/>"+"商品 : "+item+"<br/>"+"折扣 : "+
+                    sales+" %off"+"<br/>"+"網站 : "+websitel+"<br/>"+"導航 : "+trek2therel;
                     container.appendChild(label);
                     document.body.appendChild(container);
     
                     setTimeout(() => {
                         container.parentElement.removeChild(container);
-                    }, 1500);
+                    }, 3000);
                 }
             };
     
@@ -8820,7 +8857,12 @@ function renderPlaces(places) {
             
             icon.setAttribute('gps-entity-place', `latitude: ${latitude}; longitude: ${longitude}`);
             //icon.setAttribute('name', place.name);         修改前
-            icon.setAttribute('name', places[i].building);      //修改後
+            icon.setAttribute('name', places[i].name);      //修改後
+            icon.setAttribute('building', places[i].building);
+            icon.setAttribute('item', places[i].item);
+            icon.setAttribute('sales', places[i].sales);
+            icon.setAttribute('website', places[i].website);
+            icon.setAttribute('trek2there', places[i].trek2there);      //修改後
             //icon.setAttribute('building', place.building);   //修改後
             icon.setAttribute('src','https://dylan1211-hub.github.io/smalltest/assets/g.png');
     
@@ -8836,20 +8878,27 @@ function renderPlaces(places) {
                 ev.preventDefault();
     
                 const name = ev.target.getAttribute('name');
-    
+                const building = ev.target.getAttribute('building');
+                const item = ev.target.getAttribute('item');
+                const sales = ev.target.getAttribute('sales');
+                const website = ev.target.getAttribute('website');
+                const websitel = linkify(website);
+                const trek2there = ev.target.getAttribute('trek2there');
+                const trek2therel=linkify1(trek2there);
                 const el = ev.detail.intersection && ev.detail.intersection.object.el;
     
                 if (el && el === ev.target) {
                     const label = document.createElement('span');
                     const container = document.createElement('div');
                     container.setAttribute('id', 'place-label');
-                    label.innerText = name;
+                    label.innerHTML = "商店 : "+name+"<br/>"+"建築 : "+building+"<br/>"+"商品 : "+item+"<br/>"+"折扣 : "+
+                    sales+" %off"+"<br/>"+"網站 : "+websitel+"<br/>"+"導航 : "+trek2therel;
                     container.appendChild(label);
                     document.body.appendChild(container);
     
                     setTimeout(() => {
                         container.parentElement.removeChild(container);
-                    }, 1500);
+                    }, 3000);
                 }
             };
     
@@ -8873,7 +8922,12 @@ function renderPlaces(places) {
             const icon = document.createElement('a-image');
             icon.setAttribute('gps-entity-place', `latitude: ${latitude}; longitude: ${longitude}`);
             //icon.setAttribute('name', place.name);         修改前
-            icon.setAttribute('name', places[i].building);      //修改後
+            icon.setAttribute('name', places[i].name);      //修改後
+            icon.setAttribute('building', places[i].building);
+            icon.setAttribute('item', places[i].item);
+            icon.setAttribute('sales', places[i].sales);
+            icon.setAttribute('website', places[i].website);
+            icon.setAttribute('trek2there', places[i].trek2there);      //修改後
             //icon.setAttribute('building', place.building);   //修改後
             icon.setAttribute('src','https://dylan1211-hub.github.io/smalltest/assets/s.png');
     
@@ -8889,20 +8943,27 @@ function renderPlaces(places) {
                 ev.preventDefault();
     
                 const name = ev.target.getAttribute('name');
-    
+                const building = ev.target.getAttribute('building');
+                const item = ev.target.getAttribute('item');
+                const sales = ev.target.getAttribute('sales');
+                const website = ev.target.getAttribute('website');
+                const websitel = linkify(website);
+                const trek2there = ev.target.getAttribute('trek2there');
+                const trek2therel=linkify1(trek2there);
                 const el = ev.detail.intersection && ev.detail.intersection.object.el;
     
                 if (el && el === ev.target) {
                     const label = document.createElement('span');
                     const container = document.createElement('div');
                     container.setAttribute('id', 'place-label');
-                    label.innerText = name;
+                    label.innerHTML = "商店 : "+name+"<br/>"+"建築 : "+building+"<br/>"+"商品 : "+item+"<br/>"+"折扣 : "+
+                    sales+" %off"+"<br/>"+"網站 : "+websitel+"<br/>"+"導航 : "+trek2therel;
                     container.appendChild(label);
                     document.body.appendChild(container);
     
                     setTimeout(() => {
                         container.parentElement.removeChild(container);
-                    }, 1500);
+                    }, 3000);
                 }
             };
     
@@ -8919,7 +8980,12 @@ function renderPlaces(places) {
             const icon = document.createElement('a-image');
             icon.setAttribute('gps-entity-place', `latitude: ${latitude}; longitude: ${longitude}`);
             //icon.setAttribute('name', place.name);         修改前
-            icon.setAttribute('name', places[i].building);      //修改後
+            icon.setAttribute('name', places[i].name);      //修改後
+            icon.setAttribute('building', places[i].building);
+            icon.setAttribute('item', places[i].item);
+            icon.setAttribute('sales', places[i].sales);
+            icon.setAttribute('website', places[i].website);
+            icon.setAttribute('trek2there', places[i].trek2there);      //修改後
             //icon.setAttribute('building', place.building);   //修改後
             icon.setAttribute('src','https://dylan1211-hub.github.io/smalltest/assets/c.png');
     
@@ -8935,20 +9001,27 @@ function renderPlaces(places) {
                 ev.preventDefault();
     
                 const name = ev.target.getAttribute('name');
-    
+                const building = ev.target.getAttribute('building');
+                const item = ev.target.getAttribute('item');
+                const sales = ev.target.getAttribute('sales');
+                const website = ev.target.getAttribute('website');
+                const websitel = linkify(website);
+                const trek2there = ev.target.getAttribute('trek2there');
+                const trek2therel=linkify1(trek2there);
                 const el = ev.detail.intersection && ev.detail.intersection.object.el;
     
                 if (el && el === ev.target) {
                     const label = document.createElement('span');
                     const container = document.createElement('div');
                     container.setAttribute('id', 'place-label');
-                    label.innerText = name;
+                    label.innerHTML = "商店 : "+name+"<br/>"+"建築 : "+building+"<br/>"+"商品 : "+item+"<br/>"+"折扣 : "+
+                    sales+" %off"+"<br/>"+"網站 : "+websitel+"<br/>"+"導航 : "+trek2therel;
                     container.appendChild(label);
                     document.body.appendChild(container);
     
                     setTimeout(() => {
                         container.parentElement.removeChild(container);
-                    }, 1500);
+                    }, 3000);
                 }
             };
     
@@ -8974,7 +9047,12 @@ function renderPlaces1(places1) {
         const icon = document.createElement('a-image');
         icon.setAttribute('gps-entity-place', `latitude: ${latitude}; longitude: ${longitude}`);
         //icon.setAttribute('name', place.name);         修改前
-        icon.setAttribute('name', places1[i].building);      //修改後
+        icon.setAttribute('name', places1[i].name);      //修改後
+        icon.setAttribute('building', places1[i].building);
+        icon.setAttribute('item', places1[i].item);
+        icon.setAttribute('sales', places1[i].sales);
+        icon.setAttribute('website', places1[i].website);
+        icon.setAttribute('trek2there', places1[i].trek2there);      //修改後
         icon.setAttribute('src','https://dylan1211-hub.github.io/smalltest/assets/r.png');
 
         // for debug purposes, just show in a bigger scale, otherwise I have to personally go on places...
@@ -8989,7 +9067,13 @@ function renderPlaces1(places1) {
             ev.preventDefault();
 
             const name = ev.target.getAttribute('name');
-
+            const building = ev.target.getAttribute('building');
+            const item = ev.target.getAttribute('item');
+            const sales = ev.target.getAttribute('sales');
+            const website = ev.target.getAttribute('website');
+            const websitel = linkify(website);
+            const trek2there = ev.target.getAttribute('trek2there');
+            const trek2therel=linkify1(trek2there);
             const el = ev.detail.intersection && ev.detail.intersection.object.el;
 
             if (el && el === ev.target) {
@@ -8997,17 +9081,32 @@ function renderPlaces1(places1) {
                 const label = document.createElement('span');
                 const container = document.createElement('div');
                 container.setAttribute('id', 'place-label');
-                label.innerText = name;
+                label.innerHTML = "商店 : "+name+"<br/>"+"建築 : "+building+"<br/>"+"商品 : "+item+"<br/>"+"折扣 : "+
+                    sales+" %off"+"<br/>"+"網站 : "+websitel+"<br/>"+"導航 : "+trek2therel;
                 container.appendChild(label);
                 document.body.appendChild(container);
 
                 setTimeout(() => {
                     container.parentElement.removeChild(container);
-                }, 1500);
+                }, 3000);
             }
         });
     
         scene.appendChild(icon);
     }
+}
+
+function linkify(inputText) {
+    var replacedText
+    replacePattern1 = /(\b(https?|ftp):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/gim;
+    replacedText = inputText.replace(replacePattern1, '<a href="$1" target="_blank">$1</a>');
+    return replacedText;
+}
+
+function linkify1(inputText) {
+    var replacedText
+    replacePattern1 = /(\b(arcgis-trek2there):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/gim;
+    replacedText = inputText.replace(replacePattern1, '<a href="$1" target="_blank">$1</a>');
+    return replacedText;
 }
 },{"https":6}]},{},[39]);

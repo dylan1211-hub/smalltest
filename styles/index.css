@@ -42,10 +42,10 @@ div.debug {
 #place-label > span {
     z-index: 99999;
     padding: 0.25em;
-    color: #529fdd;
-    text-align: center;
-    background-color: white;
-    font-size: 1.5em;
+    color: #1ea5e4;
+    text-align: left;
+    background-color: rgba(255, 255, 255, 0.548);
+    font-size: 16px;
     border-radius: 5px;
 }
 
