@@ -8649,10 +8649,10 @@ window.onload = () => {
    });
     
 };
-let values = [];
+let result=['gold','silver','copper']
 function getSelectedCheckboxValues(name) {  //checkbox的函式
     const checkboxes = document.querySelectorAll(`input[name="${name}"]:checked`);
-    
+    let values = [];
     checkboxes.forEach((checkbox) => {
         values.push(checkbox.value);
     });
@@ -8663,14 +8663,14 @@ function getSelectedCheckboxValues(name) {  //checkbox的函式
 const btn = document.querySelector('#btn');
 btn.addEventListener('click', (event) => { //check中btn的函式
 alert(getSelectedCheckboxValues('color'));
-values=getSelectedCheckboxValues;
+result = getSelectedCheckboxValues('color');
 });
 
 function renderPlaces(places) {
     let scene = document.querySelector('a-scene');
 
 
-    if(places.length<=3&&values.includes('gold'))
+    if(places.length<=3&&result.includes('gold'))
     {
         for(let i = 0;i<=2;i++){
             const latitude = places[i].lat;  //修改後
@@ -8740,7 +8740,7 @@ function renderPlaces(places) {
     {
         
         
-        if(values.includes('gold')){
+        if(result.includes('gold')){
 
         
          for(let i =0;i<=2;i++){
@@ -8807,7 +8807,7 @@ function renderPlaces(places) {
           }
         }     
     
-        if(values.includes('silver')){
+        if(result.includes('silver')){
          for(let i =3;i<=6;i++){
             const latitude = places[i].lat;  //修改後
             const longitude = places[i].lon; //修改後
@@ -8870,7 +8870,7 @@ function renderPlaces(places) {
     
     if(places.length>6)
     {
-        if(values.includes('gold')){
+        if(result.includes('gold')){
          for(let i =0;i<=2;i++){
             const latitude = places[i].lat;  //修改後
             const longitude = places[i].lon; //修改後
@@ -8938,7 +8938,7 @@ function renderPlaces(places) {
           }
         }
     
-        if(values.includes('silver')){   
+        if(result.includes('silver')){   
          for(let i=3;i<=5;i++){
             const latitude = places[i].lat;  //修改後
             const longitude = places[i].lon; //修改後
@@ -8998,7 +8998,7 @@ function renderPlaces(places) {
           } 
         }
 
-        if(values.includes('copper')){
+        if(result.includes('copper')){
          for(let i=6;i<places.length;i++){
             const latitude = places[i].lat;  //修改後
             const longitude = places[i].lon; //修改後
