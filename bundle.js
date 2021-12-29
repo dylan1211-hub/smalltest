@@ -8647,8 +8647,10 @@ window.onload = () => {
     });
  
    });
-    
+   
+   result=['gold','silver','copper']
 };
+
 let result=['gold','silver','copper']
 function getSelectedCheckboxValues(name) {  //checkbox的函式
     const checkboxes = document.querySelectorAll(`input[name="${name}"]:checked`);
@@ -8663,7 +8665,7 @@ function getSelectedCheckboxValues(name) {  //checkbox的函式
 const btn = document.querySelector('#btn');
 btn.addEventListener('click', (event) => { //check中btn的函式
 alert(getSelectedCheckboxValues('color'));
-result = getSelectedCheckboxValues('color');
+//result = getSelectedCheckboxValues('color');
 });
 
 function renderPlaces(places) {
