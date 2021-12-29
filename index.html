@@ -15,6 +15,11 @@
 <link rel="stylesheet" href="./styles/index.css">
 <!--<script src="./scripts/mobileproject.js"></script> -行動裝置要用的-->
 
+<!--下兩行是接OSM的-->
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+<script src="OSM.js"></script>
+
 
 <body style='margin: 0; overflow: hidden;'>
     
@@ -27,18 +32,18 @@
         <div class="checkbox">
             <p style="font-size: 14px;">💡請選擇推薦等級 ： </p>
             <p>
-               <label for="color-1"> <input type="checkbox" name="color" value="gold" id="color-1" />🥇大推</label>
+               <label for="color-1"> <input type="checkbox" name="color" value="gold" id="color-1" checked="true" />🥇大推</label>
             </p>
             <p>
-               <label for="color-2"><input type="checkbox" name="color" value="silver" id="color-2" />🥈推推</label>
+               <label for="color-2"><input type="checkbox" name="color" value="silver" id="color-2"checked="true" />🥈推推</label>
             </p>
             <p>
-               <label for="color-3"><input type="checkbox" name="color" value="copper" id="color-3" />🥉推</label>
+               <label for="color-3"><input type="checkbox" name="color" value="copper" id="color-3"checked="true" />🥉推</label>
             </p>
        
             <button id="btn" class="cbtn">確認</button>
         </div>
-
+        <div id="map"></div>
     </a-camera>
 
             
