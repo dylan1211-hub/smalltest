@@ -8603,7 +8603,7 @@ window.onload = () => {
 
 
     var https = require("https");
-    var url = "https://038f-2001-b011-e004-1055-74e4-df75-50c1-16f4.ngrok.io/smalltest"; //抓pull的資料
+    var url = "https://cab7-2001-b011-e004-1055-16a-7c2c-4b04-c02.ngrok.io/smalltest"; //抓pull的資料
     var data = "";
    https.get(url, function (response) 
    {
@@ -8626,7 +8626,7 @@ window.onload = () => {
 
    var https1 = require("https");
 
-    var url1 = "https://038f-2001-b011-e004-1055-74e4-df75-50c1-16f4.ngrok.io/pdata"; //抓push的資料
+    var url1 = "https://cab7-2001-b011-e004-1055-16a-7c2c-4b04-c02.ngrok.io/pdata"; //抓push的資料
 
     var data1 = "";
    https1.get(url1, function (response1) 
@@ -9096,17 +9096,34 @@ function renderPlaces1(places1) {
     }
 }
 
-function linkify(inputText) {
-    var replacedText
+function linkify(inputText) {  //轉換https網址的函式
+    var replacedText               
     replacePattern1 = /(\b(https?|ftp):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/gim;
     replacedText = inputText.replace(replacePattern1, '<a href="$1" target="_blank">$1</a>');
     return replacedText;
 }
 
-function linkify1(inputText) {
+function linkify1(inputText) {  //轉換trek2there網址的函式
     var replacedText
     replacePattern1 = /(\b(arcgis-trek2there):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/gim;
     replacedText = inputText.replace(replacePattern1, '<a href="$1" target="_blank">$1</a>');
     return replacedText;
 }
+
+function getSelectedCheckboxValues(name) {  //checkbox的函式
+    const checkboxes = document.querySelectorAll(`input[name="${name}"]:checked`);
+    let values = [];
+    checkboxes.forEach((checkbox) => {
+        values.push(checkbox.value);
+    });
+    return values;
+}
+
+const btn = document.querySelector('#btn');
+btn.addEventListener('click', (event) => { //check中btn的函式
+    alert(getSelectedCheckboxValues('color'));
+});
+
+
+
 },{"https":6}]},{},[39]);

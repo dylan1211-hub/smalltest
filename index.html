@@ -7,23 +7,48 @@
     <title>GeoAR.js demo</title>
     <script src='https://cdn.jsdelivr.net/gh/aframevr/aframe@1c2407b26c61958baa93967b5412487cd94b290b/dist/aframe-master.min.js'></script>
     <script src='https://raw.githack.com/jeromeetienne/AR.js/master/aframe/build/aframe-ar.min.js'></script>
-
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+    
    
 </head>
 
 <link rel="stylesheet" href="./styles/index.css">
+<script src="./scripts/mobileproject.js"></script> <!--行動裝置要用的-->
 
-<script src="bundle.js"></script>
-<!--<script src="bundle1.js"></script>-->
 
 <body style='margin: 0; overflow: hidden;'>
+    
     <a-scene 
         cursor='rayOrigin: mouse; fuse: true; fuseTimeout: 0;'
         raycaster="objects: [gps-entity-place];useWorldCoordinates:true"
         vr-mode-ui='enabled: false' 
-        position = "0 35 0"
                 arjs='sourceType: webcam; sourceWidth:1280; sourceHeight:960; displayWidth: 1280; displayHeight: 960; debugUIEnabled: false;'>
     <a-camera gps-camera rotation-reader>
-            </a-camera>
+        <div class="checkbox">
+            <p style="font-size: 14px;">💡請選擇推薦等級 ： </p>
+            <p>
+               <label for="color-1"> <input type="checkbox" name="color" value="gold" id="color-1" />🥇大推</label>
+            </p>
+            <p>
+               <label for="color-2"><input type="checkbox" name="color" value="silver" id="color-2" />🥈推推</label>
+            </p>
+            <p>
+               <label for="color-3"><input type="checkbox" name="color" value="copper" id="color-3" />🥉推</label>
+            </p>
+       
+            <button id="btn" class="cbtn">確認</button>
+        </div>
+        <!--<script src="./scripts/gmap.js"></script>
+        <div class="map" id="map"></div>
+        <script
+         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBNWUMwxPSl30iTD6QMswTO_ZUbs5_yX-U&callback=initMap&v=weekly"
+          async
+        ></script>-->
+    </a-camera>
+
+            
     </a-scene>
+
+    
+    <script src="bundle.js"></script>
 </body>
