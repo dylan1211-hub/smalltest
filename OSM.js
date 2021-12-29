@@ -2,8 +2,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     let center = [22.998593072090404, 120.2197879523883]; // 預設中心點為測量系館
 
-// 跟使用者要位置
-function successGPS(position) {
+ // 跟使用者要位置
+ function successGPS(position) {
     const lat = position.coords.latitude;
     const lng = position.coords.longitude;
     center = [lat, lng];
@@ -22,12 +22,14 @@ function successGPS(position) {
   }
 
   function triggerLeaflet() {
+
   const map = L.map('map', {
     center: center, // 中心點座標
     zoom: 17, // 0 - 18
-    attributionControl: true, // 是否秀出「leaflet」的貢獻標記
-    zoomControl: true , // 是否秀出 - + 按鈕
+    attributionControl:false, // 是否秀出「leaflet」的貢獻標記
+    zoomControl: false , // 是否秀出 - + 按鈕
   });
   L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
   }
-  })
+
+})
