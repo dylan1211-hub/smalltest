@@ -2,7 +2,7 @@ window.onload = () => {
 
 
     var https = require("https");
-    var url = "https://cab7-2001-b011-e004-1055-16a-7c2c-4b04-c02.ngrok.io/smalltest"; //抓pull的資料
+    var url = "https://7e15-2001-b011-e004-1055-cc8e-27cf-329d-ca66.ngrok.io/smalltest"; //抓pull的資料
     var data = "";
    https.get(url, function (response) 
    {
@@ -25,7 +25,7 @@ window.onload = () => {
 
    var https1 = require("https");
 
-    var url1 = "https://cab7-2001-b011-e004-1055-16a-7c2c-4b04-c02.ngrok.io/pdata"; //抓push的資料
+    var url1 = "https://7e15-2001-b011-e004-1055-cc8e-27cf-329d-ca66.ngrok.io/pdata"; //抓push的資料
 
     var data1 = "";
    https1.get(url1, function (response1) 
@@ -48,12 +48,28 @@ window.onload = () => {
    });
     
 };
+let values = [];
+function getSelectedCheckboxValues(name) {  //checkbox的函式
+    const checkboxes = document.querySelectorAll(`input[name="${name}"]:checked`);
+    
+    checkboxes.forEach((checkbox) => {
+        values.push(checkbox.value);
+    });
+    return values;
+}
+
+
+const btn = document.querySelector('#btn');
+btn.addEventListener('click', (event) => { //check中btn的函式
+alert(getSelectedCheckboxValues('color'));
+values=getSelectedCheckboxValues;
+});
 
 function renderPlaces(places) {
     let scene = document.querySelector('a-scene');
 
 
-    if(places.length<=3)
+    if(places.length<=3&&values.includes('gold'))
     {
         for(let i = 0;i<=2;i++){
             const latitude = places[i].lat;  //修改後
@@ -121,7 +137,12 @@ function renderPlaces(places) {
     
     if(3<places.length<=6)
     {
-        for(let i =0;i<=2;i++){
+        
+        
+        if(values.includes('gold')){
+
+        
+         for(let i =0;i<=2;i++){
             const latitude = places[i].lat;  //修改後
             const longitude = places[i].lon; //修改後
     
@@ -182,9 +203,11 @@ function renderPlaces(places) {
             title.addEventListener('loaded', () => window.dispatchEvent(new CustomEvent('gps-entity-place-loaded')));
         
             scene.appendChild(icon);
-        }
+          }
+        }     
     
-        for(let i =3;i<=6;i++){
+        if(values.includes('silver')){
+         for(let i =3;i<=6;i++){
             const latitude = places[i].lat;  //修改後
             const longitude = places[i].lon; //修改後
     
@@ -240,17 +263,17 @@ function renderPlaces(places) {
             icon.addEventListener('click', clickListener);
         
             scene.appendChild(icon);
+          }
         }
     }
     
     if(places.length>6)
     {
-        for(let i =0;i<=2;i++){
+        if(values.includes('gold')){
+         for(let i =0;i<=2;i++){
             const latitude = places[i].lat;  //修改後
             const longitude = places[i].lon; //修改後
 
-            
-    
             // add place icon 
             const icon = document.createElement('a-image');
             
@@ -311,9 +334,11 @@ function renderPlaces(places) {
         
             scene.appendChild(icon);
             scene.appendChild(title);
+          }
         }
     
-        for(let i=3;i<=5;i++){
+        if(values.includes('silver')){   
+         for(let i=3;i<=5;i++){
             const latitude = places[i].lat;  //修改後
             const longitude = places[i].lon; //修改後
     
@@ -369,9 +394,11 @@ function renderPlaces(places) {
             icon.addEventListener('click', clickListener);
         
             scene.appendChild(icon);
-        } 
+          } 
+        }
 
-        for(let i=6;i<places.length;i++){
+        if(values.includes('copper')){
+         for(let i=6;i<places.length;i++){
             const latitude = places[i].lat;  //修改後
             const longitude = places[i].lon; //修改後
     
@@ -427,13 +454,13 @@ function renderPlaces(places) {
             icon.addEventListener('click', clickListener);
         
             scene.appendChild(icon);
-        } 
+          } 
+        }
     }
 
 }
 
 //push part
-
 
 function renderPlaces1(places1) {
     let scene = document.querySelector('a-scene');
@@ -509,18 +536,5 @@ function linkify1(inputText) {  //轉換trek2there網址的函式
     return replacedText;
 }
 
-function getSelectedCheckboxValues(name) {  //checkbox的函式
-    const checkboxes = document.querySelectorAll(`input[name="${name}"]:checked`);
-    let values = [];
-    checkboxes.forEach((checkbox) => {
-        values.push(checkbox.value);
-    });
-    return values;
-}
 
-
-const btn = document.querySelector('#btn');
-btn.addEventListener('click', (event) => { //check中btn的函式
-alert(getSelectedCheckboxValues('color'));
-});
 
