@@ -8686,6 +8686,7 @@ function renderPlaces(places) {
             const icon = document.createElement('a-image');
             icon.setAttribute('gps-entity-place', `latitude: ${latitude}; longitude: ${longitude}`);
             //icon.setAttribute('name', place.name);         修改前
+            icon.setAttribute('id', "g");
             icon.setAttribute('name', places[i].name);      //修改後
             icon.setAttribute('building', places[i].building);
             icon.setAttribute('item', places[i].item);
@@ -8741,6 +8742,13 @@ function renderPlaces(places) {
             scene.appendChild(icon);
         }
       }
+      else{
+        console.log("掰掰1");
+        let removeItems = document.getElementById('g')
+        for(let i=0;i<removeItems.length;i++){
+          scene.removeChild(removeItems[i])
+        }
+      }  
     }
     
     if(3<places.length&&places.length<=6)
@@ -8756,6 +8764,7 @@ function renderPlaces(places) {
             const icon = document.createElement('a-image');
             icon.setAttribute('gps-entity-place', `latitude: ${latitude}; longitude: ${longitude}`);
             //icon.setAttribute('name', place.name);         修改前
+            icon.setAttribute('id', "g");
             icon.setAttribute('name', places[i].name);      //修改後
             icon.setAttribute('building', places[i].building);
             icon.setAttribute('item', places[i].item);
@@ -8810,6 +8819,14 @@ function renderPlaces(places) {
         
             scene.appendChild(icon);
           }
+        }
+        else{
+          console.log("掰掰1");
+          let removeItems = document.getElementById('g')
+          for(let i=0;i<removeItems.length;i++){
+            scene.removeChild(removeItems[i])
+          }
+          
         }     
     
         if(s.checked==true){
@@ -8821,6 +8838,7 @@ function renderPlaces(places) {
             const icon = document.createElement('a-image');
             icon.setAttribute('gps-entity-place', `latitude: ${latitude}; longitude: ${longitude}`);
             //icon.setAttribute('name', place.name);         修改前
+            icon.setAttribute('id', "s");
             icon.setAttribute('name', places[i].name);      //修改後
             icon.setAttribute('building', places[i].building);
             icon.setAttribute('item', places[i].item);
@@ -8871,6 +8889,14 @@ function renderPlaces(places) {
             scene.appendChild(icon);
           }
         }
+        else{
+          console.log("掰掰2");
+          let removeItems = document.getElementById('s')
+          for(let i=0;i<removeItems.length;i++){
+            scene.removeChild(removeItems[i])
+          }
+          
+        }
     }
     
     if(places.length>6)
@@ -8886,6 +8912,7 @@ function renderPlaces(places) {
             const icon = document.createElement('a-image');
             icon.setAttribute('gps-entity-place', `latitude: ${latitude}; longitude: ${longitude}`);
             //icon.setAttribute('name', place.name);         修改前
+            icon.setAttribute('id', "g"); 
             icon.setAttribute('name', places[i].name);      //修改後
             icon.setAttribute('building', places[i].building);
             icon.setAttribute('item', places[i].item);
@@ -8945,6 +8972,11 @@ function renderPlaces(places) {
         }
         else{
           console.log("掰掰1");
+          let removeItems = document.getElementById('g')
+          for(let i=0;i<removeItems.length;i++){
+            scene.removeChild(removeItems[i])
+          }
+          
         }
 
         if(s.checked==true){   
@@ -8958,6 +8990,7 @@ function renderPlaces(places) {
             // add place icon 
             icon.setAttribute('gps-entity-place', `latitude: ${latitude}; longitude: ${longitude}`);
             //icon.setAttribute('name', place.name);         修改前
+            icon.setAttribute('id', "s");
             icon.setAttribute('name', places[i].name);      //修改後
             icon.setAttribute('building', places[i].building);
             icon.setAttribute('item', places[i].item);
@@ -9009,6 +9042,11 @@ function renderPlaces(places) {
         }
         else{
           console.log("掰掰2");
+          let removeItems = document.getElementById('s')
+          for(let i=0;i<removeItems.length;i++){
+            scene.removeChild(removeItems[i])
+          }
+          
         }
 
         if(c.checked==true){
@@ -9021,6 +9059,7 @@ function renderPlaces(places) {
             // add place icon 
             icon.setAttribute('gps-entity-place', `latitude: ${latitude}; longitude: ${longitude}`);
             //icon.setAttribute('name', place.name);         修改前
+            icon.setAttribute('id', "c");
             icon.setAttribute('name', places[i].name);      //修改後
             icon.setAttribute('building', places[i].building);
             icon.setAttribute('item', places[i].item);
@@ -9073,6 +9112,11 @@ function renderPlaces(places) {
         }
         else{
           console.log("掰掰3");
+          let removeItems = document.getElementById('c')
+          for(let i=0;i<removeItems.length;i++){
+            scene.removeChild(removeItems[i])
+          }
+          
         }
     }
 
