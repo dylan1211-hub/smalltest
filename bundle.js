@@ -8880,7 +8880,7 @@ function renderPlaces(places) {
     
     if(places.length>6)
     {
-      const icong = document.createElement('a-image');
+      var icong = document.createElement('a-image');
         if(g.checked==true){
           console.log(places.length+"༼ つ ◕_◕ ༽つ");
          for(let i =0;i<=2;i++){
@@ -8952,7 +8952,7 @@ function renderPlaces(places) {
         else{
           scene.removeChild(icong);
         }
-        const icons = document.createElement('a-image');
+        var icons = document.createElement('a-image');
         if(s.checked==true){   
           console.log("哈哈");
          for(let i=3;i<=5;i++){
@@ -9014,7 +9014,7 @@ function renderPlaces(places) {
         else{
           scene.removeChild(icons);
         }
-        const iconc = document.createElement('a-image');
+        var iconc = document.createElement('a-image');
         if(c.checked==true){
           console.log("彤彤");
          for(let i=6;i<places.length;i++){
