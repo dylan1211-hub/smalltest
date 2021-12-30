@@ -8880,6 +8880,7 @@ function renderPlaces(places) {
     
     if(places.length>6)
     {
+      const icong = document.createElement('a-image');
         if(g.checked==true){
           console.log(places.length+"༼ つ ◕_◕ ༽つ");
          for(let i =0;i<=2;i++){
@@ -8887,23 +8888,23 @@ function renderPlaces(places) {
             const longitude = places[i].lon; //修改後
 
             // add place icon 
-            const icon = document.createElement('a-image');
             
-            icon.setAttribute('gps-entity-place', `latitude: ${latitude}; longitude: ${longitude}`);
+            
+            icong.setAttribute('gps-entity-place', `latitude: ${latitude}; longitude: ${longitude}`);
             //icon.setAttribute('name', place.name);         修改前
-            icon.setAttribute('name', places[i].name);      //修改後
-            icon.setAttribute('building', places[i].building);
-            icon.setAttribute('item', places[i].item);
-            icon.setAttribute('sales', places[i].sales);
-            icon.setAttribute('website', places[i].website);
-            icon.setAttribute('trek2there', places[i].trek2there);      //修改後
+            icong.setAttribute('name', places[i].name);      //修改後
+            icong.setAttribute('building', places[i].building);
+            icong.setAttribute('item', places[i].item);
+            icong.setAttribute('sales', places[i].sales);
+            icong.setAttribute('website', places[i].website);
+            icong.setAttribute('trek2there', places[i].trek2there);      //修改後
             //icon.setAttribute('building', place.building);   //修改後
-            icon.setAttribute('src','https://dylan1211-hub.github.io/smalltest/assets/g.png');
+            icong.setAttribute('src','https://dylan1211-hub.github.io/smalltest/assets/g.png');
     
             // for debug purposes, just show in a bigger scale, otherwise I have to personally go on places...
-            icon.setAttribute('scale','10, 10');
+            icong.setAttribute('scale','10, 10');
     
-            icon.addEventListener('loaded', () => window.dispatchEvent(new CustomEvent('gps-entity-place-loaded')));
+            icong.addEventListener('loaded', () => window.dispatchEvent(new CustomEvent('gps-entity-place-loaded')));
     
             
     
@@ -8936,7 +8937,7 @@ function renderPlaces(places) {
                 }
             };
     
-            icon.addEventListener('click', clickListener);
+            icong.addEventListener('click', clickListener);
 
             const title = document.createElement('a-text');
             title.setAttribute('gps-entity-place', `latitude: ${latitude}; longitude: ${longitude}`);
@@ -8944,14 +8945,14 @@ function renderPlaces(places) {
             title.setAttribute('scale','10 10');
             title.addEventListener('loaded', () => window.dispatchEvent(new CustomEvent('gps-entity-place-loaded')));
         
-            scene.appendChild(icon);
+            scene.appendChild(icong);
             scene.appendChild(title);
           }
         }
         else{
-          scene.removeChild(icon);
+          scene.removeChild(icong);
         }
-    
+        const icons = document.createElement('a-image');
         if(s.checked==true){   
           console.log("哈哈");
          for(let i=3;i<=5;i++){
@@ -8959,25 +8960,23 @@ function renderPlaces(places) {
             const longitude = places[i].lon; //修改後
     
             // add place icon 
-            const icon = document.createElement('a-image');
-            icon.setAttribute('gps-entity-place', `latitude: ${latitude}; longitude: ${longitude}`);
+            icons.setAttribute('gps-entity-place', `latitude: ${latitude}; longitude: ${longitude}`);
             //icon.setAttribute('name', place.name);         修改前
-            icon.setAttribute('name', places[i].name);      //修改後
-            icon.setAttribute('building', places[i].building);
-            icon.setAttribute('item', places[i].item);
-            icon.setAttribute('sales', places[i].sales);
-            icon.setAttribute('website', places[i].website);
-            icon.setAttribute('trek2there', places[i].trek2there);      //修改後
+            icons.setAttribute('name', places[i].name);      //修改後
+            icons.setAttribute('building', places[i].building);
+            icons.setAttribute('item', places[i].item);
+            icons.setAttribute('sales', places[i].sales);
+            icons.setAttribute('website', places[i].website);
+            icons.setAttribute('trek2there', places[i].trek2there);      //修改後
             //icon.setAttribute('building', place.building);   //修改後
-            icon.setAttribute('src','https://dylan1211-hub.github.io/smalltest/assets/s.png');
+            icons.setAttribute('src','https://dylan1211-hub.github.io/smalltest/assets/s.png');
     
             // for debug purposes, just show in a bigger scale, otherwise I have to personally go on places...
-            icon.setAttribute('scale','8, 8');
+            icons.setAttribute('scale','8, 8');
     
-            icon.addEventListener('loaded', () => window.dispatchEvent(new CustomEvent('gps-entity-place-loaded')));
+            icons.addEventListener('loaded', () => window.dispatchEvent(new CustomEvent('gps-entity-place-loaded')));
     
-            
-    
+        
             const clickListener = function (ev) {
                 ev.stopPropagation();
                 ev.preventDefault();
@@ -9007,15 +9006,15 @@ function renderPlaces(places) {
                 }
             };
     
-            icon.addEventListener('click', clickListener);
+            icons.addEventListener('click', clickListener);
         
-            scene.appendChild(icon);
+            scene.appendChild(icons);
           } 
         }
         else{
-          scene.removeChild(icon);
+          scene.removeChild(icons);
         }
-
+        const iconc = document.createElement('a-image');
         if(c.checked==true){
           console.log("彤彤");
          for(let i=6;i<places.length;i++){
@@ -9023,22 +9022,21 @@ function renderPlaces(places) {
             const longitude = places[i].lon; //修改後
     
             // add place icon 
-            const icon = document.createElement('a-image');
-            icon.setAttribute('gps-entity-place', `latitude: ${latitude}; longitude: ${longitude}`);
+            iconc.setAttribute('gps-entity-place', `latitude: ${latitude}; longitude: ${longitude}`);
             //icon.setAttribute('name', place.name);         修改前
-            icon.setAttribute('name', places[i].name);      //修改後
-            icon.setAttribute('building', places[i].building);
-            icon.setAttribute('item', places[i].item);
-            icon.setAttribute('sales', places[i].sales);
-            icon.setAttribute('website', places[i].website);
-            icon.setAttribute('trek2there', places[i].trek2there);      //修改後
+            iconc.setAttribute('name', places[i].name);      //修改後
+            iconc.setAttribute('building', places[i].building);
+            iconc.setAttribute('item', places[i].item);
+            iconc.setAttribute('sales', places[i].sales);
+            iconc.setAttribute('website', places[i].website);
+            iconc.setAttribute('trek2there', places[i].trek2there);      //修改後
             //icon.setAttribute('building', place.building);   //修改後
-            icon.setAttribute('src','https://dylan1211-hub.github.io/smalltest/assets/c.png');
+            iconc.setAttribute('src','https://dylan1211-hub.github.io/smalltest/assets/c.png');
     
             // for debug purposes, just show in a bigger scale, otherwise I have to personally go on places...
-            icon.setAttribute('scale','5, 5');
+            iconc.setAttribute('scale','5, 5');
     
-            icon.addEventListener('loaded', () => window.dispatchEvent(new CustomEvent('gps-entity-place-loaded')));
+            iconc.addEventListener('loaded', () => window.dispatchEvent(new CustomEvent('gps-entity-place-loaded')));
     
             
     
@@ -9071,13 +9069,13 @@ function renderPlaces(places) {
                 }
             };
     
-            icon.addEventListener('click', clickListener);
+            iconc.addEventListener('click', clickListener);
         
-            scene.appendChild(icon);
+            scene.appendChild(iconc);
           } 
         }
         else{
-          scene.removeChild(icon);
+          scene.removeChild(iconc);
         }
     }
 
