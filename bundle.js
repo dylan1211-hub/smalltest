@@ -8880,7 +8880,7 @@ function renderPlaces(places) {
     
     if(places.length>6)
     {
-      const icong = document.createElement('a-image');
+      
         if(g.checked==true){
           console.log(places.length+"༼ つ ◕_◕ ༽つ");
          for(let i =0;i<=2;i++){
@@ -8888,8 +8888,7 @@ function renderPlaces(places) {
             const longitude = places[i].lon; //修改後
 
             // add place icon 
-            icong.setAttribute("id", "g");
-            document.getElementById("g").style.display = "block";
+            const icong = document.createElement('a-image');
             icong.setAttribute('gps-entity-place', `latitude: ${latitude}; longitude: ${longitude}`);
             //icon.setAttribute('name', place.name);         修改前
             icong.setAttribute('name', places[i].name);      //修改後
@@ -8951,16 +8950,81 @@ function renderPlaces(places) {
         }
         else{
           console.log("掰掰1");
-          document.getElementById("g").style.display = "none";
+          for(let i =0;i<=2;i++){
+            const latitude = places[i].lat;  //修改後
+            const longitude = places[i].lon; //修改後
+
+            // add place icon 
+            const icong = document.createElement('a-image');
+            icong.setAttribute('gps-entity-place', `latitude: ${latitude}; longitude: ${longitude}`);
+            //icon.setAttribute('name', place.name);         修改前
+            icong.setAttribute('name', places[i].name);      //修改後
+            icong.setAttribute('building', places[i].building);
+            icong.setAttribute('item', places[i].item);
+            icong.setAttribute('sales', places[i].sales);
+            icong.setAttribute('website', places[i].website);
+            icong.setAttribute('trek2there', places[i].trek2there);      //修改後
+            //icon.setAttribute('building', place.building);   //修改後
+            icong.setAttribute('src','https://dylan1211-hub.github.io/smalltest/assets/g.png');
+    
+            // for debug purposes, just show in a bigger scale, otherwise I have to personally go on places...
+            icong.setAttribute('scale','10, 10');
+    
+            icong.addEventListener('loaded', () => window.dispatchEvent(new CustomEvent('gps-entity-place-loaded')));
+    
+            
+    
+            const clickListener = function (ev) {
+                ev.stopPropagation();
+                ev.preventDefault();
+    
+                const name = ev.target.getAttribute('name');
+                const building = ev.target.getAttribute('building');
+                const item = ev.target.getAttribute('item');
+                const sales = ev.target.getAttribute('sales');
+                const website = ev.target.getAttribute('website');
+                const websitel = linkify(website);
+                const trek2there = ev.target.getAttribute('trek2there');
+                const trek2therel=linkify1(trek2there);
+                const el = ev.detail.intersection && ev.detail.intersection.object.el;
+    
+                if (el && el === ev.target) {
+                    const label = document.createElement('span');
+                    const container = document.createElement('div');
+                    container.setAttribute('id', 'place-label');
+                    label.innerHTML = "商店 : "+name+"<br/>"+"建築 : "+building+"<br/>"+"商品 : "+item+"<br/>"+"折扣 : "+
+                    sales+" %off"+"<br/>"+"網站 : "+websitel+"<br/>"+"導航 : "+trek2therel;
+                    container.appendChild(label);
+                    document.body.appendChild(container);
+    
+                    setTimeout(() => {
+                        container.parentElement.removeChild(container);
+                    }, 3000);
+                }
+            };
+    
+            icong.addEventListener('click', clickListener);
+
+            const title = document.createElement('a-text');
+            title.setAttribute('gps-entity-place', `latitude: ${latitude}; longitude: ${longitude}`);
+            title.setAttribute('value',places[i].building);
+            title.setAttribute('scale','10 10');
+            title.addEventListener('loaded', () => window.dispatchEvent(new CustomEvent('gps-entity-place-loaded')));
+        
+            scene.appendChild(icong);
+            scene.appendChild(title);
+            scene.removeChild(icong);
+          }
         }
 
-        const icons = document.createElement('a-image','s');
         if(s.checked==true){   
+
           console.log("哈哈");
          for(let i=3;i<=5;i++){
             const latitude = places[i].lat;  //修改後
             const longitude = places[i].lon; //修改後
-            document.getElementById("s").style.display = "block";
+
+            const icons = document.createElement('a-image');
             // add place icon 
             icons.setAttribute('gps-entity-place', `latitude: ${latitude}; longitude: ${longitude}`);
             //icon.setAttribute('name', place.name);         修改前
@@ -9015,16 +9079,15 @@ function renderPlaces(places) {
         }
         else{
           console.log("掰掰2");
-          document.getElementById("s").style.display = "none";
         }
 
-        const iconc = document.createElement('a-image','c');
         if(c.checked==true){
           console.log("彤彤");
          for(let i=6;i<places.length;i++){
             const latitude = places[i].lat;  //修改後
             const longitude = places[i].lon; //修改後
-            document.getElementById("c").style.display = "block";
+
+            const iconc = document.createElement('a-image');
             // add place icon 
             iconc.setAttribute('gps-entity-place', `latitude: ${latitude}; longitude: ${longitude}`);
             //icon.setAttribute('name', place.name);         修改前
@@ -9080,7 +9143,6 @@ function renderPlaces(places) {
         }
         else{
           console.log("掰掰3");
-          document.getElementById("c").style.display = "none";
         }
     }
 
