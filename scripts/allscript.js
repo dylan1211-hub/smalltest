@@ -1,9 +1,10 @@
+var places=[];
 window.onload = () => {
 
 
-    var https = require("https");
-    var url = "https://7e15-2001-b011-e004-1055-cc8e-27cf-329d-ca66.ngrok.io/smalltest"; //抓pull的資料
-    var data = "";
+  var https = require("https");
+  var url = "https://3033-2001-b011-e004-1055-21de-777d-3961-104d.ngrok.io/smalltest"; //抓pull的資料
+  var data = "";
    https.get(url, function (response) 
    {
     
@@ -16,18 +17,16 @@ window.onload = () => {
     response.on("end", () => 
     {
      data = JSON.parse(data);
-     let places = data;
-    renderPlaces(places)
+      places = data;
+
      
     });
  
    });
 
    var https1 = require("https");
-
-    var url1 = "https://7e15-2001-b011-e004-1055-cc8e-27cf-329d-ca66.ngrok.io/pdata"; //抓push的資料
-
-    var data1 = "";
+   var url1 = "https://3033-2001-b011-e004-1055-21de-777d-3961-104d.ngrok.io/pdata"; //抓push的資料
+   var data1 = "";
    https1.get(url1, function (response1) 
    {
     
@@ -47,10 +46,9 @@ window.onload = () => {
  
    });
    
-   result=['gold','silver','copper']
 };
 
-let result=['gold','silver','copper']
+
 function getSelectedCheckboxValues(name) {  //checkbox的函式
     const checkboxes = document.querySelectorAll(`input[name="${name}"]:checked`);
     let values = [];
@@ -60,18 +58,23 @@ function getSelectedCheckboxValues(name) {  //checkbox的函式
     return values;
 }
 
+let g = document.querySelector("#gold");
+let s = document.querySelector("#silver");
+let c = document.querySelector("#copper");
+
 
 const btn = document.querySelector('#btn');
-btn.addEventListener('click', (event) => { //check中btn的函式
-alert(getSelectedCheckboxValues('color'));
-//result = getSelectedCheckboxValues('color');
+  btn.addEventListener('click', (event) => { //check中btn的函式
+  alert("您選擇了"+getSelectedCheckboxValues('color')+"\n"+g.checked+"\n"+s.checked+"\n"+c.checked);
+  document.getElementById("gold").checked=g.checked;
+  document.getElementById("silver").checked=s.checked;
+  document.getElementById("copper").checked=c.checked;
+  renderPlaces(places)
 });
 
 function renderPlaces(places) {
     let scene = document.querySelector('a-scene');
-
-
-    if(places.length<=3&&result.includes('gold'))
+    if(places.length<=3&&g.checked==true)
     {
         for(let i = 0;i<=2;i++){
             const latitude = places[i].lat;  //修改後
@@ -137,13 +140,13 @@ function renderPlaces(places) {
         }
     }
     
-    if(3<places.length<=6)
+    if(3<places.length&&places.length<=6)
     {
         
         
-        if(result.includes('gold')){
+        if(g.checked==true){
 
-        
+          console.log(places.length+"有ㄟ");
          for(let i =0;i<=2;i++){
             const latitude = places[i].lat;  //修改後
             const longitude = places[i].lon; //修改後
@@ -208,7 +211,7 @@ function renderPlaces(places) {
           }
         }     
     
-        if(result.includes('silver')){
+        if(s.checked==true){
          for(let i =3;i<=6;i++){
             const latitude = places[i].lat;  //修改後
             const longitude = places[i].lon; //修改後
@@ -271,7 +274,8 @@ function renderPlaces(places) {
     
     if(places.length>6)
     {
-        if(result.includes('gold')){
+        if(g.checked==true){
+          console.log(places.length+"༼ つ ◕_◕ ༽つ");
          for(let i =0;i<=2;i++){
             const latitude = places[i].lat;  //修改後
             const longitude = places[i].lon; //修改後
@@ -339,7 +343,8 @@ function renderPlaces(places) {
           }
         }
     
-        if(result.includes('silver')){   
+        if(s.checked==true){   
+          console.log("哈哈");
          for(let i=3;i<=5;i++){
             const latitude = places[i].lat;  //修改後
             const longitude = places[i].lon; //修改後
@@ -399,7 +404,8 @@ function renderPlaces(places) {
           } 
         }
 
-        if(result.includes('copper')){
+        if(c.checked==true){
+          console.log("彤彤");
          for(let i=6;i<places.length;i++){
             const latitude = places[i].lat;  //修改後
             const longitude = places[i].lon; //修改後
