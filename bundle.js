@@ -8888,8 +8888,8 @@ function renderPlaces(places) {
             const longitude = places[i].lon; //修改後
 
             // add place icon 
-            
-            
+            icong.setAttribute("id", "g");
+            document.getElementById("g").style.display = "block";
             icong.setAttribute('gps-entity-place', `latitude: ${latitude}; longitude: ${longitude}`);
             //icon.setAttribute('name', place.name);         修改前
             icong.setAttribute('name', places[i].name);      //修改後
@@ -8951,16 +8951,16 @@ function renderPlaces(places) {
         }
         else{
           console.log("掰掰1");
-          scene.appendChild(icong);
-          scene.removeChild(icong);
+          document.getElementById("g").style.display = "none";
         }
-        const icons = document.createElement('a-image');
+
+        const icons = document.createElement('a-image','s');
         if(s.checked==true){   
           console.log("哈哈");
          for(let i=3;i<=5;i++){
             const latitude = places[i].lat;  //修改後
             const longitude = places[i].lon; //修改後
-    
+            document.getElementById("s").style.display = "block";
             // add place icon 
             icons.setAttribute('gps-entity-place', `latitude: ${latitude}; longitude: ${longitude}`);
             //icon.setAttribute('name', place.name);         修改前
@@ -9015,16 +9015,16 @@ function renderPlaces(places) {
         }
         else{
           console.log("掰掰2");
-          scene.appendChild(icons);
-          scene.removeChild(icons);
+          document.getElementById("s").style.display = "none";
         }
-        const iconc = document.createElement('a-image');
+
+        const iconc = document.createElement('a-image','c');
         if(c.checked==true){
           console.log("彤彤");
          for(let i=6;i<places.length;i++){
             const latitude = places[i].lat;  //修改後
             const longitude = places[i].lon; //修改後
-    
+            document.getElementById("c").style.display = "block";
             // add place icon 
             iconc.setAttribute('gps-entity-place', `latitude: ${latitude}; longitude: ${longitude}`);
             //icon.setAttribute('name', place.name);         修改前
@@ -9080,8 +9080,7 @@ function renderPlaces(places) {
         }
         else{
           console.log("掰掰3");
-          scene.appendChild(iconc);
-          scene.removeChild(iconc);
+          document.getElementById("c").style.display = "none";
         }
     }
 
