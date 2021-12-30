@@ -74,8 +74,9 @@ const btn = document.querySelector('#btn');
 
 function renderPlaces(places) {
     let scene = document.querySelector('a-scene');
-    if(places.length<=3&&g.checked==true)
+    if(places.length<=3)
     {
+      if(g.checked==true){
         for(let i = 0;i<=2;i++){
             const latitude = places[i].lat;  //修改後
             const longitude = places[i].lon; //修改後
@@ -138,6 +139,10 @@ function renderPlaces(places) {
         
             scene.appendChild(icon);
         }
+      }
+      else{
+        scene.removeChild(icon);
+      }
     }
     
     if(3<places.length&&places.length<=6)
@@ -342,6 +347,9 @@ function renderPlaces(places) {
             scene.appendChild(title);
           }
         }
+        else{
+          scene.removeChild(icon);
+        }
     
         if(s.checked==true){   
           console.log("哈哈");
@@ -403,6 +411,9 @@ function renderPlaces(places) {
             scene.appendChild(icon);
           } 
         }
+        else{
+          scene.removeChild(icon);
+        }
 
         if(c.checked==true){
           console.log("彤彤");
@@ -463,6 +474,9 @@ function renderPlaces(places) {
         
             scene.appendChild(icon);
           } 
+        }
+        else{
+          scene.removeChild(icon);
         }
     }
 
