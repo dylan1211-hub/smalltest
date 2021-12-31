@@ -3,7 +3,7 @@ window.onload = () => {
 
 
   var https = require("https");
-  var url = "https://3033-2001-b011-e004-1055-21de-777d-3961-104d.ngrok.io/smalltest"; //抓pull的資料
+  var url = "https://33c6-2001-b011-e004-382c-955c-acba-4006-2c34.ngrok.io/smalltest"; //抓pull的資料
   var data = "";
    https.get(url, function (response) 
    {
@@ -25,7 +25,7 @@ window.onload = () => {
    });
 
    var https1 = require("https");
-   var url1 = "https://3033-2001-b011-e004-1055-21de-777d-3961-104d.ngrok.io/pdata"; //抓push的資料
+   var url1 = "https://33c6-2001-b011-e004-382c-955c-acba-4006-2c34.ngrok.io/pdata"; //抓push的資料
    var data1 = "";
    https1.get(url1, function (response1) 
    {
@@ -366,7 +366,7 @@ function renderPlaces(places) {
             title.addEventListener('loaded', () => window.dispatchEvent(new CustomEvent('gps-entity-place-loaded')));
         
             scene.appendChild(icon);
-            scene.appendChild(title);
+            document.body.appendChild(title);
           }
         }
         else{
@@ -597,7 +597,7 @@ function linkify1(inputText) {  //轉換trek2there網址的函式
     return replacedText;
 }
 
-document.addEventListener('DOMContentLoaded', () => {  
+document.addEventListener('DOMContentLoaded', () => {  //OSM leaflet的東東
 
     const zoo = [22.998593072090404, 120.2197879523883]; // 預設中心點為台北市動物園
   
@@ -631,7 +631,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // 使用者不提供位置
     function errorHandler(e) {
       console.log("e", e);
-      window.alert('無法判斷您的所在位置，無法使用此功能。預設地點將為 台北市動物園');
+      window.alert('無法判斷您的所在位置，無法使用此功能。預設地點將為 測量系館');
       map.setView(zoo, 18); // 中心移到動物園
       moveTo(map); // 移動到指定座標（平滑 || 縮放 效果）
       panBy(map); // 移動 x, y 位置
