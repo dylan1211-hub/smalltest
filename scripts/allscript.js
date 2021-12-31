@@ -362,11 +362,12 @@ function renderPlaces(places) {
             const title = document.createElement('a-link');
             title.setAttribute('gps-entity-place', `latitude: ${latitude}; longitude: ${longitude}`);
             title.setAttribute('title', places[i].name);
-            placeText.setAttribute('scale', '15 15 15');
+            title.setAttribute('scale', '10 10 10');
+            title.setAttribute('image', 'https://dylan1211-hub.github.io/smalltest/assets/g.png');
             title.addEventListener('loaded', () => window.dispatchEvent(new CustomEvent('gps-entity-place-loaded')));
         
             scene.appendChild(icon);
-            icon.appendChild(title);
+            scene.appendChild(title);
           }
         }
         else{
