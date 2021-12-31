@@ -8960,11 +8960,10 @@ function renderPlaces(places) {
     
             icon.addEventListener('click', clickListener);
 
-            const title = document.createElement('a-link');
+            const title = document.createElement('a-text');
             title.setAttribute('gps-entity-place', `latitude: ${latitude}; longitude: ${longitude}`);
-            title.setAttribute('title', places[i].name);
+            title.setAttribute('value', places[i].name);
             title.setAttribute('scale', '10 10 10');
-            title.setAttribute('image', 'https://dylan1211-hub.github.io/smalltest/assets/g.png');
             title.addEventListener('loaded', () => window.dispatchEvent(new CustomEvent('gps-entity-place-loaded')));
         
             scene.appendChild(icon);
