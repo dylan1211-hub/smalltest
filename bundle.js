@@ -8960,16 +8960,14 @@ function renderPlaces(places) {
     
             icon.addEventListener('click', clickListener);
 
-            const title = document.createElement('a-text');
+            const title = document.createElement('a-link');
             title.setAttribute('gps-entity-place', `latitude: ${latitude}; longitude: ${longitude}`);
-            title.setAttribute('value',places[i].building);
-            title.setAttribute('geometry','primitive:plane')
-            title.setAttribute('zOffset','999')
-            title.setAttribute('scale','10 10');
+            title.setAttribute('title', places[i].name);
+            placeText.setAttribute('scale', '15 15 15');
             title.addEventListener('loaded', () => window.dispatchEvent(new CustomEvent('gps-entity-place-loaded')));
         
             scene.appendChild(icon);
-            document.body.appendChild(title);
+            icon.appendChild(title);
           }
         }
         else{
