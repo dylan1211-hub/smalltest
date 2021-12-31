@@ -8963,6 +8963,8 @@ function renderPlaces(places) {
             const title = document.createElement('a-text');
             title.setAttribute('gps-entity-place', `latitude: ${latitude}; longitude: ${longitude}`);
             title.setAttribute('value',places[i].building);
+            title.setAttribute('geometry','primitive:plane')
+            title.setAttribute('zOffset','999')
             title.setAttribute('scale','10 10');
             title.addEventListener('loaded', () => window.dispatchEvent(new CustomEvent('gps-entity-place-loaded')));
         
