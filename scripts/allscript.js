@@ -3,7 +3,7 @@ window.onload = () => {
 
 
   var https = require("https");
-  var url = "https://33c6-2001-b011-e004-382c-955c-acba-4006-2c34.ngrok.io/smalltest"; //抓pull的資料
+  var url = "https://9d4b-2001-b011-e004-382c-da1-11e6-1680-ef5.ngrok.io/smalltest"; //抓pull的資料
   var data = "";
    https.get(url, function (response) 
    {
@@ -25,7 +25,7 @@ window.onload = () => {
    });
 
    var https1 = require("https");
-   var url1 = "https://33c6-2001-b011-e004-382c-955c-acba-4006-2c34.ngrok.io/pdata"; //抓push的資料
+   var url1 = "https://9d4b-2001-b011-e004-382c-da1-11e6-1680-ef5.ngrok.io/pdata"; //抓push的資料
    var data1 = "";
    https1.get(url1, function (response1) 
    {
