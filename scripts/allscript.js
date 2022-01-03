@@ -96,8 +96,8 @@ const btn = document.querySelector('#btn');
   document.getElementById("gold").checked=g.checked;
   document.getElementById("silver").checked=s.checked;
   document.getElementById("copper").checked=c.checked;
-  document.getElementById("red").checked=r.checked;
-  document.getElementById("white").checked=w.checked;
+  //document.getElementById("red").checked=r.checked;
+  //document.getElementById("white").checked=w.checked;
   renderPlaces(places)
   renderPlaces1(places1)
   renderPlaces2(places2)
@@ -556,7 +556,7 @@ function renderPlaces(places) {
 
 function renderPlaces1(places1) {
     let scene = document.querySelector('a-scene');
-    if(r.checked==true){
+    //if(r.checked==true){
     for(let i = 0 ; i<=5;i++){
         const latitude = places1[i].lat;  //修改後
         const longitude = places1[i].lon; //修改後
@@ -612,7 +612,7 @@ function renderPlaces1(places1) {
     
         scene.appendChild(icon);
     }
-  }
+  //}
 }
 
 //all data
@@ -620,7 +620,7 @@ function renderPlaces1(places1) {
 function renderPlaces2(places2) {
   let scene = document.querySelector('a-scene');
 
-  if(w.checked==true){
+  //if(w.checked==true){
    for(let i = 0 ; i<places2.length;i++){
       const latitude = places2[i].lat;  //修改後
       const longitude = places2[i].lon; //修改後
@@ -676,7 +676,7 @@ function renderPlaces2(places2) {
   
       scene.appendChild(icon);
    }
- }
+ //}
 }
 
 function linkify(inputText) {  //轉換https網址的函式
