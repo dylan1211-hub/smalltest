@@ -165,11 +165,13 @@ function renderPlaces(places) {
 
             const title = document.createElement('a-text');
             title.setAttribute('gps-entity-place', `latitude: ${latitude}; longitude: ${longitude}`);
-            title.setAttribute('value',places[i].building);
-            title.setAttribute('scale','10 10');
+            title.setAttribute('value', places[i].name);
+            title.setAttribute('scale', '20 20 20');
             title.addEventListener('loaded', () => window.dispatchEvent(new CustomEvent('gps-entity-place-loaded')));
         
+        
             scene.appendChild(icon);
+            scene.appendChild(title);
         }
       }
       else{
@@ -243,11 +245,12 @@ function renderPlaces(places) {
             icon.addEventListener('click', clickListener);
             const title = document.createElement('a-text');
             title.setAttribute('gps-entity-place', `latitude: ${latitude}; longitude: ${longitude}`);
-            title.setAttribute('value',places[i].building);
-            title.setAttribute('scale','10 10');
+            title.setAttribute('value', places[i].name);
+            title.setAttribute('scale', '20 20 20');
             title.addEventListener('loaded', () => window.dispatchEvent(new CustomEvent('gps-entity-place-loaded')));
         
             scene.appendChild(icon);
+            scene.appendChild(title);
           }
         }
         else{
@@ -316,7 +319,14 @@ function renderPlaces(places) {
     
             icon.addEventListener('click', clickListener);
         
+            const title = document.createElement('a-text');
+            title.setAttribute('gps-entity-place', `latitude: ${latitude}; longitude: ${longitude}`);
+            title.setAttribute('value', places[i].name);
+            title.setAttribute('scale', '18 18 18');
+            title.addEventListener('loaded', () => window.dispatchEvent(new CustomEvent('gps-entity-place-loaded')));
+
             scene.appendChild(icon);
+            scene.appendChild(title);
           }
         }
         else{
@@ -466,8 +476,15 @@ function renderPlaces(places) {
             };
     
             icon.addEventListener('click', clickListener);
+
+            const title = document.createElement('a-text');
+            title.setAttribute('gps-entity-place', `latitude: ${latitude}; longitude: ${longitude}`);
+            title.setAttribute('value', places[i].name);
+            title.setAttribute('scale', '18 18 18');
+            title.addEventListener('loaded', () => window.dispatchEvent(new CustomEvent('gps-entity-place-loaded')));
         
             scene.appendChild(icon);
+            scene.appendChild(title);
           } 
         }
         else{
@@ -536,8 +553,15 @@ function renderPlaces(places) {
             };
     
             icon.addEventListener('click', clickListener);
+
+            const title = document.createElement('a-text');
+            title.setAttribute('gps-entity-place', `latitude: ${latitude}; longitude: ${longitude}`);
+            title.setAttribute('value', places[i].name);
+            title.setAttribute('scale', '15 15 15');
+            title.addEventListener('loaded', () => window.dispatchEvent(new CustomEvent('gps-entity-place-loaded')));
         
             scene.appendChild(icon);
+            scene.appendChild(title);
           } 
         }
         else{
@@ -610,7 +634,14 @@ function renderPlaces1(places1) {
             }
         });
     
+        const title = document.createElement('a-text');
+        title.setAttribute('gps-entity-place', `latitude: ${latitude}; longitude: ${longitude}`);
+        title.setAttribute('value', places1[i].name);
+        title.setAttribute('scale', '20 20 20');
+        title.addEventListener('loaded', () => window.dispatchEvent(new CustomEvent('gps-entity-place-loaded')));
+
         scene.appendChild(icon);
+        scene.appendChild(title);
     }
   //}
 }
@@ -674,7 +705,14 @@ function renderPlaces2(places2) {
           }
       });
   
+          const title = document.createElement('a-text');
+            title.setAttribute('gps-entity-place', `latitude: ${latitude}; longitude: ${longitude}`);
+            title.setAttribute('value', places2[i].name);
+            title.setAttribute('scale', '13 13 13');
+            title.addEventListener('loaded', () => window.dispatchEvent(new CustomEvent('gps-entity-place-loaded')));
+
       scene.appendChild(icon);
+      scene.appendChild(title);
    }
  //}
 }
