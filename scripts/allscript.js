@@ -1,4 +1,6 @@
 var places=[];
+var places1=[];
+var places2=[];
 window.onload = () => {
 
 
@@ -39,8 +41,30 @@ window.onload = () => {
     response1.on("end", () => 
     {
      data1 = JSON.parse(data1);
-     let places1 = data1;
-     renderPlaces1(places1)
+     places1 = data1;
+     
+     
+    });
+ 
+   });
+
+   var https2 = require("https");
+   var url2 = "https://9d4b-2001-b011-e004-382c-da1-11e6-1680-ef5.ngrok.io/wdata"; //抓whole的資料
+   var data2 = "";
+   https2.get(url2, function (response2) 
+   {
+    
+    console.log("start");
+    response2.on("data", chunk => {
+    console.log("on data");
+    data2 += chunk;
+   });
+
+    response2.on("end", () => 
+    {
+     data2 = JSON.parse(data2);
+     places2 = data2;
+     
      
     });
  
@@ -61,6 +85,9 @@ function getSelectedCheckboxValues(name) {  //checkbox的函式
 let g = document.querySelector("#gold");
 let s = document.querySelector("#silver");
 let c = document.querySelector("#copper");
+let r = document.querySelector("#red");
+let w = document.querySelector("#white");
+
 
 
 const btn = document.querySelector('#btn');
@@ -69,7 +96,11 @@ const btn = document.querySelector('#btn');
   document.getElementById("gold").checked=g.checked;
   document.getElementById("silver").checked=s.checked;
   document.getElementById("copper").checked=c.checked;
+  document.getElementById("red").checked=r.checked;
+  document.getElementById("white").checked=w.checked;
   renderPlaces(places)
+  renderPlaces1(places1)
+  renderPlaces2(places2)
 });
 
 function renderPlaces(places) {
@@ -525,7 +556,7 @@ function renderPlaces(places) {
 
 function renderPlaces1(places1) {
     let scene = document.querySelector('a-scene');
-
+    if(r.checked==true){
     for(let i = 0 ; i<=5;i++){
         const latitude = places1[i].lat;  //修改後
         const longitude = places1[i].lon; //修改後
@@ -581,6 +612,71 @@ function renderPlaces1(places1) {
     
         scene.appendChild(icon);
     }
+  }
+}
+
+//all data
+
+function renderPlaces2(places2) {
+  let scene = document.querySelector('a-scene');
+
+  if(w.checked==true){
+   for(let i = 0 ; i<places2.length;i++){
+      const latitude = places2[i].lat;  //修改後
+      const longitude = places2[i].lon; //修改後
+
+      // add place icon 
+      const icon = document.createElement('a-image');
+      icon.setAttribute('gps-entity-place', `latitude: ${latitude}; longitude: ${longitude}`);
+      //icon.setAttribute('name', place.name);         修改前
+      icon.setAttribute('name', places2[i].name);      //修改後
+      icon.setAttribute('building', placee2[i].building);
+      icon.setAttribute('item', places2[i].item);
+      icon.setAttribute('sales', places2[i].sales);
+      icon.setAttribute('website', places2[i].website);
+      icon.setAttribute('trek2there', places2[i].trek2there);      //修改後
+      icon.setAttribute('src','https://dylan1211-hub.github.io/smalltest/assets/w.png');
+
+      // for debug purposes, just show in a bigger scale, otherwise I have to personally go on places...
+      icon.setAttribute('scale','3, 3');
+
+      icon.addEventListener('loaded', () => window.dispatchEvent(new CustomEvent('gps-entity-place-loaded')));
+
+      //const touchListener = ;
+
+      icon.addEventListener('click', function () {
+          ev.stopPropagation();
+          ev.preventDefault();
+
+          const name = ev.target.getAttribute('name');
+          const building = ev.target.getAttribute('building');
+          const item = ev.target.getAttribute('item');
+          const sales = ev.target.getAttribute('sales');
+          const website = ev.target.getAttribute('website');
+          const websitel = linkify(website);
+          const trek2there = ev.target.getAttribute('trek2there');
+          const trek2therel=linkify1(trek2there);
+          const el = ev.detail.intersection && ev.detail.intersection.object.el;
+
+          if (el && el === ev.target) {
+
+              const label = document.createElement('span');
+              const container = document.createElement('div');
+              container.setAttribute('id', 'place-label');
+              label.innerHTML = "商店 : "+name+"<br/>"+"建築 : "+building+"<br/>"+"商品 : "+item+"<br/>"+"折扣 : "+
+                  sales+" %off"+"<br/>"+"網站 : "+websitel+"<br/>"+"導航 : "+trek2therel;
+              container.appendChild(label);
+              document.body.appendChild(container);
+
+              setTimeout(() => {
+                  container.parentElement.removeChild(container);
+              }, 3000);
+          }
+      });
+  
+      scene.appendChild(icon);
+   }
+ }
 }
 
 function linkify(inputText) {  //轉換https網址的函式
