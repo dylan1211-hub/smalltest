@@ -5,7 +5,7 @@ window.onload = () => {
 
 
   var https = require("https");
-  var url = "https://ec37-2001-b011-e004-3d23-1c32-eee9-10a1-d340.ngrok.io/pulldata"; //抓pull的資料
+  var url = "https://1388-223-139-90-64.ngrok.io/pulldata"; //抓pull的資料
   var data = "";
    https.get(url, function (response) 
    {
@@ -27,7 +27,7 @@ window.onload = () => {
    });
 
    var https1 = require("https");
-   var url1 = "https://ec37-2001-b011-e004-3d23-1c32-eee9-10a1-d340.ngrok.io/pdata"; //抓push的資料
+   var url1 = "https://1388-223-139-90-64.ngrok.io/pdata"; //抓push的資料
    var data1 = "";
    https1.get(url1, function (response1) 
    {
@@ -49,7 +49,7 @@ window.onload = () => {
    });
 
    var https2 = require("https");
-   var url2 = "https://ec37-2001-b011-e004-3d23-1c32-eee9-10a1-d340.ngrok.io/wdata"; //抓whole的資料
+   var url2 = "https://1388-223-139-90-64.ngrok.io/wdata"; //抓whole的資料
    var data2 = "";
    https2.get(url2, function (response2) 
    {
@@ -602,37 +602,36 @@ function renderPlaces1(places1) {
 
         icon.addEventListener('loaded', () => window.dispatchEvent(new CustomEvent('gps-entity-place-loaded')));
 
-        //const touchListener = ;
+        const clickListener = function (ev) {
+          ev.stopPropagation();
+          ev.preventDefault();
 
-        icon.addEventListener('click', function () {
-            ev.stopPropagation();
-            ev.preventDefault();
+          const name = ev.target.getAttribute('name');
+          const building = ev.target.getAttribute('building');
+          const item = ev.target.getAttribute('item');
+          const sales = ev.target.getAttribute('sales');
+          const website = ev.target.getAttribute('website');
+          const websitel = linkify(website);
+          const trek2there = ev.target.getAttribute('trek2there');
+          const trek2therel=linkify1(trek2there);
+          const el = ev.detail.intersection && ev.detail.intersection.object.el;
 
-            const name = ev.target.getAttribute('name');
-            const building = ev.target.getAttribute('building');
-            const item = ev.target.getAttribute('item');
-            const sales = ev.target.getAttribute('sales');
-            const website = ev.target.getAttribute('website');
-            const websitel = linkify(website);
-            const trek2there = ev.target.getAttribute('trek2there');
-            const trek2therel=linkify1(trek2there);
-            const el = ev.detail.intersection && ev.detail.intersection.object.el;
+          if (el && el === ev.target) {
+              const label = document.createElement('span');
+              const container = document.createElement('div');
+              container.setAttribute('id', 'place-label');
+              label.innerHTML = "商店 : "+name+"<br/>"+"建築 : "+building+"<br/>"+"商品 : "+item+"<br/>"+"折扣 : "+
+              sales+" %off"+"<br/>"+"網站 : "+websitel+"<br/>"+"導航 : "+trek2therel;
+              container.appendChild(label);
+              document.body.appendChild(container);
 
-            if (el && el === ev.target) {
+              setTimeout(() => {
+                  container.parentElement.removeChild(container);
+              }, 3000);
+          }
+      };
 
-                const label = document.createElement('span');
-                const container = document.createElement('div');
-                container.setAttribute('id', 'place-label');
-                label.innerHTML = "商店 : "+name+"<br/>"+"建築 : "+building+"<br/>"+"商品 : "+item+"<br/>"+"折扣 : "+
-                    sales+" %off"+"<br/>"+"網站 : "+websitel+"<br/>"+"導航 : "+trek2therel;
-                container.appendChild(label);
-                document.body.appendChild(container);
-
-                setTimeout(() => {
-                    container.parentElement.removeChild(container);
-                }, 3000);
-            }
-        });
+        icon.addEventListener('click', clickListener);
     
         const title = document.createElement('a-text');
         title.setAttribute('gps-entity-place', `latitude: ${latitude}; longitude: ${longitude}`);
@@ -669,47 +668,46 @@ function renderPlaces2(places2) {
       icon.setAttribute('src','https://dylan1211-hub.github.io/smalltest/assets/w.png');
 
       // for debug purposes, just show in a bigger scale, otherwise I have to personally go on places...
-      icon.setAttribute('scale','3, 3');
+      icon.setAttribute('scale','5, 5');
 
       icon.addEventListener('loaded', () => window.dispatchEvent(new CustomEvent('gps-entity-place-loaded')));
 
-      //const touchListener = ;
+      const clickListener = function (ev) {
+        ev.stopPropagation();
+        ev.preventDefault();
 
-      icon.addEventListener('click', function () {
-          ev.stopPropagation();
-          ev.preventDefault();
+        const name = ev.target.getAttribute('name');
+        const building = ev.target.getAttribute('building');
+        const item = ev.target.getAttribute('item');
+        const sales = ev.target.getAttribute('sales');
+        const website = ev.target.getAttribute('website');
+        const websitel = linkify(website);
+        const trek2there = ev.target.getAttribute('trek2there');
+        const trek2therel=linkify1(trek2there);
+        const el = ev.detail.intersection && ev.detail.intersection.object.el;
 
-          const name = ev.target.getAttribute('name');
-          const building = ev.target.getAttribute('building');
-          const item = ev.target.getAttribute('item');
-          const sales = ev.target.getAttribute('sales');
-          const website = ev.target.getAttribute('website');
-          const websitel = linkify(website);
-          const trek2there = ev.target.getAttribute('trek2there');
-          const trek2therel=linkify1(trek2there);
-          const el = ev.detail.intersection && ev.detail.intersection.object.el;
+        if (el && el === ev.target) {
+            const label = document.createElement('span');
+            const container = document.createElement('div');
+            container.setAttribute('id', 'place-label');
+            label.innerHTML = "商店 : "+name+"<br/>"+"建築 : "+building+"<br/>"+"商品 : "+item+"<br/>"+"折扣 : "+
+            sales+" %off"+"<br/>"+"網站 : "+websitel+"<br/>"+"導航 : "+trek2therel;
+            container.appendChild(label);
+            document.body.appendChild(container);
 
-          if (el && el === ev.target) {
+            setTimeout(() => {
+                container.parentElement.removeChild(container);
+            }, 3000);
+        }
+    };
 
-              const label = document.createElement('span');
-              const container = document.createElement('div');
-              container.setAttribute('id', 'place-label');
-              label.innerHTML = "商店 : "+name+"<br/>"+"建築 : "+building+"<br/>"+"商品 : "+item+"<br/>"+"折扣 : "+
-                  sales+" %off"+"<br/>"+"網站 : "+websitel+"<br/>"+"導航 : "+trek2therel;
-              container.appendChild(label);
-              document.body.appendChild(container);
-
-              setTimeout(() => {
-                  container.parentElement.removeChild(container);
-              }, 3000);
-          }
-      });
+      icon.addEventListener('click', clickListener);
   
-          const title = document.createElement('a-text');
-            title.setAttribute('gps-entity-place', `latitude: ${latitude}; longitude: ${longitude}`);
-            title.setAttribute('value', places2[i].name);
-            title.setAttribute('scale', '13 13 13');
-            title.addEventListener('loaded', () => window.dispatchEvent(new CustomEvent('gps-entity-place-loaded')));
+      const title = document.createElement('a-text');
+      title.setAttribute('gps-entity-place', `latitude: ${latitude}; longitude: ${longitude}`);
+      title.setAttribute('value', places2[i].name);
+      title.setAttribute('scale', '15 15 15');
+      title.addEventListener('loaded', () => window.dispatchEvent(new CustomEvent('gps-entity-place-loaded')));
 
       scene.appendChild(icon);
       scene.appendChild(title);
