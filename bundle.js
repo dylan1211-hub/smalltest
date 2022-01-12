@@ -8606,7 +8606,7 @@ window.onload = () => {
 
 
   var https = require("https");
-  var url = "https://51ab-223-139-90-64.ngrok.io/pulldata"; //抓pull的資料
+  var url = "https://809d-223-139-4-206.ngrok.io/pulldata"; //抓pull的資料
   var data = "";
    https.get(url, function (response) 
    {
@@ -8628,7 +8628,7 @@ window.onload = () => {
    });
 
    var https1 = require("https");
-   var url1 = "https://51ab-223-139-90-64.ngrok.io/pdata"; //抓push的資料
+   var url1 = "https://809d-223-139-4-206.ngrok.io/pdata"; //抓push的資料
    var data1 = "";
    https1.get(url1, function (response1) 
    {
@@ -8650,7 +8650,7 @@ window.onload = () => {
    });
 
    var https2 = require("https");
-   var url2 = "https://51ab-223-139-90-64.ngrok.io/wdata"; //抓whole的資料
+   var url2 = "https://809d-223-139-4-206.ngrok.io/wdata"; //抓whole的資料
    var data2 = "";
    https2.get(url2, function (response2) 
    {
