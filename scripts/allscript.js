@@ -42,8 +42,6 @@ window.onload = () => {
     {
      data1 = JSON.parse(data1);
      places1 = data1;
-     
-     
     });
  
    });
@@ -64,8 +62,6 @@ window.onload = () => {
     {
      data2 = JSON.parse(data2);
      places2 = data2;
-     
-     
     });
  
    });

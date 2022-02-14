@@ -4,7 +4,7 @@
 <head>
     <meta charset='utf-8'>
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
-    <title>GeoAR.js demo</title>
+    <title>Eat</title>
     <script src='https://cdn.jsdelivr.net/gh/aframevr/aframe@1c2407b26c61958baa93967b5412487cd94b290b/dist/aframe-master.min.js'></script>
     <script src='https://raw.githack.com/jeromeetienne/AR.js/master/aframe/build/aframe-ar.min.js'></script>
     <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
@@ -29,27 +29,6 @@
     <a-camera gps-camera rotation-reader>
         <img src="https://dylan1211-hub.github.io/smalltest/assets/heart.png" 
         style="width:50% ; height:30% ; position:fixed; left: 95px; top: 230px;display: block;"/>
-        <div class="checkbox">
-            <p>💡選擇要顯示的推薦層級 : </p>
-            <p>
-               <label for="gold"> <input type="checkbox" name="color" value="gold" id="gold"  />🥇大推</label>
-            </p>
-            <p>
-               <label for="silver"><input type="checkbox" name="color" value="silver" id="silver"  />🥈推推</label>
-            </p>
-            <p>
-               <label for="copper"><input type="checkbox" name="color" value="copper" id="copper"  />🥉推</label>
-            </p>
-            
-            <!--<p>
-                <label for="red"><input type="checkbox" name="color" value="red" id="red"  />🔴熱賣特惠</label>
-             </p>
-             <p>
-                <label for="white"><input type="checkbox" name="color" value="white" id="white"  />⚪其他</label>
-             </p>-->
-       
-            <button id="btn" class="cbtn">確認</button>
-        </div>
         
     </a-camera>
 
@@ -58,7 +37,7 @@
 
     <div id="map"></div>
     <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
-    <script src="bundle.js"></script>
+    <script src="eat.js"></script>
     
     
 </body>
