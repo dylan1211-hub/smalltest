@@ -5,98 +5,42 @@ window.onload = () => {
 
 function staticLoadPlaces() {
    return [
-       {
-        type:"restaurant",
-        name: 'FRIDAYS',
-        lat: 22.9988,
-        lon: 120.2187,
-        building:"New garden",
-        item:"Hamburger",
-        sales:"25",
-        hit:null,
-        website:"http://www.dream-mall.com.tw/Brand/Details/f0d11f97-6644-4cda-bca6-7363942494a3",
-        trek2there:"arcgis-trek2there://?stop=22.99880209,120.2186752",
-       },
-       {
-        type:"restaurant",
-        name: 'MOVENPICK CAF?',
-        lat: 22.99746,
-        lon: 120.2186,
-        building:"Earth Science",
-        item:"coffee",
-        sales:"20",
-        hit:null,
-        website:"http://www.dream-mall.com.tw/Brand/Details/1653d861-5387-4a6c-94eb-e1b6a824bd1c",
-        trek2there:"arcgis-trek2there://?stop=22.99745881,120.2186235",
+    {
+        type:"Toilet",                 //計中大樓
+        name: 'Toilet',
+        lat: 22.99814739768845,
+        lon: 120.218542786768,
+        building:"CNC",
     },
     {
-        type:"restaurant",
-        name: 'Woosa',
-        lat: 22.99699,
-        lon: 120.2188,
-        building:"Physical 2 Building",
-        item:"spaghetti",
-        sales:"10",
-        hit:null,
-        website:"http://www.dream-mall.com.tw/Brand/Details/b508176f-ce47-4937-9677-40491478fa47",
-        trek2there:"arcgis-trek2there://?stop=22.99698921,120.2187656",
+        type:"Water",                 //格致堂
+        name: 'Water',
+        lat: 22.997083676005182, 
+        lon: 120.21959954231058,
+        building:"格致堂",
     },
     {
-        type:"drink and snack",
-        name: 'HANLIN TEA HOUSE',
-        lat: 22.99654269,
-        lon: 120.2185315,
-        building:"Multi-Purpose Building",
-        item:"bubble tea",
-        sales:"50",
-        hit:"v",
-        website:"http://www.dream-mall.com.tw/Brand/Details/75caa17f-49f6-425c-b494-9ce0051d22af",
-        trek2there:"arcgis-trek2there://?stop=22.99654269,120.2185315",
-    },
-    {
-        type:"drink and snack",
-        name: 'STARBUCKS',
-        lat: 22.99723556,
-        lon: 120.2174944,
-        building:"Chung Cheng Gym",
-        item:"latte",
-        sales:"30",
-        hit:null,
-        website:"http://www.dream-mall.com.tw/Brand/Details/913b058c-9347-4a13-b4eb-78426469cb9e",
-        trek2there:"arcgis-trek2there://?stop=22.99723556,120.2174944",
-    },
-    {
-        type:"drink and snack",
-        name: 'COLD STONE',
-        lat: 22.99782064,
-        lon: 120.2178081,
-        building:"College of Managemant",
-        item:"chocolate",
-        sales:"15",
-        hit:null,
-        website:"http://www.dream-mall.com.tw/Brand/Details/0dfb8947-8406-4592-a219-4ac909524744",
-        trek2there:"arcgis-trek2there://?stop=22.99782064,120.2178081",
+        type:"Bench",                 //紅磚地
+        name: 'Bench',
+        lat: 22.99891081812526, 
+        lon: 120.2201228333546,
+        building:"red floor",
     }
    ];
 }
 
 function renderPlaces(places) {
     let scene = document.querySelector('a-scene');
-    for(let i = 0;i<=5;i++){
+    for(let i = 0;i<=0;i++){
         const latitude = places[i].lat;  //修改後
         const longitude = places[i].lon; //修改後
 
         // add place icon 
         const icon = document.createElement('a-image');
         icon.setAttribute('gps-entity-place', `latitude: ${latitude}; longitude: ${longitude}`);
-        //icon.setAttribute('name', place.name);         修改前
         icon.setAttribute('name', places[i].name);      //修改後
         icon.setAttribute('building', places[i].building);
-        icon.setAttribute('item', places[i].item);
-        icon.setAttribute('sales', places[i].sales);
-        icon.setAttribute('website', places[i].website);
-        icon.setAttribute('trek2there', places[i].trek2there);
-        icon.setAttribute('src','https://dylan1211-hub.github.io/smalltest/assets/restaurant.png');
+        icon.setAttribute('src','https://dylan1211-hub.github.io/smalltest/assets/toilets.png');
 
         // for debug purposes, just show in a bigger scale, otherwise I have to personally go on places...
         icon.setAttribute('scale','10, 10');
@@ -111,12 +55,6 @@ function renderPlaces(places) {
 
             const name = ev.target.getAttribute('name');
             const building = ev.target.getAttribute('building');
-            const item = ev.target.getAttribute('item');
-            const sales = ev.target.getAttribute('sales');
-            const website = ev.target.getAttribute('website');
-            const websitel = linkify(website);
-            const trek2there = ev.target.getAttribute('trek2there');
-            const trek2therel=linkify1(trek2there); //轉換為連結
 
             const el = ev.detail.intersection && ev.detail.intersection.object.el;
 
@@ -125,8 +63,111 @@ function renderPlaces(places) {
                 const label = document.createElement('span');
                 const container = document.createElement('div');
                 container.setAttribute('id', 'place-label');
-                label.innerHTML = "商店 : "+name+"<br/>"+"建築 : "+building+"<br/>"+"商品 : "+item+"<br/>"+"折扣 : "+
-                sales+" %off"+"<br/>"+"網站 : "+websitel+"<br/>"+"導航 : "+trek2therel;
+                label.innerHTML = "商店 : "+name+"<br/>"+"建築 : "+building+"<br/>";
+                container.appendChild(label);
+                document.body.appendChild(container);
+
+                setTimeout(() => {
+                    container.parentElement.removeChild(container);
+                }, 3000);
+            }
+        });
+
+        const title = document.createElement('a-text');
+        title.setAttribute('gps-entity-place', `latitude: ${latitude}; longitude: ${longitude}`);
+        title.setAttribute('value', places[i].name);
+        title.setAttribute('scale', '20 20 20');
+        title.addEventListener('loaded', () => window.dispatchEvent(new CustomEvent('gps-entity-place-loaded')));
+    
+    
+        scene.appendChild(icon);
+        scene.appendChild(title);
+    }
+    for(let i = 1;i<=1;i++){
+        const latitude = places[i].lat;  //修改後
+        const longitude = places[i].lon; //修改後
+
+        // add place icon 
+        const icon = document.createElement('a-image');
+        icon.setAttribute('gps-entity-place', `latitude: ${latitude}; longitude: ${longitude}`);
+        icon.setAttribute('name', places[i].name);      //修改後
+        icon.setAttribute('building', places[i].building);
+        icon.setAttribute('src','https://dylan1211-hub.github.io/smalltest/assets/water.png');
+
+        // for debug purposes, just show in a bigger scale, otherwise I have to personally go on places...
+        icon.setAttribute('scale','10, 10');
+
+        icon.addEventListener('loaded', () => window.dispatchEvent(new CustomEvent('gps-entity-place-loaded')));
+
+        //const touchListener = ;
+
+        icon.addEventListener('click', function () {
+            ev.stopPropagation();
+            ev.preventDefault();
+
+            const name = ev.target.getAttribute('name');
+            const building = ev.target.getAttribute('building');
+
+            const el = ev.detail.intersection && ev.detail.intersection.object.el;
+
+            if (el && el === ev.target) {
+
+                const label = document.createElement('span');
+                const container = document.createElement('div');
+                container.setAttribute('id', 'place-label');
+                label.innerHTML = "商店 : "+name+"<br/>"+"建築 : "+building+"<br/>";
+                container.appendChild(label);
+                document.body.appendChild(container);
+
+                setTimeout(() => {
+                    container.parentElement.removeChild(container);
+                }, 3000);
+            }
+        });
+
+        const title = document.createElement('a-text');
+        title.setAttribute('gps-entity-place', `latitude: ${latitude}; longitude: ${longitude}`);
+        title.setAttribute('value', places[i].name);
+        title.setAttribute('scale', '20 20 20');
+        title.addEventListener('loaded', () => window.dispatchEvent(new CustomEvent('gps-entity-place-loaded')));
+    
+    
+        scene.appendChild(icon);
+        scene.appendChild(title);
+    }
+    for(let i = 2;i<=2;i++){
+        const latitude = places[i].lat;  //修改後
+        const longitude = places[i].lon; //修改後
+
+        // add place icon 
+        const icon = document.createElement('a-image');
+        icon.setAttribute('gps-entity-place', `latitude: ${latitude}; longitude: ${longitude}`);
+        icon.setAttribute('name', places[i].name);      //修改後
+        icon.setAttribute('building', places[i].building);
+        icon.setAttribute('src','https://dylan1211-hub.github.io/smalltest/assets/bench.png');
+
+        // for debug purposes, just show in a bigger scale, otherwise I have to personally go on places...
+        icon.setAttribute('scale','10, 10');
+
+        icon.addEventListener('loaded', () => window.dispatchEvent(new CustomEvent('gps-entity-place-loaded')));
+
+        //const touchListener = ;
+
+        icon.addEventListener('click', function () {
+            ev.stopPropagation();
+            ev.preventDefault();
+
+            const name = ev.target.getAttribute('name');
+            const building = ev.target.getAttribute('building');
+
+            const el = ev.detail.intersection && ev.detail.intersection.object.el;
+
+            if (el && el === ev.target) {
+
+                const label = document.createElement('span');
+                const container = document.createElement('div');
+                container.setAttribute('id', 'place-label');
+                label.innerHTML = "商店 : "+name+"<br/>"+"建築 : "+building+"<br/>";
                 container.appendChild(label);
                 document.body.appendChild(container);
 
@@ -149,19 +190,6 @@ function renderPlaces(places) {
 
 }
 
-function linkify(inputText) {  //轉換https網址的函式
-    var replacedText               
-    replacePattern1 = /(\b(https?|ftp):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/gim;
-    replacedText = inputText.replace(replacePattern1, '<a href="$1" target="_blank">$1</a>');
-    return replacedText;
-}
-
-function linkify1(inputText) {  //轉換trek2there網址的函式
-    var replacedText
-    replacePattern1 = /(\b(arcgis-trek2there):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/gim;
-    replacedText = inputText.replace(replacePattern1, '<a href="$1" target="_blank">$1</a>');
-    return replacedText;
-}
 
 document.addEventListener('DOMContentLoaded', () => {  //OSM leaflet的東東
 
