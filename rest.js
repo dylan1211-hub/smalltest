@@ -1,6 +1,8 @@
 window.onload = () => {
     let places = staticLoadPlaces();
     renderPlaces(places);
+    window.confirm('現在是中午12:00༼つ◕_◕ ༽つ'+'\n午餐時間到了🍽'+'\n點選「確認」前往園區美食AR導覽!')
+
 };
 
 function staticLoadPlaces() {

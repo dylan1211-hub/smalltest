@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>real time indoor</title>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+	<script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script>
+    <script src="https://unpkg.com/aframe-look-at-component@0.8.0/dist/aframe-look-at-component.min.js"></script>
+    <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar-nft.js"></script>
+</head>
+
+<body style="margin: 0px; overflow: hidden;">
+	<a-scene
+	vr-mode-ui="enabled: false"
+	embedded
+	arjs="sourceType: webcam; debugUIEnabled: false;"
+	>
+		<!--測量系館中心牆角(Project Base Point)gps-entity-place="latitude: 22.9986315; longitude: 120.2200450;"-->
+		<a-entity id="1_floor"
+		rotation="0 0 0"
+		scale="1 1 1"
+		gltf-model="./assets/cube/cube1.gltf"
+		></a-entity>
+		<a-entity id="2_floor"
+		rotation="0 0 0"
+		scale="1 1 1"
+		gltf-model="./assets/cube/cube2.gltf"
+		></a-entity>
+		<a-entity id="3_floor"
+		rotation="0 0 0"
+		scale="1 1 1"
+		gltf-model="./assets/cube/cube3.gltf"
+		></a-entity>
+		
+	    <a-camera rotation-reader></a-camera>
+	</a-scene>
+	
+	<script>
+		var theta = 0;
+		var theta_rad = 0;
+		window.addEventListener('deviceorientation', function(event) {
+			theta = -(event.webkitCompassHeading-180-90);
+			theta_rad = theta * Math.PI /180;
+		});
+		
+		//for indoor
+		var e = '0';
+		var position = '0';
+		var dataLength = 0; //儲存軌跡資料長度
+		var lat = 0;
+		var lon = 0;
+		var alt = 0;
+		var i = 0;
+		
+		//watch position for outdoor
+		/*var watchID = navigator.geolocation.watchPosition(function(position) {
+			//window.addEventListener('deviceorientation', function(event) {
+				//theta = -(event.webkitCompassHeading-180-90);
+				//theta_rad = theta * Math.PI /180;
+			//});
+			CheckHeight(1,position);CheckHeight(2,position);CheckHeight(3,position);CheckHeight(4,position);
+			//alert('lat: '+position.coords.latitude+'; lon: '+position.coords.longitude+'; alt: '+position.coords.altitude);
+		});*/
+		
+		//watch position for indoor (呼叫後端API，從GIPS server獲取定位軌跡)
+		const MyApiURL = "https://fdae-140-116-47-130.ngrok.io/gipsense/TrackAPI.php"; //80 port: ngrok http 80
+		
+		jQuery(document).ready(function(){
+			setInterval(function() {
+				$.getJSON( MyApiURL, function( data ) {
+					e = data;
+					console.log("x: "+ e.x +"y: "+ e.y +"z: "+ e.z);
+					lat = e.y;
+					lon = e.x;
+					alt = 26.728 + e.z;
+					CheckHeight(1,position);CheckHeight(2,position);CheckHeight(3,position);
+				});
+			}, 1000);
+		});
+		
+		//每秒讀取軌跡中下一筆資料，並且重設模型位置 (測試時才會用到)
+		function clock(){
+			lat = e.data.values[i][9].y;
+	        	lon = e.data.values[i][9].x;
+			alt = 26.728 + e.data.values[i][9].z;
+			CheckHeight(1,position);CheckHeight(2,position);CheckHeight(3,position);
+                        setInterval(function() {
+				i++;
+				if (i > dataLength) {
+					clearInterval(clock());
+				}
+                                lat = e.data.values[i][9].y;
+				lon = e.data.values[i][9].x;
+				alt = 26.728 + e.data.values[i][9].z;
+				CheckHeight(1,position);CheckHeight(2,position);CheckHeight(3,position);
+			}, 1000);
+		};
+		
+		//設定各樓層的模型高及位置
+		function CheckHeight(num,position){
+			//var id = '#'+num+'_floor';
+			//var entity = document.querySelector(id);
+			//var att = document.createAttribute('position');
+			var entity = document.querySelectorAll('a-entity');
+			var MN,ME=0;
+
+			
+			for(var j=0; j<entity.length; j++){
+				var att = document.createAttribute('position');
+				var floor = 0;  
+				if (num == 1){
+					floor = 26.731;
+					MN=22.99869858493506;
+					ME=120.2198525497542;
+				}
+				else if(num == 2){
+					floor = 26.731;
+					MN=22.998728213053873;
+					ME=120.21998934240494;
+				}
+				else if(num == 3){
+					floor = 31.676;
+					MN=22.998728213053873;
+					ME=120.21998934240494;
+				}
+				/*}else if(num == 4){
+					floor = 40.701;
+				}*/
+				//for outdoor
+				//var height = floor - position.coords.altitude;
+				//var N = (22.9986315 - position.coords.latitude)*110751.075273;
+				//var E = (120.2200450 - position.coords.longitude)*101751.561277; //geomatic department
+				
+				//for indoor
+				var height = floor - alt;
+				var N = (MN - lat)*110751.075273;
+				var E = (ME - lon)*101751.561277;
+				
+				var z = Math.cos(theta_rad)*E + Math.sin(theta_rad)*N;
+				var x = Math.cos(theta_rad)*N - Math.sin(theta_rad)*E;
+				att.value = x+" "+height+" "+z;
+				entity[num-1].setAttributeNode(att);
+			}
+		};
+		
+		//Distances between points on an ellipsoidal-model earth
+		//From: http://www.movable-type.co.uk/scripts/latlong-vincenty.html
+		//Reference: https://wywu.pixnet.net/blog/post/27459116
+		/*function EllipsoidalDistance(λ1,λ2,φ1,φ2){
+			const L = λ2 - λ1; // L = difference in longitude, U = reduced latitude, defined by tan U = (1-f)·tanφ.
+			const tanU1 = (1-f) * Math.tan(φ1), cosU1 = 1 / Math.sqrt((1 + tanU1*tanU1)), sinU1 = tanU1 * cosU1;
+			const tanU2 = (1-f) * Math.tan(φ2), cosU2 = 1 / Math.sqrt((1 + tanU2*tanU2)), sinU2 = tanU2 * cosU2;
+
+			let λ = L, sinλ = null, cosλ = null;    // λ = difference in longitude on an auxiliary sphere
+			let σ = null, sinσ = null, cosσ = null; // σ = angular distance P₁ P₂ on the sphere
+			let cos2σₘ = null;                      // σₘ = angular distance on the sphere from the equator to the midpoint of the line
+			let cosSqα = null;                      // α = azimuth of the geodesic at the equator
+
+			let λʹ = null;
+			do {
+			    sinλ = Math.sin(λ);
+			    cosλ = Math.cos(λ);
+			    const sinSqσ = (cosU2*sinλ) * (cosU2*sinλ) + (cosU1*sinU2-sinU1*cosU2*cosλ)**2);
+			    sinσ = Math.sqrt(sinSqσ);
+			    cosσ = sinU1*sinU2 + cosU1*cosU2*cosλ;
+			    σ = Math.atan2(sinσ, cosσ);
+			    const sinα = cosU1 * cosU2 * sinλ / sinσ;
+			    cosSqα = 1 - sinα*sinα;
+			    cos2σₘ = cosσ - 2*sinU1*sinU2/cosSqα;
+			    const C = f/16*cosSqα*(4+f*(4-3*cosSqα));
+			    λʹ = λ;
+			    λ = L + (1-C) * f * sinα * (σ + C*sinσ*(cos2σₘ+C*cosσ*(-1+2*cos2σₘ*cos2σₘ)));
+			} while (Math.abs(λ-λʹ) > 1e-12);
+
+			const uSq = cosSqα * (a*a - b*b) / (b*b);
+			const A = 1 + uSq/16384*(4096+uSq*(-768+uSq*(320-175*uSq)));
+			const B = uSq/1024 * (256+uSq*(-128+uSq*(74-47*uSq)));
+			const Δσ = B*sinσ*(cos2σₘ+B/4*(cosσ*(-1+2*cos2σₘ*cos2σₘ)-B/6*cos2σₘ*(-3+4*sinσ*sinσ)*(-3+4*cos2σₘ*cos2σₘ)));
+
+			const s = b*A*(σ-Δσ); // s = length of the geodesic
+		};*/
+	</script>
+</body>
+
+</html>
