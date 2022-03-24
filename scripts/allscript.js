@@ -129,9 +129,9 @@ function area(position)
   var store = document.createElement("div");
   store.setAttribute('id', 'store');
   var str="";
-  for(var i =0;i<placesr2.length;i++)
+  for(var i =0;i<placesr.length;i++)
   {
-    str+="🔷"+placesr2[i].name+"<br/>";
+    str+="🔷"+placesr[i].name+"<br/>";
   }
   store.innerHTML=str;
   //store.appendChild(stores);
