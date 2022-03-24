@@ -8767,9 +8767,9 @@ const btn = document.querySelector('#btn');
   document.getElementById("copper").checked=c.checked;
   //document.getElementById("red").checked=r.checked;
   //document.getElementById("white").checked=w.checked;
-  renderPlaces(places)
-  renderPlaces1(places1)
-  renderPlaces2(places2)
+  renderPlaces(placesr)
+  renderPlaces1(placesr1)
+  renderPlaces2(placesr2)
 });
 
 function renderPlaces(places) {
