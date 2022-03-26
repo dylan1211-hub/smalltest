@@ -8673,6 +8673,12 @@ window.onload = () => {
   ss = new Date().getSeconds;
   current_time();
   navigator.geolocation.getCurrentPosition(area);
+
+  window.confirm('現在是中午12:00~'+'\n午餐時間到了༼つ◕_◕ ༽つ'+'\n點選「確認」前往園區美食AR導覽!')
+     if(confirm('現在是中午12:00~'+'\n午餐時間到了༼つ◕_◕ ༽つ'+'\n點選「確認」前往園區美食AR導覽!')==true)
+     {
+      window.open('https://dylan1211-hub.github.io/smalltest/eat.html','outlet美食導覽')
+     }
 };
 
 
