@@ -96,7 +96,7 @@ function renderPlaces(places) {
         icon.setAttribute('sales', places[i].sales);
         icon.setAttribute('website', places[i].website);
         icon.setAttribute('trek2there', places[i].trek2there);
-        icon.setAttribute('src','https://dylan1211-hub.github.io/smalltest/assets/restaurant.png');
+        icon.setAttribute('src','https://github.com/dylan1211-hub/smalltest/bus_test/assets/asset.gltf');
 
         // for debug purposes, just show in a bigger scale, otherwise I have to personally go on places...
         icon.setAttribute('scale','10, 10');
