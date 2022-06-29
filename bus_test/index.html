@@ -11,14 +11,16 @@
         THREEx.ArToolkitContext.baseURL = 'https://raw.githack.com/jeromeetienne/ar.js/master/three.js/'
     </script>
 </head>
-
+<link rel="stylesheet" href="./index.css">
 <body style='margin: 0; overflow: hidden;'>
     <a-scene
         vr-mode-ui="enabled: false"
 		embedded
         arjs='sourceType: webcam; sourceWidth:1280; sourceHeight:960; displayWidth: 1280; displayHeight: 960; debugUIEnabled: false;'>
         <a-entity gltf-model="https://dylan1211-hub.github.io/smalltest/bus_test/assets/billboard/scene.gltf" rotation="0 0 0" scale="0.1 0.1 0.1" 
-        gps-entity-place="longitude: 120.45897359846391; latitude: 22.53429663628035;" animation-mixer/>
+        gps-entity-place="longitude: 120.45897359846391; latitude: 22.53429663628035;" animation-mixer>
+        <div id="info">Description</div>
+        </a-entity>
         <a-camera gps-camera rotation-reader></a-camera>
 	</a-scene>
 </body>
