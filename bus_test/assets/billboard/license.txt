@@ -1,0 +1,11 @@
+Model Information:
+* title:	Billboard advertisement
+* source:	https://sketchfab.com/3d-models/billboard-advertisement-f43119ee406d43f48a8af54f45f80691
+* author:	Paul Subert (https://sketchfab.com/3dil15.subert)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Billboard advertisement" (https://sketchfab.com/3d-models/billboard-advertisement-f43119ee406d43f48a8af54f45f80691) by Paul Subert (https://sketchfab.com/3dil15.subert) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
