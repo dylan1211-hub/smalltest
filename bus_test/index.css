@@ -6,3 +6,16 @@
 	z-index: 100;
 	display:block;
 }
+
+#map {
+    height: 220px;
+    border: 2px solid rgba(255, 255, 255, 0.582);
+    border-radius: 50%;
+    position: fixed;
+    z-index: 9990; 
+    padding: 55px; 
+    bottom:-180px;
+    right: 7px;
+    margin:0;
+    width: 260px;
+  }

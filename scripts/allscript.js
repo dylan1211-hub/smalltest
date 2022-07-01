@@ -813,6 +813,7 @@ function linkify1(inputText) {  //轉換trek2there網址的函式
     return replacedText;
 }
 
+//OSM leaflet的東東
 document.addEventListener('DOMContentLoaded', () => {  //OSM leaflet的東東
 
     const zoo = [22.998593072090404, 120.2197879523883]; // 預設中心點為台北市動物園
