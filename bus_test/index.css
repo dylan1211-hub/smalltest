@@ -24,7 +24,7 @@
   }
   .side-menu {
     top: 10px;
-    width: 700px;
+    width: 600px;
     height: 80%;
     box-sizing: border-box;
     color: rgba(255, 255, 255, 0.808);
@@ -67,7 +67,7 @@
     opacity: 0;
   }
   #side-menu-switch:checked + .side-menu {
-    transform: translateX(-48%);
+    transform: translateX(-38%);
     z-index: 99999;
   }
   #side-menu-switch:checked + .side-menu label .fas {
