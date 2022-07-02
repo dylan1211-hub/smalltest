@@ -23,8 +23,9 @@
     cursor: pointer;
   }
   .side-menu {
-    width: 500px;
-    height: 100%;
+    top: 10px;
+    width: 700px;
+    height: 80%;
     box-sizing: border-box;
     color: rgba(255, 255, 255, 0.808);
     background-image: linear-gradient(0deg, #dddddde0, #ebebebca);
@@ -66,7 +67,7 @@
     opacity: 0;
   }
   #side-menu-switch:checked + .side-menu {
-    transform: translateX(-63%);
+    transform: translateX(-48%);
   }
   #side-menu-switch:checked + .side-menu label .fas {
     transform: scaleX(-1);
