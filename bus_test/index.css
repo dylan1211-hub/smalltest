@@ -1,51 +1,51 @@
 #info {
-	position: absolute;
-	top: 10px;
-	width: 100%;
-	text-align: center;
-	z-index: 100;
-	display:block;
-}
-
-#map {
+    position: absolute;
+    top: 10px;
+    width: 100%;
+    text-align: center;
+    z-index: 100;
+    display: block;
+  }
+  
+  #map {
     height: 220px;
     border: 2px solid rgba(255, 255, 255, 0.582);
     border-radius: 50%;
     position: fixed;
-    z-index: 9990; 
-    padding: 55px; 
-    bottom:-180px;
+    z-index: 9990;
+    padding: 55px;
+    bottom: -180px;
     right: 7px;
-    margin:0;
+    margin: 0;
     width: 260px;
   }
   label {
     cursor: pointer;
   }
-  .side-menu{
-    width: 300px;
+  .side-menu {
+    width: 500px;
     height: 100%;
     box-sizing: border-box;
-    color :rgba(255, 255, 255, 0.808);
-    background-image: linear-gradient(0deg,#dddddde0,#ebebebca);
+    color: rgba(255, 255, 255, 0.808);
+    background-image: linear-gradient(0deg, #dddddde0, #ebebebca);
     display: flex;
     flex-flow: column nowrap;
     position: absolute;
     border-radius: 5px;
-
-    transition: .5s;
+  
+    transition: 0.8s;
     /* transform: translateX(0); */
-}
-.side-menu form input,
-.side-menu form button{
+  }
+  .side-menu form input,
+  .side-menu form button {
     background-color: transparent;
     color: #fff;
-    border:none;
-}
-.side-menu form input{
+    border: none;
+  }
+  .side-menu form input {
     width: 230px;
-}
-.side-menu label{
+  }
+  .side-menu label {
     position: absolute;
     width: 20px;
     height: 80px;
@@ -60,20 +60,18 @@
     font-size: 20px;
     border-radius: 0 5px 5px 0;
     z-index: 99999;
-}
-#side-menu-switch{
+  }
+  #side-menu-switch {
     position: absolute;
     opacity: 0;
-}
-#side-menu-switch:checked + .side-menu{
-    transform: translateX(-100%);
-}
-#side-menu-switch:checked + .side-menu label .fas{
-    transform:scaleX(-1);
-}
-.side-menu form button{
+  }
+  #side-menu-switch:checked + .side-menu {
+    transform: translateX(-63%);
+  }
+  #side-menu-switch:checked + .side-menu label .fas {
+    transform: scaleX(-1);
+  }
+  .side-menu form button {
     width: 50px;
-}
-
-
-
+  }
+  
