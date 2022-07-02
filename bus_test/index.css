@@ -68,6 +68,7 @@
   }
   #side-menu-switch:checked + .side-menu {
     transform: translateX(-48%);
+    z-index: 99999;
   }
   #side-menu-switch:checked + .side-menu label .fas {
     transform: scaleX(-1);
