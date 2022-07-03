@@ -27,6 +27,7 @@
     position: absolute;
     right:5px;
     font-size: 36px
+    justify-content: center;
 }
 .select {
     border-radius: 10px;
