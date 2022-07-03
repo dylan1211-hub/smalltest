@@ -6,19 +6,19 @@
     position: relative;
     width: 80%;
 
-  }
-  .search-bar {
+}
+.search-bar {
     border-radius: 10px;
     width: 450px;
     height: 70px;
     font-size: 40px;
     border: 3px solid #a4a4a4;
     background-color: #ffffff;
-  }
+}
 .search-btn {
     border-radius: 10px;
-    width: 120px;
-    height: 77px;
+    width: 130px;
+    height: 85px;
     background-color: #a4a4a4;
     color: #ffffff;
     outline: none;
@@ -28,7 +28,7 @@
     top: 3;
     right:5px;
     font-size: 36px
-  }
+}
 .select {
     border-radius: 10px;
     width: 420px;
