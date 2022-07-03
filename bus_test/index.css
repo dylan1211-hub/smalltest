@@ -14,7 +14,7 @@
     position: fixed;
     z-index: 9990;
     padding: 55px;
-    bottom: -230px;
+    bottom: -210px;
     right: 7px;
     margin: 0;
     width: 260px;
@@ -33,7 +33,6 @@
     flex-flow: column nowrap;
     position: absolute;
     border-radius: 5px;
-  
     transition: 0.55s;
     /* transform: translateX(0); */
   }
