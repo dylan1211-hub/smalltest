@@ -1,3 +1,6 @@
+.let_space{
+    font-size: 60px;
+}
 
 .search {
     position: relative;
@@ -6,39 +9,39 @@
   }
   .search-bar {
     border-radius: 10px;
-    width: 500px;
-    height: 32px;
-    font-size: 20px;
+    width: 450px;
+    height: 70px;
+    font-size: 40px;
     border: 3px solid #a4a4a4;
     background-color: #ffffff;
   }
 .search-btn {
     border-radius: 10px;
-    width: 60px;
-    height: 40px;
+    width: 120px;
+    height: 77px;
     background-color: #a4a4a4;
     color: #ffffff;
     outline: none;
     border: 2px solid #a4a4a4;
     cursor: pointer;
     position: absolute;
-    top: 0;
-    right:300px;
-    font-size: 18px
+    top: 3;
+    right:100px;
+    font-size: 36px
   }
 .select {
     border-radius: 10px;
-    width: 200px;
-    height: 40px;
-    font-size: 20px
+    width: 420px;
+    height: 80px;
+    font-size: 36px
 }
 .go{
-    width: 80px;
-    height: 60px;
+    width: 120px;
+    height: 80px;
     border-radius: 10px;
     background-color: #08b1faec;
     border: 2px solid #ffffff;
     color: #ffffff;
-    font-size: 24px
+    font-size: 40px
 }
   
