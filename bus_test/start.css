@@ -18,14 +18,13 @@
 .search-btn {
     border-radius: 10px;
     width: 150px;
-    height: 95px;
+    height: 100px;
     background-color: #a4a4a4;
     color: #ffffff;
     outline: none;
     border: 2px solid #a4a4a4;
     cursor: pointer;
     position: absolute;
-    top: 3;
     right:5px;
     font-size: 36px
 }
