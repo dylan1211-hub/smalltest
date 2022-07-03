@@ -26,7 +26,7 @@
     cursor: pointer;
     position: absolute;
     top: 3;
-    right:100px;
+    right:5px;
     font-size: 36px
   }
 .select {
@@ -43,5 +43,10 @@
     border: 2px solid #ffffff;
     color: #ffffff;
     font-size: 40px
+}
+form{
+    margin: 5vmax 5vmax;
+    padding:3vmax;
+    border: 1px solid #dddddd;
 }
   
