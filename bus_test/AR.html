@@ -32,11 +32,34 @@
             arjs='sourceType: webcam; sourceWidth:1280; sourceHeight:960; displayWidth: 1280; displayHeight: 960; debugUIEnabled: false;'>
 
         
-        <a-entity gltf-model="https://dylan1211-hub.github.io/smalltest/bus_test/assets/billboard/scene.gltf" rotation="0 0 0" scale="1 1 1" 
-            gps-entity-place="longitude: 120.22767409990236 ; latitude: 22.998340623554697" animation-mixer >
-        <a-text value="路線 : 19 \n 站牌 : 成大醫院(小東路) \n 剩餘到站時間 : 3 分鐘 " color="gray" zOffset="9999" anchor="left" 
-                baseline="top" scale="0.3 0.3 0.3" position="-0.3 0.65 1">
+        <a-entity gltf-model="https://dylan1211-hub.github.io/smalltest/bus_test/assets/billboard/scene.gltf" rotation="0 35 0" scale="3 3 3" 
+            gps-entity-place="longitude: 120.2274943919144 ; latitude:22.99841531128944" animation-mixer >
+
+        <a-text value="Route Name" color="gray" zOffset="9999" anchor="left" 
+                baseline="top" scale="0.3 0.3 0.3" position="-0.25 0.80 1">
         </a-text>
+        <a-text value="19" color="#E6C35C" zOffset="9999" anchor="left" 
+                baseline="top" scale="0.6 0.6 0.6" position="0.18 0.83 1">
+        </a-text>
+        <a-text value="Stop Name" color="gray" zOffset="9999" anchor="left" 
+                baseline="top" scale="0.3 0.3 0.3" position="-0.25 0.65 1">
+        </a-text>
+        <a-text value="NCKU Hospital" color="#70C1CF" zOffset="9999" anchor="left" 
+                baseline="top" scale="0.4 0.4 0.4" position="-0.2 0.55 1">
+        </a-text>
+        <a-text value="(xiaodong Road)" color="#70C1CF" zOffset="9999" anchor="left" 
+                baseline="top" scale="0.4 0.4 0.4" position="-0.23 0.44 1">
+        </a-text>
+        <a-text value="Estimate Time" color="gray" zOffset="9999" anchor="left" 
+                baseline="top" scale="0.3 0.3 0.3" position="-0.25 0.27 1">
+        </a-text>
+        <a-text value="3" color="#CD5C5C" zOffset="9999" anchor="left" 
+                baseline="top" scale="0.8 0.8 0.8" position="0 0.15 1">
+        </a-text>
+        <a-text value="min" color="gray" zOffset="9999" anchor="left" 
+                baseline="top" scale="0.3 0.3 0.3" position="0.15 0.09 1">
+        </a-text>
+
 
 
         </a-entity>
@@ -45,10 +68,6 @@
         <a-camera gps-camera rotation-reader>
             <input type="checkbox"  id="side-menu-switch">
             <div class="side-menu">
-                        
-                <nav>
-                           
-                </nav>
                 <label for="side-menu-switch">
                     <i class="fas fa-angle-left"></i>
                 </label>
