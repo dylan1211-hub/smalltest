@@ -23,7 +23,18 @@
 
 <body style='margin: 0; overflow: hidden;'>
 
-
+    <div class="panel" style="display:none" id="mySidebar" position="relative" z-index="2">
+        <button onclick="w3_close()" class="close">X</button><br><br><br>
+        <center>
+        <span class="info1">晴時多雲⛅</span><br><br><br><br>
+        <span class="info2">降雨機率 : 10%</span><br><br><br><br>
+        <span class="info3">AQI : 19 ✅</span><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+        <span class="info4">重新選擇路線</span><br><br><br>
+        </center>
+    </div>
+    <div class="open">
+        <button class="opb" onclick="w3_open()"position="relative" z-index="1">☰</button>
+      </div>
 
     <a-scene
         cursor='rayOrigin: mouse; fuse: true; fuseTimeout: 0;'
@@ -32,8 +43,8 @@
             arjs='sourceType: webcam; sourceWidth:1280; sourceHeight:960; displayWidth: 1280; displayHeight: 960; debugUIEnabled: false;'>
 
         
-        <a-entity gltf-model="https://dylan1211-hub.github.io/smalltest/bus_test/assets/billboard/scene.gltf" rotation="0 35 0" scale="3 3 3" 
-            gps-entity-place="longitude: 120.2274943919144 ; latitude:22.99841531128944" animation-mixer >
+        <a-entity gltf-model="https://dylan1211-hub.github.io/smalltest/bus_test/assets/billboard/scene.gltf" rotation="0 0 0" scale="5 5 5" 
+            gps-entity-place="longitude: 120.22907; latitude:22.99063" animation-mixer >
 
         <a-text value="Route Name" color="gray" zOffset="9999" anchor="left" 
                 baseline="top" scale="0.3 0.3 0.3" position="-0.25 0.80 1">
@@ -60,18 +71,17 @@
                 baseline="top" scale="0.3 0.3 0.3" position="0.15 0.09 1">
         </a-text>
 
-
-
         </a-entity>
         
 
         <a-camera gps-camera rotation-reader>
-            <input type="checkbox"  id="side-menu-switch">
+            <!---<input type="checkbox"  id="side-menu-switch">
             <div class="side-menu">
                 <label for="side-menu-switch">
                     <i class="fas fa-angle-left"></i>
                 </label>
-            </div>
+            </div>-->
+            
         </a-camera>
 
 	</a-scene>
@@ -79,6 +89,14 @@
     <div id="map"></div>
     <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
     <script>
+
+    function w3_open() {
+    document.getElementById("mySidebar").style.display = "block";
+    }
+
+    function w3_close() {
+    document.getElementById("mySidebar").style.display = "none";
+    }
 
         //取得使用者位置
 
@@ -104,8 +122,6 @@
         }
     } 
     
-
-
         //介接的part
 
         var places=[];
