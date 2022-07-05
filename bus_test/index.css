@@ -127,7 +127,7 @@
     color: #717171;
     text-align: center;
     background-color: rgba(247, 219, 79, 0.585);
-    font-size: 42px;
+    font-size: 32px;
     border-radius: 10px;
     left: 10px;
 }
@@ -137,7 +137,7 @@
     color: #717171;
     text-align: center;
     background-color: rgba(90, 143, 88, 0.651);
-    font-size: 42px;
+    font-size: 32px;
     border-radius: 10px;
 
 }
@@ -147,7 +147,7 @@
     color: #717171;
     text-align: center;
     background-color: rgba(62, 172, 203, 0.681);
-    font-size: 42px;
+    font-size: 32px;
     border-radius: 10px;
 }
 .info4{
@@ -156,6 +156,6 @@
     color: #717171;
     text-align: center;
     background-color: rgba(124, 133, 135, 0.681);
-    font-size: 42px;
+    font-size: 32px;
     border-radius: 10px;
 }
