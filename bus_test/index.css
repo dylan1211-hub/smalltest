@@ -8,16 +8,16 @@
   }
   
   #map {
-    height: 220px;
+    height: 50px;
     border: 2px solid rgba(255, 255, 255, 0.582);
-    border-radius: 50%;
     position: fixed;
     z-index: 9990;
     padding: 55px;
-    bottom: -210px;
-    right: 7px;
+    bottom: 1px;
+    right: 3px;
     margin: 0;
-    width: 260px;
+    width: 50px;
+    border-radius: 5px;
   }
   label {
     cursor: pointer;
@@ -79,7 +79,7 @@
 
 .panel{
   top: 0.1px;
-  width: 350px;
+  width: 300px;
   height: 80%;
   box-sizing: border-box;
   color: rgba(255, 255, 255, 0.808);
@@ -127,7 +127,7 @@
     color: #717171;
     text-align: center;
     background-color: rgba(247, 219, 79, 0.585);
-    font-size: 32px;
+    font-size: 28px;
     border-radius: 10px;
     left: 10px;
 }
@@ -137,7 +137,7 @@
     color: #717171;
     text-align: center;
     background-color: rgba(90, 143, 88, 0.651);
-    font-size: 32px;
+    font-size: 28px;
     border-radius: 10px;
 
 }
@@ -146,16 +146,16 @@
     padding: 0.25em;
     color: #717171;
     text-align: center;
-    background-color: rgba(62, 172, 203, 0.681);
-    font-size: 32px;
+    background-color: rgba(96, 214, 246, 0.681);
+    font-size: 28px;
     border-radius: 10px;
 }
 .info4{
   z-index: 99999;
     padding: 0.25em;
-    color: #717171;
+    color: #ffffff;
     text-align: center;
-    background-color: rgba(124, 133, 135, 0.681);
-    font-size: 32px;
+    background-color: rgb(133, 133, 133);
+    font-size: 28px;
     border-radius: 10px;
 }
