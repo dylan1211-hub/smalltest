@@ -13,18 +13,6 @@
         <h4 style="color: rgb(233, 204, 109);" class="let_space">✨歡迎使用</h4>
         <h4 style="color: rgb(233, 204, 109);" class="let_space">公車Be right here✨</h4>
     </center>
-    <!--
-    <center>
-        <div class="search">
-          <input class="search-bar" type="text" name="search" id="search" placeholder="輸入公車路線名">
-        
-          <button class="search-btn" >確認
-            <i class="fas fa-search"></i>
-          </button>
-         
-        </div>
-    </center>
--->
 
     <center>
         <h4 style="color: rgb(233, 109, 109);" class="let_space">起點</h4>
@@ -181,7 +169,7 @@
 <option>關帝廳                  </option>
 
     </select>
-    <br><br>
+    <br>
 </center>
 
     
@@ -341,9 +329,25 @@
 <option>中興             </option>
 
     </select>
+    <br><br><br><br>
+    <button class="esri-button" type="button" onclick="ticket()">確認</button><br><br><br>
+    <div class="ticket" id="price">
+        票價:
+        <div class="ticket" id="price"></div>
+    </div><br />
+    
+    <script>
+        async function ticket() {
+            console.log("票價");
+            document.getElementById('price').innerHTML = "全票18元、半票9元";
+        }
+    </script>
+    
 </center>
-<br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+<br><br><br><br><br><br><br><br><br><br>
+
 <center>
+    
     <a href="https://dylan1211-hub.github.io/smalltest/bus_test/AR.html">
         <input type="button" value="GO " class="go">
     </a>

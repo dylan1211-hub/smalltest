@@ -26,7 +26,7 @@
     cursor: pointer;
     position: absolute;
     right:5px;
-    font-size: 36px
+    font-size: 36px;
     justify-content: center;
 }
 .select {
@@ -36,17 +36,44 @@
     font-size: 36px
 }
 .go{
-    width: 120px;
-    height: 80px;
+    width: 180px;
+    height: 120px;
     border-radius: 10px;
     background-color: #08b1faec;
     border: 2px solid #ffffff;
     color: #ffffff;
-    font-size: 40px
+    font-size: 48px
 }
 form{
     margin: 5vmax 5vmax;
     padding:3vmax;
     border: 1px solid #dddddd;
+}
+.conf{
+    width: 120px;
+    height: 80px;
+    border-radius: 10px;
+    background-color: #b7b7b7;
+    border: 2px solid #ffffff;
+    color: #ffffff;
+    font-size: 40px 
+}
+.price{
+    font-size: 40px 
+}
+.ticket {
+    white-space: nowrap;
+    font-size: 40px;
+    font-weight: bold;
+    display: inline-block;
+}
+.esri-button{
+    width: 100px;
+    height: 80px;
+    border-radius: 10px;
+    background-color: #909090ec;
+    border: 2px solid #ffffff;
+    color: #ffffff;
+    font-size: 40px
 }
   
