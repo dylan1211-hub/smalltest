@@ -103,8 +103,26 @@
             position="1 1.2 1" animation-mixer >
         </a-entity>
 
-        <img src="https://dylan1211-hub.github.io/smalltest/bus_test/assets/arrow1.png" rotation="30 0 0" scale="0.01 0.01 0.01"
+        <img id="compass" src="https://dylan1211-hub.github.io/smalltest/bus_test/assets/arrow1.png" rotation="30 0 0" scale="0.01 0.01 0.01"
         style="width:150px ; height:40px ; position:fixed; left: 25px; top: 525px;display: block;"/>
+        <script src="https://unpkg.com/@joeyklee/compass.js@latest/dist/compass.js"></script>
+        <script>
+        let compass;
+        window.addEventListener('DOMContentLoaded', async() =>{
+        alert("a compass that always points you to Bus Stop")
+        const $compass = document.querySelector("#compass");
+
+        compass = new Compass();
+        await compass.init();
+        
+        setInterval( () => {
+        const currentPosition = {lat: compass.position.coords.latitude, lng: compass.position.coords.longitude};
+        const angleToStop = compass.getBearingToDestination(currentPosition, {lat:22.990544235195003, lng:120.22093319574124});
+        $compass.style.transform = `rotate(${Math.round(angleToStop)}deg)`;
+        }, 100);
+
+        })
+        </script>
 
         <a-entity gltf-model="https://dylan1211-hub.github.io/smalltest/bus_test/assets/billboard/scene.gltf" rotation="0 -30 0" scale="3 2 2" 
             gps-entity-place="longitude:120.22093319574124; latitude:22.990544235195003 " animation-mixer >
