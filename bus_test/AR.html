@@ -41,6 +41,57 @@
     <div class="open">
         <button class="opb" onclick="w3_open()"position="relative" z-index="1">☰</button>
       </div>
+      
+      <span id = "d" style="width:180px ; height:40px ; position:fixed; left: 1px; bottom: 43px;display: block;
+      background-color: rgba(61, 223, 255, 0.674);color: #ffffff; border-radius: 10px; font-size: 26px;text-align: center; " ></span>
+      <span id = "t" style="width:180px ; height:40px ; position:fixed; left: 1px; bottom: 2px;display: block;
+      background-color: rgba(61, 177, 255, 0.674);color: #ffffff; border-radius: 10px; font-size: 26px;text-align: center; " ></span>
+
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDP_8BwsuhrCaT7AovatGprt01OE6cke4E"></script>
+        <script>
+        window.onload = () => {
+                const _this=this;
+        if(navigator.geolocation) {
+        // 使用者不提供權限，或是發生其它錯誤
+        function error() {
+        alert('無法取得你的位置');
+        }       
+        // 使用者允許抓目前位置，回傳經緯度
+        function success(position) {
+        // 將所在地設成比較的點
+        let originPosition = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+        console.log(position.coords.latitude, position.coords.longitude);
+        // 設定目的地的點
+        let destination = new google.maps.LatLng(22.990544235195003, 120.22093319574124);
+        // 所在位置跟各點的距離
+        const service = new google.maps.DistanceMatrixService();
+                service.getDistanceMatrix({
+                origins: [originPosition],
+                destinations: [destination],
+                travelMode: 'WALKING', // 交通方式：BICYCLING(自行車)、DRIVING(開車，預設)、TRANSIT(大眾運輸)、WALKING(走路)
+                unitSystem: google.maps.UnitSystem.METRIC , // 單位 METRIC(公里，預設)、IMPERIAL(哩)
+                avoidHighways: true, // 是否避開高速公路
+                avoidTolls: true // 是否避開收費路線
+                }, callback);
+                function callback(response, status) {
+                console.log(response);
+                var d = response.rows[0].elements[0].distance.text;
+                var t = response.rows[0].elements[0].duration.text;
+                console.log(d);
+                console.log(t);
+                document.getElementById('d').innerHTML="距離:"+d;
+                document.getElementById('t').innerHTML="時間:"+t;
+                
+                }
+
+        }
+        // 跟使用者拿所在位置的權限
+        navigator.geolocation.getCurrentPosition(success, error);
+        } else {
+        alert('Sorry, 你的裝置不支援地理位置功能。')
+        }
+        }
+        </script>
 
     <a-scene
         cursor='rayOrigin: mouse; fuse: true; fuseTimeout: 0;'
@@ -53,7 +104,7 @@
         </a-entity>
 
         <img src="https://dylan1211-hub.github.io/smalltest/bus_test/assets/arrow1.png" rotation="30 0 0" scale="0.01 0.01 0.01"
-        style="width:10% ; height:10% ; position:fixed; left: 30px; top: 650px;display: block;"/>
+        style="width:150px ; height:40px ; position:fixed; left: 30px; top: 700px;display: block;"/>
 
         <a-entity gltf-model="https://dylan1211-hub.github.io/smalltest/bus_test/assets/billboard/scene.gltf" rotation="0 -30 0" scale="3 2 2" 
             gps-entity-place="longitude:120.22093319574124; latitude:22.990544235195003 " animation-mixer >

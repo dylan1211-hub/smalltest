@@ -165,3 +165,13 @@
     font-size: 26px;
     border-radius: 10px;
 }
+
+.dis{
+  z-index: 99999;
+    padding: 0.25em;
+    color: #ffffff;
+    text-align: center;
+    background-color: rgb(133, 133, 133);
+    font-size: 26px;
+    border-radius: 10px;
+}
