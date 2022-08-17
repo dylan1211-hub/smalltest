@@ -82,7 +82,7 @@
   width: 285px;
   height: 95%;
   box-sizing: border-box;
-  color: rgba(255, 255, 255, 0.868);
+  color: rgba(255, 255, 255, 0.915);
   background-image: linear-gradient(0deg, #dddddde0, #ebebebca);
   display: flex;
   flex-flow: column nowrap;
@@ -97,7 +97,7 @@
   width: 285px;
   height: 95%;
   box-sizing: border-box;
-  color: rgba(255, 255, 255, 0.868);
+  color: rgba(255, 255, 255, 0.897);
   background-image: linear-gradient(0deg, #dddddde0, #ebebebca);
   display: flex;
   flex-flow: column nowrap;
@@ -129,7 +129,7 @@
 }
 .mark{
   z-index: 99999;
-    color: #2890ff;
+    color: #17b2ff;
     text-align: center;
     font-size: 20px;
     width: 250px;
