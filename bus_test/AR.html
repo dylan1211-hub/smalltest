@@ -37,9 +37,47 @@
             <span class="info3">  晴時多雲🌥️ </span><br><br>
             <span class="info3">溫度:31℃ 濕度: 20%  </span><br><br>
             <span class="info3">降雨機率 : 30%</span><br><br>
-            <span class="info3"> AQI : 10 ✅ </span><br>
-
+            <span class="info3"> AQI : 10 ✅ </span><br><br><br>
+            <center><button onclick="open_sidebar2()" class="os2b" >顯示周邊休息據點</button></center>
     </div>
+
+    <div class="panel2" style="display:none" id="mySidebar2" position="relative" z-index="2">
+        <button onclick="open_sidebar()" class="back">↩</button>
+        <h2 style="color: rgb(113, 113, 113);" class="let_space">༼ つ◕_◕ ༽つ便利超商</h2>
+            <p>
+               <label for="7-11"> <input type="checkbox" name="7-11" value="7-11" id="7-11"  /><span class="info5">7-11</span></label>
+            </p>
+            <p>
+               <label for="全家"><input type="checkbox" name="全家" value="全家" id="全家"  /><span class="info5">全家</span></label>
+            </p>
+            <p>
+               <label for="萊爾富"><input type="checkbox" name="萊爾富" value="萊爾富" id="萊爾富" /><span class="info5">萊爾富</span></label>
+            </p>
+            <p>
+                <label for="OK"><input type="checkbox" name="OK" value="OK" id="OK" /><span class="info5">OK</span></label>
+            </p>
+            <p>
+                <label for="全聯"><input type="checkbox" name="全聯" value="全聯" id="全聯" /><span class="info5">全聯</span></label>
+            </p>
+        <h2 style="color: rgb(113, 113, 113);" class="let_space">༼ つ ◕_◕ ༽つ美食餐飲</h2>
+            <p>
+               <label for="美食小吃"> <input type="checkbox" name="美食小吃" value="美食小吃" id="美食小吃" /><span class="info4">美食小吃</span></label>
+            </p>
+            <p>
+               <label for="蛋糕甜點"><input type="checkbox" name="蛋糕甜點" value="蛋糕甜點" id="蛋糕甜點" /><span class="info4">蛋糕甜點</span></label>
+            </p>
+            <p>
+               <label for="飲料冰品"><input type="checkbox" name="飲料冰品" value="飲料冰品" id="飲料冰品" /><span class="info4">飲料冰品</span></label>
+            </p>
+            <p>
+                <label for="咖啡廳"><input type="checkbox" name="咖啡廳" value="咖啡廳" id="咖啡廳" /><span class="info4">咖啡廳</span></label>
+            </p>
+            <p>
+                <label for="伴手禮"><input type="checkbox" name="伴手禮" value="伴手禮" id="伴手禮" /><span class="info4">伴手禮</span></label>
+            </p>
+        
+    </div>
+
     <div class="open">
         <button class="opb" onclick="w3_open()"position="relative" z-index="1">☰</button>
       </div>
@@ -218,30 +256,17 @@
     document.getElementById("mySidebar").style.display = "none";
     }
 
-        //取得使用者位置
+    function open_sidebar2(){
+    document.getElementById("mySidebar").style.display = "none";
+    document.getElementById("mySidebar2").style.display = "block";
+    }
 
-        /*//計算自己到公車站牌的距離 lat1,lon1是自己的位置 lat2,lon2是公車站(出發地)的位置
-        function distance(lat1, lon1, lat2, lon2) {
-         if ((lat1 == lat2) && (lon1 == lon2)) {
-            return 0;
-        }   
-        else {
-        var radlat1 = Math.PI * lat1/180;
-        var radlat2 = Math.PI * lat2/180;
-        var theta = lon1-lon2;
-        var radtheta = Math.PI * theta/180;
-        var dist = Math.sin(radlat1) * Math.sin(radlat2) + Math.cos(radlat1) * Math.cos(radlat2) * Math.cos(radtheta);
-        if (dist > 1) {
-            dist = 1;
-        }
-        dist = Math.acos(dist);
-        dist = dist * 180/Math.PI;
-        dist = dist * 60 * 1.1515;
-        dist = dist * 1.609344 
-        return dist;
-        }
-    } 
-    
+    function open_sidebar(){
+    document.getElementById("mySidebar").style.display = "block";
+    document.getElementById("mySidebar2").style.display = "none";    
+    }
+
+        /*
         //介接的part
 
         var places=[];
@@ -251,8 +276,8 @@
         //渲染的part
         function renderPlaces(places) {
           let scene = document.querySelector('a-scene');
-          const latitude = 22.534673656027547;  
-          const longitude = 120.45896646526651; 
+          const latitude = places[0].latitude;  
+          const longitude = places[0].longitude; 
 
           const billboard = document.createElement('a-entity');
           billboard.setAttribute('gps-entity-place', `latitude: ${latitude}; longitude: ${longitude}`);
