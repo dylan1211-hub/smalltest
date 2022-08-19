@@ -1,0 +1,696 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset='utf-8'>
+	<meta http-equiv='X-UA-Compatible' content='IE=edge'>
+	<title>GeoAR.js demo</title>
+	<script src="https://aframe.io/releases/0.9.2/aframe.min.js"></script>
+	<script src="https://raw.githack.com/jeromeetienne/AR.js/master/aframe/build/aframe-ar.min.js"></script>
+	<script src="https://raw.githack.com/donmccurdy/aframe-extras/master/dist/aframe-extras.loaders.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.10.2/p5.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.10.2/addons/p5.sound.min.js"></script>
+	<script>THREEx.ArToolkitContext.baseURL="https://raw.githack.com/jeromeetienne/ar.js/master/three.js/";</script>
+	<script src="https://kit.fontawesome.com/9a416a1cca.js" crossorigin="anonymous"></script>
+</head>
+
+<link rel="stylesheet" href="./index.css">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+
+<body style='margin: 0; overflow: hidden;'>
+
+	<div class="panel" style="display:none" id="mySidebar" position="relative" z-index="2">
+		<button onclick="w3_close()" class="close">X</button>&emsp;&emsp;&emsp;&emsp;<button onclick="open_sidebar2()" class="os2b" >周邊休息據點→</button>
+		<h2 style="color: rgb(113, 113, 113);" class="let_space">起點</h2>
+			<span class="info1">     晴天    </span><br><br>
+			<span class="info1">溫度:33℃ 濕度: 10%  </span><br><br>
+			<span class="info1">降雨機率 : 10%</span><br><br>
+			<span class="info1"> AQI : 19  </span>
+		<h2 style="color: rgb(113, 113, 113);" class="let_space">終點</h2>
+			<span class="info3">  晴時多雲 </span><br><br>
+			<span class="info3">溫度:31℃ 濕度: 20%  </span><br><br>
+			<span class="info3">降雨機率 : 30%</span><br><br>
+			<span class="info3"> AQI : 10  </span><br><br><br> 
+	</div>
+
+	<div class="panel2" style="display:none" id="mySidebar2" position="relative" z-index="2">
+		<button onclick="open_sidebar()" class="back">←</button>
+		<h2 style="color: rgb(113, 113, 113);" class="let_space">༼ つ◕_◕ ༽つ便利超商</h2>
+			<p><label for="7-11"><input type="checkbox" name="7-11" value="seven" id="seven" onchange="getConv(this)"/><span class="info5">7-11</span></label></p>
+			<p><label for="全家"><input type="checkbox" name="全家" value="fami" id="fami" onchange="getConv(this)"/><span class="info5">全家</span></label></p>
+			<p><label for="萊爾富"><input type="checkbox" name="萊爾富" value="hilife" id="hilife" onchange="getConv(this)"/><span class="info5">萊爾富</span></label></p>
+			<p><label for="OK"><input type="checkbox" name="OK" value="ok" id="ok" onchange="getConv(this)"/><span class="info5">OK</span></label></p>
+			<p><label for="全聯"><input type="checkbox" name="全聯" value="mxmart" id="mxmart" onchange="getConv(this)"/><span class="info5">全聯</span></label></p>
+		<h2 style="color: rgb(113, 113, 113);" class="let_space">༼ つ ◕_◕ ༽つ美食餐飲</h2>
+			<p><label for="美食小吃"><input type="checkbox" name="美食小吃" value="snacks" id="snacks" onchange="getRest(this)"/><span class="info4">美食小吃</span></label></p>
+			<p><label for="蛋糕甜點"><input type="checkbox" name="蛋糕甜點" value="dessert" id="dessert" onchange="getRest(this)"/><span class="info4">蛋糕甜點</span></label></p>
+			<p><label for="飲料冰品"><input type="checkbox" name="飲料冰品" value="drinks" id="drinks" onchange="getRest(this)"/><span class="info4">飲料冰品</span></label></p>
+			<p><label for="咖啡廳"><input type="checkbox" name="咖啡廳" value="cafe" id="cafe" onchange="getRest(this)"/><span class="info4">咖啡廳</span></label></p>
+			<p><label for="伴手禮"><input type="checkbox" name="伴手禮" value="gift" id="gift" onchange="getRest(this)"/><span class="info4">伴手禮</span></label></p>
+	</div>
+
+	<div class="open">
+		<button class="opb" onclick="w3_open()"position="relative" z-index="1"><span class="mark">☰</span></button>
+	</div>
+      
+	<span id = "d" style="width:180px ; height:40px ; position:fixed; left: 1px; bottom: 43px;display: block;
+		background-color: rgba(61, 223, 255, 0.674);color: #ffffff; border-radius: 10px; font-size: 26px;text-align: center; " ></span>
+	<span id = "t" style="width:180px ; height:40px ; position:fixed; left: 1px; bottom: 2px;display: block;
+		background-color: rgba(61, 177, 255, 0.674);color: #ffffff; border-radius: 10px; font-size: 26px;text-align: center; " ></span>
+
+	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDP_8BwsuhrCaT7AovatGprt01OE6cke4E"></script>
+	<script>
+		window.onload = () => {
+			const _this=this;
+			if(navigator.geolocation) {
+				// 使用者不提供權限，或是發生其它錯誤
+				function error() {
+					alert('無法取得你的位置');
+				}
+				// 使用者允許抓目前位置，回傳經緯度
+				function success(position) {
+					// 將所在地設成比較的點
+					let originPosition = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+					console.log(position.coords.latitude, position.coords.longitude);
+
+					// 設定目的地的點
+					let destination = new google.maps.LatLng(22.990544235195003, 120.22093319574124);
+
+					// 所在位置跟各點的距離
+					const service = new google.maps.DistanceMatrixService();
+
+					service.getDistanceMatrix({
+						origins: [originPosition],
+						destinations: [destination],
+						travelMode: 'WALKING', // 交通方式：BICYCLING(自行車)、DRIVING(開車，預設)、TRANSIT(大眾運輸)、WALKING(走路)
+						unitSystem: google.maps.UnitSystem.METRIC , // 單位 METRIC(公里，預設)、IMPERIAL(哩)
+						avoidHighways: true, // 是否避開高速公路
+						avoidTolls: true // 是否避開收費路線
+					}, callback);
+
+					function callback(response, status) {
+						console.log(response);
+						var d = response.rows[0].elements[0].distance.text;
+						var t = response.rows[0].elements[0].duration.text;
+						console.log(d);
+						console.log(t);
+						document.getElementById('d').innerHTML="距離:"+d;
+						document.getElementById('t').innerHTML="時間:"+t;
+					}
+				}
+				// 跟使用者拿所在位置的權限
+				navigator.geolocation.getCurrentPosition(success, error);
+			} else {
+				alert('Sorry, 你的裝置不支援地理位置功能。')
+			}
+		};
+	</script>
+	<a-scene
+		cursor='rayOrigin: mouse; fuse: true; fuseTimeout: 0;'
+		raycaster="objects: [gps-entity-place];useWorldCoordinates:true"
+		vr-mode-ui='enabled: false' 
+		arjs='sourceType: webcam; sourceWidth:1280; sourceHeight:960; displayWidth: 1280; displayHeight: 960; debugUIEnabled: false;'>
+
+		<a-entity gltf-model="https://dylan1211-hub.github.io/smalltest/bus_test/assets/arrow1/scene.gltf" rotation="0 0 0" scale="0.08 0.08 0.08" 
+			position="1 1.2 1" animation-mixer >
+		</a-entity>
+
+		<img id="compass" src="https://dylan1211-hub.github.io/smalltest/bus_test/assets/arrow1.png" rotation="30 0 0" scale="0.01 0.01 0.01"
+			style="width:150px ; height:40px ; position:fixed; left: 25px; top: 525px;display: block;"/>
+		<script src="https://unpkg.com/@joeyklee/compass.js@latest/dist/compass.js"></script>
+		<script>
+			let compass;
+			window.addEventListener('DOMContentLoaded', async () => {
+				alert("a compass that always points you to Bus Stop");
+				const $compass = document.querySelector("#compass");
+
+				compass = new Compass();
+				await compass.init();
+				
+				setInterval( () => {
+					const currentPosition = {lat: compass.position.coords.latitude, lng: compass.position.coords.longitude};
+					const angleToStop = compass.getBearingToDestination(currentPosition, {lat:22.990544235195003, lng:120.22093319574124});
+					$compass.style.transform = `rotate(${Math.round(angleToStop)}deg)`;
+				}, 100);
+			});
+		</script>
+
+		<a-entity gltf-model="https://dylan1211-hub.github.io/smalltest/bus_test/assets/billboard/scene.gltf" rotation="0 -30 0" scale="3 2 2" 
+				gps-entity-place="longitude:120.22093319574124; latitude:22.990544235195003 " animation-mixer >
+			<a-text value="Private Chang Jung" color="#70C1CF" zOffset="9999" anchor="left" baseline="top" scale="0.3 0.3 0.3" position="-0.35 0.83 1"></a-text>
+			<a-text value="Girls' Senior High School" color="#70C1CF" zOffset="9999" anchor="left" baseline="top" scale="0.3 0.3 0.3" position="-0.35 0.77 1"></a-text>
+			<a-text value="- - - - - - - - - - - - - - - - - - - - " color="gray" zOffset="9999" anchor="left" baseline="top" scale="0.3 0.3 0.3" position="-0.35 0.72 1"></a-text>
+			<a-text value="Route Name" color="gray" zOffset="9999" anchor="left" baseline="top" scale="0.3 0.3 0.3" position="-0.35 0.67 1"></a-text>
+			<a-text value="70" color="#E6C35C" zOffset="9999" anchor="left" baseline="top" scale="0.4 0.4 0.4" position="0.16 0.68 1"></a-text>
+			<a-text value="Now at" color="gray" zOffset="9999" anchor="left" baseline="top" scale="0.3 0.3 0.3" position="-0.35 0.60 1"></a-text>
+			<a-text value="Dadong Night Market -> " color="#528B40" zOffset="9999" anchor="left" baseline="top" scale="0.3 0.3 0.3" position="-0.37 0.53 1"></a-text>
+			<a-text value="Shengli School" color="#528B40" zOffset="9999" anchor="left" baseline="top" scale="0.3 0.3 0.3" position="-0.37 0.44 1"></a-text>
+			<a-text value="Estimate Time" color="gray" zOffset="9999" anchor="left" baseline="top" scale="0.3 0.3 0.3" position="-0.35 0.36 1"></a-text>
+			<a-text value="5" color="#CD5C5C" zOffset="9999" anchor="left" baseline="top" scale="0.4 0.4 0.4" position="0.14 0.37 1"></a-text>
+			<a-text value="min" color="gray" zOffset="9999" anchor="left" baseline="top" scale="0.3 0.3 0.3" position="0.22 0.36 1"></a-text>
+			<a-text value="---------------------------------------" color="gray" zOffset="9999" anchor="left" baseline="top" scale="0.3 0.3 0.3" position="-0.37 0.31 1"></a-text>
+			<a-text value="Route Name" color="gray" zOffset="9999" anchor="left" baseline="top" scale="0.3 0.3 0.3" position="-0.35 0.26 1"></a-text>
+			<a-text value="0" color="#E6C35C" zOffset="9999" anchor="left" baseline="top" scale="0.4 0.4 0.4" position="0.16 0.27 1"></a-text>
+			<a-text value="Now at" color="gray" zOffset="9999" anchor="left" baseline="top" scale="0.3 0.3 0.3" position="-0.35 0.20 1"></a-text>
+			<a-text value="Carrefour ->" color="#528B40" zOffset="9999" anchor="left" baseline="top" scale="0.3 0.3 0.3" position="-0.35 0.13 1"></a-text>
+			<a-text value="wennan rd. intersection" color="#528B40" zOffset="9999" anchor="left" baseline="top" scale="0.3 0.3 0.3" position="-0.35 0.06 1"></a-text>
+			<a-text value="Estimate Time" color="gray" zOffset="9999" anchor="left" baseline="top" scale="0.3 0.3 0.3" position="-0.35 -0.01 1"></a-text>
+			<a-text value="6" color="#CD5C5C" zOffset="9999" anchor="left" baseline="top" scale="0.4 0.4 0.4" position="0.09 0 1"></a-text>
+			<a-text value="min" color="gray" zOffset="9999" anchor="left" baseline="top" scale="0.3 0.3 0.3" position="0.22 -0.01 1"></a-text>
+		</a-entity>
+
+		<a-camera gps-camera rotation-reader>
+			<!---<input type="checkbox"  id="side-menu-switch">
+			<div class="side-menu">
+				<label for="side-menu-switch">
+					<i class="fas fa-angle-left"></i>
+				</label>
+			</div>--> 
+		</a-camera>
+	</a-scene>
+
+	<div id="map"></div>
+	<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+	<script>
+
+		function w3_open() {
+			document.getElementById("mySidebar").style.display = "block";
+		}
+
+		function w3_close() {
+			document.getElementById("mySidebar").style.display = "none";
+		}
+
+		function open_sidebar2(){
+			document.getElementById("mySidebar").style.display = "none";
+			document.getElementById("mySidebar2").style.display = "block";
+		}
+
+		function open_sidebar(){
+			document.getElementById("mySidebar").style.display = "block";
+			document.getElementById("mySidebar2").style.display = "none";    
+		}
+
+		async function getConv(conv) {
+			if (conv.checked === true) {
+				console.log(conv.value);
+				const conv_res = await fetch('https://httpbin.org/ip',).then(function(response) {
+          console.log(response);
+          return response.json();
+        }).then(function(data) {
+          console.log(data);
+        }).catch(function(err) {
+          console.log(err);
+        });
+			} else {
+				console.log(conv.value+" unchecked");
+			}
+		}
+
+		function getRest(restaurant) {
+			if (restaurant.checked === true) {
+				console.log(restaurant.value);
+				
+			} else {
+				console.log(restaurant.value+" unchecked");
+			}
+		}
+
+		/*
+		//介接的part
+
+		var places=[];
+		renderPlaces(places);
+
+		//便利商店
+		var constores=[]
+		renderConstores(constores);
+
+		//美食餐飲
+		var food1=[]
+		renderFood1(food1);
+		var food2=[]
+		renderFood2(food2);
+		var food3=[]
+		renderFood3(food3);
+		var food4=[]
+		renderFood4(food4);
+		var food5=[]
+		renderFood5(food);
+
+
+		//渲染的part
+		function renderPlaces(places) {
+			let scene = document.querySelector('a-scene');
+			const latitude = places[0].latitude;  
+			const longitude = places[0].longitude; 
+
+			const billboard = document.createElement('a-entity');
+			billboard.setAttribute('gps-entity-place', `latitude: ${latitude}; longitude: ${longitude}`);
+			billboard.setAttribute('url','https://dylan1211-hub.github.io/smalltest/bus_test/assets/billboard/scene.gltf');
+			billboard.setAttribute('rotation','0 ,0 ,0');
+			billboard.setAttribute('scale','10,10,10');
+			billboard.setAttribute('animation-mixer','')
+
+			billboard.addEventListener('loaded', () => window.dispatchEvent(new CustomEvent('gps-entity-place-loaded')));
+
+			const title = document.createElement('a-text');
+				title.setAttribute('value', places[i].name);
+				title.setAttribute('scale', '0.3 0.3 0.3');
+				title.setAttribute('color','gray');
+				title.setAttribute('zOffset','9999');
+				title.setAttribute('anchor','left');
+				title.setAttribute('baseline','top');
+				title.setAttribute('position','-0.3 0.65 1')
+
+				title.addEventListener('loaded', () => window.dispatchEvent(new CustomEvent('gps-entity-place-loaded')));
+		
+		
+				scene.appendChild(billboard);
+				billboard.appendChild(title);
+		}
+
+		//渲染便利商店
+		function renderConstores(constores){
+			for(let i=0;i<=constores.length;i++){
+				let scene = document.querySelector('a-scene');
+				const latitude = constores[i].Lat;
+				const longitude = constores[i].Lon;
+				
+				// add place icon 
+            	const icon = document.createElement('a-image');
+            	icon.setAttribute('gps-entity-place', `latitude: ${latitude}; longitude: ${longitude}`);
+            	icon.setAttribute('name', constores[i].店名);      
+				icon.setAttribute('building', constores[i].USER_分_1,C,254);
+				icon.setAttribute('address', constores[i].IN_SingleL,C,200);
+				if(constores[i].店名=="seven"){
+					icon.setAttribute('src','https://dylan1211-hub.github.io/smalltest/bus_test/assets/seven.png');
+				}
+				else if(constores[i].店名=="全家"){
+					icon.setAttribute('src','https://dylan1211-hub.github.io/smalltest/bus_test/assets/FamilyMart.png');
+				}
+				else if(constores[i].店名=="全聯"){
+					icon.setAttribute('src','https://dylan1211-hub.github.io/smalltest/bus_test/assets/ch.png');
+				}
+				else if(constores[i].店名=="萊爾富"){
+					icon.setAttribute('src','https://dylan1211-hub.github.io/smalltest/bus_test/assets/Hi-Life.png');
+				}
+				else if(constores[i].店名=="OK"){
+					icon.setAttribute('src','https://dylan1211-hub.github.io/smalltest/bus_test/assets/OK-kogo.png');
+				}
+				
+				// for debug purposes, just show in a bigger scale, otherwise I have to personally go on places...
+				icon.setAttribute('scale','10, 10');
+				icon.addEventListener('loaded', () => window.dispatchEvent(new CustomEvent('gps-entity-place-loaded')));
+
+				icon.addEventListener('click', function () {
+                ev.stopPropagation();
+                ev.preventDefault();
+    
+					const name = ev.target.getAttribute('name');
+					const building = ev.target.getAttribute('building');
+					const adress = ev.target.getAttribute('adress');
+
+					const el = ev.detail.intersection && ev.detail.intersection.object.el;
+		
+					if (el && el === ev.target) {
+		
+						const label = document.createElement('span');
+						const container = document.createElement('div');
+						container.setAttribute('id', 'place-label');
+						label.innerHTML = "商店 : "+name+"<br/>"+"分店 : "+building+"<br/>"+"地址 : "+adress;
+						container.appendChild(label);
+						document.body.appendChild(container);
+		
+						setTimeout(() => {
+							container.parentElement.removeChild(container);
+						}, 3000);
+					}
+            	});
+
+			}
+		}
+
+		function renderFood1(food1){
+			for(let i=0;i<=food1.length;i++){
+				let scene = document.querySelector('a-scene');
+				const latitude = food1[i].lat;
+				const longitude = food1[i].long;
+				
+				// add place icon 
+            	const icon = document.createElement('a-image');
+            	icon.setAttribute('gps-entity-place', `latitude: ${latitude}; longitude: ${longitude}`);
+            	icon.setAttribute('name', food1[i].name);      
+				icon.setAttribute('category', food1[i].category);
+				icon.setAttribute('address', food1[i].address);
+				icon.setAttribute('tel', food1[i].tel);
+				icon.setAttribute('open_time', food1[i].open_time);
+				icon.setAttribute('src','https://dylan1211-hub.github.io/smalltest/bus_test/assets/dish.png');
+				
+				// for debug purposes, just show in a bigger scale, otherwise I have to personally go on places...
+				icon.setAttribute('scale','10, 10');
+				icon.addEventListener('loaded', () => window.dispatchEvent(new CustomEvent('gps-entity-place-loaded')));
+
+				icon.addEventListener('click', function () {
+                ev.stopPropagation();
+                ev.preventDefault();
+    
+					const name = ev.target.getAttribute('name');
+					const category = ev.target.getAttribute('category');
+					const adress = ev.target.getAttribute('adress');
+					const tel = ev.target.getAttribute('tel');
+					const open_time = ev.target.getAttribute('open_time');
+
+					const el = ev.detail.intersection && ev.detail.intersection.object.el;
+		
+					if (el && el === ev.target) {
+		
+						const label = document.createElement('span');
+						const container = document.createElement('div');
+						container.setAttribute('id', 'place-label');
+						label.innerHTML = "商店 : "+name+"<br/>"+"種類 : "+category+"<br/>"+"地址 : "+adress+"<br/>"+"電話 : "+tel+"<br/>"+"營業時間 : "+open_time;
+						container.appendChild(label);
+						document.body.appendChild(container);
+		
+						setTimeout(() => {
+							container.parentElement.removeChild(container);
+						}, 3000);
+					}
+            	});
+
+			}
+		}
+
+		function renderFood2(food2){
+			for(let i=0;i<=food2.length;i++){
+				let scene = document.querySelector('a-scene');
+				const latitude = food2[i].lat;
+				const longitude = food2[i].long;
+				
+				// add place icon 
+            	const icon = document.createElement('a-image');
+            	icon.setAttribute('gps-entity-place', `latitude: ${latitude}; longitude: ${longitude}`);
+            	icon.setAttribute('name', food2[i].name);      
+				icon.setAttribute('category', food2[i].category);
+				icon.setAttribute('address', food2[i].address);
+				icon.setAttribute('tel', food2[i].tel);
+				icon.setAttribute('open_time', food2[i].open_time);
+				icon.setAttribute('src','https://dylan1211-hub.github.io/smalltest/bus_test/assets/soft-drink.png');
+				
+				// for debug purposes, just show in a bigger scale, otherwise I have to personally go on places...
+				icon.setAttribute('scale','10, 10');
+				icon.addEventListener('loaded', () => window.dispatchEvent(new CustomEvent('gps-entity-place-loaded')));
+
+				icon.addEventListener('click', function () {
+                ev.stopPropagation();
+                ev.preventDefault();
+    
+					const name = ev.target.getAttribute('name');
+					const category = ev.target.getAttribute('category');
+					const adress = ev.target.getAttribute('adress');
+					const tel = ev.target.getAttribute('tel');
+					const open_time = ev.target.getAttribute('open_time');
+
+					const el = ev.detail.intersection && ev.detail.intersection.object.el;
+		
+					if (el && el === ev.target) {
+		
+						const label = document.createElement('span');
+						const container = document.createElement('div');
+						container.setAttribute('id', 'place-label');
+						label.innerHTML = "商店 : "+name+"<br/>"+"種類 : "+category+"<br/>"+"地址 : "+adress+"<br/>"+"電話 : "+tel+"<br/>"+"營業時間 : "+open_time;
+						container.appendChild(label);
+						document.body.appendChild(container);
+		
+						setTimeout(() => {
+							container.parentElement.removeChild(container);
+						}, 3000);
+					}
+            	});
+
+			}
+		}
+		
+		function renderFood3(food3){
+			for(let i=0;i<=food3.length;i++){
+				let scene = document.querySelector('a-scene');
+				const latitude = food3[i].lat;
+				const longitude = food3[i].long;
+				
+				// add place icon 
+            	const icon = document.createElement('a-image');
+            	icon.setAttribute('gps-entity-place', `latitude: ${latitude}; longitude: ${longitude}`);
+            	icon.setAttribute('name', food3[i].name);      
+				icon.setAttribute('category', food3[i].category);
+				icon.setAttribute('address', food3[i].address);
+				icon.setAttribute('tel', food3[i].tel);
+				icon.setAttribute('open_time', food3[i].open_time);
+				icon.setAttribute('src','https://dylan1211-hub.github.io/smalltest/bus_test/assets/coffee.png');
+				
+				// for debug purposes, just show in a bigger scale, otherwise I have to personally go on places...
+				icon.setAttribute('scale','10, 10');
+				icon.addEventListener('loaded', () => window.dispatchEvent(new CustomEvent('gps-entity-place-loaded')));
+
+				icon.addEventListener('click', function () {
+                ev.stopPropagation();
+                ev.preventDefault();
+    
+					const name = ev.target.getAttribute('name');
+					const category = ev.target.getAttribute('category');
+					const adress = ev.target.getAttribute('adress');
+					const tel = ev.target.getAttribute('tel');
+					const open_time = ev.target.getAttribute('open_time');
+
+					const el = ev.detail.intersection && ev.detail.intersection.object.el;
+		
+					if (el && el === ev.target) {
+		
+						const label = document.createElement('span');
+						const container = document.createElement('div');
+						container.setAttribute('id', 'place-label');
+						label.innerHTML = "商店 : "+name+"<br/>"+"種類 : "+category+"<br/>"+"地址 : "+adress+"<br/>"+"電話 : "+tel+"<br/>"+"營業時間 : "+open_time;
+						container.appendChild(label);
+						document.body.appendChild(container);
+		
+						setTimeout(() => {
+							container.parentElement.removeChild(container);
+						}, 3000);
+					}
+            	});
+
+			}
+		}
+
+		function renderFood4(food4){
+			for(let i=0;i<=food4.length;i++){
+				let scene = document.querySelector('a-scene');
+				const latitude = food4[i].lat;
+				const longitude = food4[i].long;
+				
+				// add place icon 
+            	const icon = document.createElement('a-image');
+            	icon.setAttribute('gps-entity-place', `latitude: ${latitude}; longitude: ${longitude}`);
+            	icon.setAttribute('name', food4[i].name);      
+				icon.setAttribute('category', food4[i].category);
+				icon.setAttribute('address', food4[i].address);
+				icon.setAttribute('tel', food4[i].tel);
+				icon.setAttribute('open_time', food4[i].open_time);
+				icon.setAttribute('src','https://dylan1211-hub.github.io/smalltest/bus_test/assets/dessert.png');
+				
+				// for debug purposes, just show in a bigger scale, otherwise I have to personally go on places...
+				icon.setAttribute('scale','10, 10');
+				icon.addEventListener('loaded', () => window.dispatchEvent(new CustomEvent('gps-entity-place-loaded')));
+
+				icon.addEventListener('click', function () {
+                ev.stopPropagation();
+                ev.preventDefault();
+    
+					const name = ev.target.getAttribute('name');
+					const category = ev.target.getAttribute('category');
+					const adress = ev.target.getAttribute('adress');
+					const tel = ev.target.getAttribute('tel');
+					const open_time = ev.target.getAttribute('open_time');
+
+					const el = ev.detail.intersection && ev.detail.intersection.object.el;
+		
+					if (el && el === ev.target) {
+		
+						const label = document.createElement('span');
+						const container = document.createElement('div');
+						container.setAttribute('id', 'place-label');
+						label.innerHTML = "商店 : "+name+"<br/>"+"種類 : "+category+"<br/>"+"地址 : "+adress+"<br/>"+"電話 : "+tel+"<br/>"+"營業時間 : "+open_time;
+						container.appendChild(label);
+						document.body.appendChild(container);
+		
+						setTimeout(() => {
+							container.parentElement.removeChild(container);
+						}, 3000);
+					}
+            	});
+
+			}
+		}
+
+		function renderFood5(food5){
+			for(let i=0;i<=food5.length;i++){
+				let scene = document.querySelector('a-scene');
+				const latitude = food5[i].lat;
+				const longitude = food5[i].long;
+				
+				// add place icon 
+            	const icon = document.createElement('a-image');
+            	icon.setAttribute('gps-entity-place', `latitude: ${latitude}; longitude: ${longitude}`);
+            	icon.setAttribute('name', food5[i].name);      
+				icon.setAttribute('category', food5[i].category);
+				icon.setAttribute('address', food5[i].address);
+				icon.setAttribute('tel', food5[i].tel);
+				icon.setAttribute('open_time', food5[i].open_time);
+				icon.setAttribute('src','https://dylan1211-hub.github.io/smalltest/bus_test/assets/online-shopping.png');
+				
+				// for debug purposes, just show in a bigger scale, otherwise I have to personally go on places...
+				icon.setAttribute('scale','10, 10');
+				icon.addEventListener('loaded', () => window.dispatchEvent(new CustomEvent('gps-entity-place-loaded')));
+
+				icon.addEventListener('click', function () {
+                ev.stopPropagation();
+                ev.preventDefault();
+    
+					const name = ev.target.getAttribute('name');
+					const category = ev.target.getAttribute('category');
+					const adress = ev.target.getAttribute('adress');
+					const tel = ev.target.getAttribute('tel');
+					const open_time = ev.target.getAttribute('open_time');
+
+					const el = ev.detail.intersection && ev.detail.intersection.object.el;
+		
+					if (el && el === ev.target) {
+		
+						const label = document.createElement('span');
+						const container = document.createElement('div');
+						container.setAttribute('id', 'place-label');
+						label.innerHTML = "商店 : "+name+"<br/>"+"種類 : "+category+"<br/>"+"地址 : "+adress+"<br/>"+"電話 : "+tel+"<br/>"+"營業時間 : "+open_time;
+						container.appendChild(label);
+						document.body.appendChild(container);
+		
+						setTimeout(() => {
+							container.parentElement.removeChild(container);
+						}, 3000);
+					}
+            	});
+
+			}
+		}
+		*/
+		
+		// OSM leaflet(web map)的part
+		document.addEventListener('DOMContentLoaded', () => {  
+			const zoo = [22.998593072090404, 120.2197879523883]; // 預設中心點為台北市動物園
+
+			// 建立地圖
+			const map = L.map('map', {
+				attributionControl: false, // 是否秀出 leaflet
+				zoomControl: false , // 是否秀出 - + 按鈕
+				zoom: 17, // 0-18
+			});
+			L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
+
+			// 建立 marker
+			const customIcon = L.icon({
+				iconUrl: 'https://letswritetw.github.io/letswrite-leaflet-osm-locate/dist/dot.svg',
+				iconSize: [16, 16],
+			});
+			const marker = L.marker(zoo, {
+				icon: customIcon,
+				title: '跟 <a> 的 title 一樣', // 跟 <a> 的 title 一樣
+				opacity: 1.0
+			}).addTo(map);
+
+			// 跟使用者要位置
+			// 參考文件：https://leafletjs.com/examples/mobile/、https://leafletjs.com/reference-1.7.1.html#map-locate
+			map.locate({ setView: true, watch: true, maxZoom: 18, enableHighAccuracy: true });
+
+			// 使用者不提供位置
+			function errorHandler(e) {
+				console.log("e", e);
+				window.alert('無法判斷您的所在位置，無法使用此功能。預設地點將為 測量系館');
+				map.setView(zoo, 18); // 中心移到動物園
+				moveTo(map); // 移動到指定座標（平滑 || 縮放 效果）
+				panBy(map); // 移動 x, y 位置
+			}
+			map.on('locationerror', errorHandler);
+
+			// 使用者提供位置
+			function foundHandler(e) {
+				console.log("e", e);
+				marker.setLatLng(e.latlng); // 移動 marker
+				map.setView(e.latlng, 17);
+				moveTo(map); // 移動到指定座標（平滑 || 縮放 效果）
+				panBy(map); // 移動 x, y 位置
+			}
+			map.on('locationfound', foundHandler);
+
+
+			// 移動到指定座標（平滑 || 縮放 效果）
+			function moveTo(map) {
+				const btnPanto = document.querySelectorAll('.js-panto');
+				Array.prototype.forEach.call(btnPanto, pan => {
+					pan.addEventListener('click', e => {
+						e.preventDefault();
+						let latLng = e.target.dataset.to.split(',');
+						let name = e.target.textContent;
+						let toggleFly = document.getElementById('flyTo').checked;
+						const popup = L.popup();
+						popup
+								.setLatLng(latLng)
+								.setContent(`${name}`)
+								.openOn(map);
+						toggleFly ? map.flyTo(latLng) : map.panTo(latLng);
+					});
+				});
+			};
+
+			// 移動 x, y 位置
+			function panBy(map) {
+				const btnPanby = document.querySelectorAll('.js-panby');
+				Array.prototype.forEach.call(btnPanby, pan => {
+					pan.addEventListener('click', e => {
+						e.preventDefault();
+						let times = e.target.dataset.times;
+						let point = 50 * times;
+						let points = [point, point];
+						map.panBy(points);
+					});
+				});
+			}
+
+			var stores = [
+					{
+						"type": "FeatureCollection",
+						"features": [
+							{
+								"type": "Feature",
+								"geometry": {
+										"type": "Point",
+										"coordinates":  [120.22093319574124,22.990544235195003 ]
+								},
+								"properties": {
+								"type":"3C",
+								}
+							}
+						]
+					}
+			];
+
+			var MyIcon = L.icon({
+				iconUrl: './assets/r4.png',
+				iconSize:     [10, 10], // size of the icon
+				shadowSize:   [50, 64], // size of the shadow
+				iconAnchor:   [22, 94], // point of the icon which will correspond to marker's location
+				shadowAnchor: [4, 62],  // the same for the shadow
+				popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
+			});
+
+			L.geoJson(stores,{icon: MyIcon}).addTo(map);
+
+		});
+	</script>
+</body>
