@@ -35,17 +35,17 @@
 	<div class="panel2" style="display:none" id="mySidebar2" position="relative" z-index="2">
 		<button onclick="open_sidebar()" class="back">←</button>
 		<h2 style="color: rgb(113, 113, 113);" class="let_space">༼ つ◕_◕ ༽つ便利超商</h2>
-			<p><label for="7-11"> <input type="checkbox" name="7-11" value="7-11" id="7-11"  /><span class="info5">7-11</span></label></p>
-			<p><label for="全家"><input type="checkbox" name="全家" value="全家" id="全家"  /><span class="info5">全家</span></label></p>
-			<p><label for="萊爾富"><input type="checkbox" name="萊爾富" value="萊爾富" id="萊爾富" /><span class="info5">萊爾富</span></label></p>
-			<p><label for="OK"><input type="checkbox" name="OK" value="OK" id="OK" /><span class="info5">OK</span></label></p>
-			<p><label for="全聯"><input type="checkbox" name="全聯" value="全聯" id="全聯" /><span class="info5">全聯</span></label></p>
+			<p><label for="7-11"><input type="checkbox" name="7-11" value="seven" id="seven" onchange="getConv(this)"/><span class="info5">7-11</span></label></p>
+			<p><label for="全家"><input type="checkbox" name="全家" value="fami" id="fami" onchange="getConv(this)"/><span class="info5">全家</span></label></p>
+			<p><label for="萊爾富"><input type="checkbox" name="萊爾富" value="hilife" id="hilife" onchange="getConv(this)"/><span class="info5">萊爾富</span></label></p>
+			<p><label for="OK"><input type="checkbox" name="OK" value="ok" id="ok" onchange="getConv(this)"/><span class="info5">OK</span></label></p>
+			<p><label for="全聯"><input type="checkbox" name="全聯" value="mxmart" id="mxmart" onchange="getConv(this)"/><span class="info5">全聯</span></label></p>
 		<h2 style="color: rgb(113, 113, 113);" class="let_space">༼ つ ◕_◕ ༽つ美食餐飲</h2>
-			<p><label for="美食小吃"> <input type="checkbox" name="美食小吃" value="美食小吃" id="美食小吃" /><span class="info4">美食小吃</span></label></p>
-			<p><label for="蛋糕甜點"><input type="checkbox" name="蛋糕甜點" value="蛋糕甜點" id="蛋糕甜點" /><span class="info4">蛋糕甜點</span></label></p>
-			<p><label for="飲料冰品"><input type="checkbox" name="飲料冰品" value="飲料冰品" id="飲料冰品" /><span class="info4">飲料冰品</span></label></p>
-			<p><label for="咖啡廳"><input type="checkbox" name="咖啡廳" value="咖啡廳" id="咖啡廳" /><span class="info4">咖啡廳</span></label></p>
-			<p><label for="伴手禮"><input type="checkbox" name="伴手禮" value="伴手禮" id="伴手禮" /><span class="info4">伴手禮</span></label></p>
+			<p><label for="美食小吃"><input type="checkbox" name="美食小吃" value="snacks" id="snacks" onchange="getRest(this)"/><span class="info4">美食小吃</span></label></p>
+			<p><label for="蛋糕甜點"><input type="checkbox" name="蛋糕甜點" value="dessert" id="dessert" onchange="getRest(this)"/><span class="info4">蛋糕甜點</span></label></p>
+			<p><label for="飲料冰品"><input type="checkbox" name="飲料冰品" value="drinks" id="drinks" onchange="getRest(this)"/><span class="info4">飲料冰品</span></label></p>
+			<p><label for="咖啡廳"><input type="checkbox" name="咖啡廳" value="cafe" id="cafe" onchange="getRest(this)"/><span class="info4">咖啡廳</span></label></p>
+			<p><label for="伴手禮"><input type="checkbox" name="伴手禮" value="gift" id="gift" onchange="getRest(this)"/><span class="info4">伴手禮</span></label></p>
 	</div>
 
 	<div class="open">
@@ -188,6 +188,25 @@
 		function open_sidebar(){
 			document.getElementById("mySidebar").style.display = "block";
 			document.getElementById("mySidebar2").style.display = "none";    
+		}
+
+		async function getConv(conv) {
+			if (conv.checked === true) {
+				console.log(conv.value);
+				const conv_res = await fetch(conv.value);
+				console.log(conv_res.json());
+			} else {
+				console.log(conv.value+" unchecked");
+			}
+		}
+
+		function getRest(restaurant) {
+			if (restaurant.checked === true) {
+				console.log(restaurant.value);
+				
+			} else {
+				console.log(restaurant.value+" unchecked");
+			}
 		}
 
 		/*

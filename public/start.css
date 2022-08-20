@@ -1,0 +1,80 @@
+.let_space{
+    font-size: 60px;
+}
+
+.search {
+    position: relative;
+    width: 80%;
+
+}
+.search-bar {
+    border-radius: 10px;
+    width: 450px;
+    height: 68px;
+    font-size: 40px;
+    border: 3px solid #a4a4a4;
+    background-color: #ffffff;
+}
+.search-btn {
+    border-radius: 10px;
+    width: 150px;
+    height: 100px;
+    background-color: #a4a4a4;
+    color: #ffffff;
+    outline: none;
+    border: 2px solid #a4a4a4;
+    cursor: pointer;
+    position: absolute;
+    right:5px;
+    font-size: 36px;
+    justify-content: center;
+}
+.select {
+    border-radius: 10px;
+    width: 420px;
+    height: 80px;
+    font-size: 36px
+}
+.go{
+    width: 180px;
+    height: 120px;
+    border-radius: 10px;
+    background-color: #08b1faec;
+    border: 2px solid #ffffff;
+    color: #ffffff;
+    font-size: 48px
+}
+form{
+    margin: 5vmax 5vmax;
+    padding:3vmax;
+    border: 1px solid #dddddd;
+}
+.conf{
+    width: 120px;
+    height: 80px;
+    border-radius: 10px;
+    background-color: #b7b7b7;
+    border: 2px solid #ffffff;
+    color: #ffffff;
+    font-size: 20px 
+}
+.price{
+    font-size: 40px 
+}
+.ticket {
+    white-space: nowrap;
+    font-size: 40px;
+    font-weight: bold;
+    display: inline-block;
+    color: #515151;
+}
+.esri-button{
+    width: 160px;
+    height: 80px;
+    border-radius: 10px;
+    background-color: #909090ec;
+    border: 2px solid #ffffff;
+    color: #ffffff;
+    font-size: 28px
+}
+  
