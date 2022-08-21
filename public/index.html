@@ -73,7 +73,7 @@
 					console.log(position.coords.latitude, position.coords.longitude);
 
 					// 設定目的地的點
-					let destination = new google.maps.LatLng(22.990544235195003, 120.22093319574124);
+					let destination = new google.maps.LatLng(25.009821579761535, 121.50627815277606);
 
 					// 所在位置跟各點的距離
 					const service = new google.maps.DistanceMatrixService();
@@ -171,7 +171,6 @@
 	<div id="map"></div>
 	<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
 	<script>
-
 		function w3_open() {
 			document.getElementById("mySidebar").style.display = "block";
 		}
@@ -190,12 +189,75 @@
 			document.getElementById("mySidebar2").style.display = "none";    
 		}
 
+		let convData;
 		async function getConv(conv) {
 			if (conv.checked === true) {
 				console.log(conv.value);
 				const conv_res = await fetch(conv.value);
-				const data = await conv_res.json();
-				console.log(data.rows[0]);
+				const convData = await conv_res.json();
+				var constores = convData.rows;
+				function renderConstores(constores) {
+					console.log("renderConstores");
+					for(let i = 0 ; i < constores.length ; i++) {
+						console.log(constores[i]); // for test
+						console.log(i); // for test
+						let scene = document.querySelector('a-scene');
+						const latitude = constores[i].lat;
+						const longitude = constores[i].lon;
+						
+						// add place icon 
+						const icon = document.createElement('a-image');
+						icon.setAttribute('gps-entity-place', `latitude: ${latitude}; longitude: ${longitude}`);
+						icon.setAttribute('name', constores[i].category);      
+						// icon.setAttribute('building', constores[i].USER_分_1,C,254);
+						icon.setAttribute('address', constores[i].addess_name);
+						if(constores[i].店名=="seven"){
+							icon.setAttribute('src','https://dylan1211-hub.github.io/smalltest/bus_test/assets/seven.png');
+						}
+						else if(constores[i].店名=="全家"){
+							icon.setAttribute('src','https://dylan1211-hub.github.io/smalltest/bus_test/assets/FamilyMart.png');
+						}
+						else if(constores[i].店名=="全聯"){
+							icon.setAttribute('src','https://dylan1211-hub.github.io/smalltest/bus_test/assets/ch.png');
+						}
+						else if(constores[i].店名=="萊爾富"){
+							icon.setAttribute('src','https://dylan1211-hub.github.io/smalltest/bus_test/assets/Hi-Life.png');
+						}
+						else if(constores[i].店名=="OK"){
+							icon.setAttribute('src','https://dylan1211-hub.github.io/smalltest/bus_test/assets/OK-kogo.png');
+						}
+						
+						// for debug purposes, just show in a bigger scale, otherwise I have to personally go on places...
+						icon.setAttribute('scale','50, 50');
+						icon.addEventListener('loaded', () => window.dispatchEvent(new CustomEvent('gps-entity-place-loaded')));
+
+						icon.addEventListener('click', function() {
+							ev.stopPropagation();
+							ev.preventDefault();
+							const name = ev.target.getAttribute('name');
+							// const building = ev.target.getAttribute('building');
+							const address = ev.target.getAttribute('address');
+
+							const el = ev.detail.intersection && ev.detail.intersection.object.el;
+				
+							if (el && el === ev.target) {
+								const label = document.createElement('span');
+								const container = document.createElement('div');
+								container.setAttribute('id', 'place-label');
+								// label.innerHTML = "商店 : "+name+"<br/>"+"分店 : "+building+"<br/>"+"地址 : "+adress;
+								label.innerHTML = "商店 : " + name + "<br/>" + "地址 : " + address;
+								container.appendChild(label);
+								document.body.appendChild(container);
+				
+								setTimeout(() => {
+									container.parentElement.removeChild(container);
+								}, 3000);
+							}
+						});
+					}
+				}
+				console.log(convData.rows);
+				renderConstores(constores);
 			} else {
 				console.log(conv.value+" unchecked");
 			}
@@ -210,371 +272,371 @@
 			}
 		}
 
-		/*
+		
 		//介接的part
 
-		var places=[];
-		renderPlaces(places);
+		// var places=[];
+		// renderPlaces(places);
 
 		//便利商店
-		var constores=[]
-		renderConstores(constores);
+		// var constores = convData;
+		// renderConstores(constores);
 
 		//美食餐飲
-		var food1=[]
-		renderFood1(food1);
-		var food2=[]
-		renderFood2(food2);
-		var food3=[]
-		renderFood3(food3);
-		var food4=[]
-		renderFood4(food4);
-		var food5=[]
-		renderFood5(food);
+		// var food1=[]
+		// renderFood1(food1);
+		// var food2=[]
+		// renderFood2(food2);
+		// var food3=[]
+		// renderFood3(food3);
+		// var food4=[]
+		// renderFood4(food4);
+		// var food5=[]
+		// renderFood5(food);
 
 
 		//渲染的part
-		function renderPlaces(places) {
-			let scene = document.querySelector('a-scene');
-			const latitude = places[0].latitude;  
-			const longitude = places[0].longitude; 
+		// function renderPlaces(places) {
+		// 	let scene = document.querySelector('a-scene');
+		// 	const latitude = places[0].latitude;  
+		// 	const longitude = places[0].longitude; 
 
-			const billboard = document.createElement('a-entity');
-			billboard.setAttribute('gps-entity-place', `latitude: ${latitude}; longitude: ${longitude}`);
-			billboard.setAttribute('url','https://dylan1211-hub.github.io/smalltest/bus_test/assets/billboard/scene.gltf');
-			billboard.setAttribute('rotation','0 ,0 ,0');
-			billboard.setAttribute('scale','10,10,10');
-			billboard.setAttribute('animation-mixer','')
+		// 	const billboard = document.createElement('a-entity');
+		// 	billboard.setAttribute('gps-entity-place', `latitude: ${latitude}; longitude: ${longitude}`);
+		// 	billboard.setAttribute('url','https://dylan1211-hub.github.io/smalltest/bus_test/assets/billboard/scene.gltf');
+		// 	billboard.setAttribute('rotation','0 ,0 ,0');
+		// 	billboard.setAttribute('scale','10,10,10');
+		// 	billboard.setAttribute('animation-mixer','')
 
-			billboard.addEventListener('loaded', () => window.dispatchEvent(new CustomEvent('gps-entity-place-loaded')));
+		// 	billboard.addEventListener('loaded', () => window.dispatchEvent(new CustomEvent('gps-entity-place-loaded')));
 
-			const title = document.createElement('a-text');
-				title.setAttribute('value', places[i].name);
-				title.setAttribute('scale', '0.3 0.3 0.3');
-				title.setAttribute('color','gray');
-				title.setAttribute('zOffset','9999');
-				title.setAttribute('anchor','left');
-				title.setAttribute('baseline','top');
-				title.setAttribute('position','-0.3 0.65 1')
+		// 	const title = document.createElement('a-text');
+		// 		title.setAttribute('value', places[i].name);
+		// 		title.setAttribute('scale', '0.3 0.3 0.3');
+		// 		title.setAttribute('color','gray');
+		// 		title.setAttribute('zOffset','9999');
+		// 		title.setAttribute('anchor','left');
+		// 		title.setAttribute('baseline','top');
+		// 		title.setAttribute('position','-0.3 0.65 1')
 
-				title.addEventListener('loaded', () => window.dispatchEvent(new CustomEvent('gps-entity-place-loaded')));
+		// 		title.addEventListener('loaded', () => window.dispatchEvent(new CustomEvent('gps-entity-place-loaded')));
 		
 		
-				scene.appendChild(billboard);
-				billboard.appendChild(title);
-		}
+		// 		scene.appendChild(billboard);
+		// 		billboard.appendChild(title);
+		// }
 
 		//渲染便利商店
-		function renderConstores(constores){
-			for(let i=0;i<=constores.length;i++){
-				let scene = document.querySelector('a-scene');
-				const latitude = constores[i].Lat;
-				const longitude = constores[i].Lon;
+		// function renderConstores(constores){
+		// 	for(let i = 0 ; i <= constores.length ; i++){
+		// 		let scene = document.querySelector('a-scene');
+		// 		const latitude = constores[i].Lat;
+		// 		const longitude = constores[i].Lon;
 				
-				// add place icon 
-            	const icon = document.createElement('a-image');
-            	icon.setAttribute('gps-entity-place', `latitude: ${latitude}; longitude: ${longitude}`);
-            	icon.setAttribute('name', constores[i].店名);      
-				icon.setAttribute('building', constores[i].USER_分_1,C,254);
-				icon.setAttribute('address', constores[i].IN_SingleL,C,200);
-				if(constores[i].店名=="seven"){
-					icon.setAttribute('src','https://dylan1211-hub.github.io/smalltest/bus_test/assets/seven.png');
-				}
-				else if(constores[i].店名=="全家"){
-					icon.setAttribute('src','https://dylan1211-hub.github.io/smalltest/bus_test/assets/FamilyMart.png');
-				}
-				else if(constores[i].店名=="全聯"){
-					icon.setAttribute('src','https://dylan1211-hub.github.io/smalltest/bus_test/assets/ch.png');
-				}
-				else if(constores[i].店名=="萊爾富"){
-					icon.setAttribute('src','https://dylan1211-hub.github.io/smalltest/bus_test/assets/Hi-Life.png');
-				}
-				else if(constores[i].店名=="OK"){
-					icon.setAttribute('src','https://dylan1211-hub.github.io/smalltest/bus_test/assets/OK-kogo.png');
-				}
+		// 		// add place icon 
+		// 		const icon = document.createElement('a-image');
+		// 		icon.setAttribute('gps-entity-place', `latitude: ${latitude}; longitude: ${longitude}`);
+		// 		icon.setAttribute('name', constores[i].店名);      
+		// 		icon.setAttribute('building', constores[i].USER_分_1,C,254);
+		// 		icon.setAttribute('address', constores[i].IN_SingleL,C,200);
+		// 		if(constores[i].店名=="seven"){
+		// 			icon.setAttribute('src','https://dylan1211-hub.github.io/smalltest/bus_test/assets/seven.png');
+		// 		}
+		// 		else if(constores[i].店名=="全家"){
+		// 			icon.setAttribute('src','https://dylan1211-hub.github.io/smalltest/bus_test/assets/FamilyMart.png');
+		// 		}
+		// 		else if(constores[i].店名=="全聯"){
+		// 			icon.setAttribute('src','https://dylan1211-hub.github.io/smalltest/bus_test/assets/ch.png');
+		// 		}
+		// 		else if(constores[i].店名=="萊爾富"){
+		// 			icon.setAttribute('src','https://dylan1211-hub.github.io/smalltest/bus_test/assets/Hi-Life.png');
+		// 		}
+		// 		else if(constores[i].店名=="OK"){
+		// 			icon.setAttribute('src','https://dylan1211-hub.github.io/smalltest/bus_test/assets/OK-kogo.png');
+		// 		}
 				
-				// for debug purposes, just show in a bigger scale, otherwise I have to personally go on places...
-				icon.setAttribute('scale','10, 10');
-				icon.addEventListener('loaded', () => window.dispatchEvent(new CustomEvent('gps-entity-place-loaded')));
+		// 		// for debug purposes, just show in a bigger scale, otherwise I have to personally go on places...
+		// 		icon.setAttribute('scale','10, 10');
+		// 		icon.addEventListener('loaded', () => window.dispatchEvent(new CustomEvent('gps-entity-place-loaded')));
 
-				icon.addEventListener('click', function () {
-                ev.stopPropagation();
-                ev.preventDefault();
+		// 		icon.addEventListener('click', function () {
+    //             ev.stopPropagation();
+    //             ev.preventDefault();
     
-					const name = ev.target.getAttribute('name');
-					const building = ev.target.getAttribute('building');
-					const adress = ev.target.getAttribute('adress');
+		// 			const name = ev.target.getAttribute('name');
+		// 			const building = ev.target.getAttribute('building');
+		// 			const adress = ev.target.getAttribute('adress');
 
-					const el = ev.detail.intersection && ev.detail.intersection.object.el;
+		// 			const el = ev.detail.intersection && ev.detail.intersection.object.el;
 		
-					if (el && el === ev.target) {
+		// 			if (el && el === ev.target) {
 		
-						const label = document.createElement('span');
-						const container = document.createElement('div');
-						container.setAttribute('id', 'place-label');
-						label.innerHTML = "商店 : "+name+"<br/>"+"分店 : "+building+"<br/>"+"地址 : "+adress;
-						container.appendChild(label);
-						document.body.appendChild(container);
+		// 				const label = document.createElement('span');
+		// 				const container = document.createElement('div');
+		// 				container.setAttribute('id', 'place-label');
+		// 				label.innerHTML = "商店 : "+name+"<br/>"+"分店 : "+building+"<br/>"+"地址 : "+adress;
+		// 				container.appendChild(label);
+		// 				document.body.appendChild(container);
 		
-						setTimeout(() => {
-							container.parentElement.removeChild(container);
-						}, 3000);
-					}
-            	});
+		// 				setTimeout(() => {
+		// 					container.parentElement.removeChild(container);
+		// 				}, 3000);
+		// 			}
+    //         	});
 
-			}
-		}
+		// 	}
+		// }
 
-		function renderFood1(food1){
-			for(let i=0;i<=food1.length;i++){
-				let scene = document.querySelector('a-scene');
-				const latitude = food1[i].lat;
-				const longitude = food1[i].long;
+		// function renderFood1(food1){
+		// 	for(let i=0;i<=food1.length;i++){
+		// 		let scene = document.querySelector('a-scene');
+		// 		const latitude = food1[i].lat;
+		// 		const longitude = food1[i].long;
 				
-				// add place icon 
-            	const icon = document.createElement('a-image');
-            	icon.setAttribute('gps-entity-place', `latitude: ${latitude}; longitude: ${longitude}`);
-            	icon.setAttribute('name', food1[i].name);      
-				icon.setAttribute('category', food1[i].category);
-				icon.setAttribute('address', food1[i].address);
-				icon.setAttribute('tel', food1[i].tel);
-				icon.setAttribute('open_time', food1[i].open_time);
-				icon.setAttribute('src','https://dylan1211-hub.github.io/smalltest/bus_test/assets/dish.png');
+		// 		// add place icon 
+    //         	const icon = document.createElement('a-image');
+    //         	icon.setAttribute('gps-entity-place', `latitude: ${latitude}; longitude: ${longitude}`);
+    //         	icon.setAttribute('name', food1[i].name);      
+		// 		icon.setAttribute('category', food1[i].category);
+		// 		icon.setAttribute('address', food1[i].address);
+		// 		icon.setAttribute('tel', food1[i].tel);
+		// 		icon.setAttribute('open_time', food1[i].open_time);
+		// 		icon.setAttribute('src','https://dylan1211-hub.github.io/smalltest/bus_test/assets/dish.png');
 				
-				// for debug purposes, just show in a bigger scale, otherwise I have to personally go on places...
-				icon.setAttribute('scale','10, 10');
-				icon.addEventListener('loaded', () => window.dispatchEvent(new CustomEvent('gps-entity-place-loaded')));
+		// 		// for debug purposes, just show in a bigger scale, otherwise I have to personally go on places...
+		// 		icon.setAttribute('scale','10, 10');
+		// 		icon.addEventListener('loaded', () => window.dispatchEvent(new CustomEvent('gps-entity-place-loaded')));
 
-				icon.addEventListener('click', function () {
-                ev.stopPropagation();
-                ev.preventDefault();
+		// 		icon.addEventListener('click', function () {
+    //             ev.stopPropagation();
+    //             ev.preventDefault();
     
-					const name = ev.target.getAttribute('name');
-					const category = ev.target.getAttribute('category');
-					const adress = ev.target.getAttribute('adress');
-					const tel = ev.target.getAttribute('tel');
-					const open_time = ev.target.getAttribute('open_time');
+		// 			const name = ev.target.getAttribute('name');
+		// 			const category = ev.target.getAttribute('category');
+		// 			const adress = ev.target.getAttribute('adress');
+		// 			const tel = ev.target.getAttribute('tel');
+		// 			const open_time = ev.target.getAttribute('open_time');
 
-					const el = ev.detail.intersection && ev.detail.intersection.object.el;
+		// 			const el = ev.detail.intersection && ev.detail.intersection.object.el;
 		
-					if (el && el === ev.target) {
+		// 			if (el && el === ev.target) {
 		
-						const label = document.createElement('span');
-						const container = document.createElement('div');
-						container.setAttribute('id', 'place-label');
-						label.innerHTML = "商店 : "+name+"<br/>"+"種類 : "+category+"<br/>"+"地址 : "+adress+"<br/>"+"電話 : "+tel+"<br/>"+"營業時間 : "+open_time;
-						container.appendChild(label);
-						document.body.appendChild(container);
+		// 				const label = document.createElement('span');
+		// 				const container = document.createElement('div');
+		// 				container.setAttribute('id', 'place-label');
+		// 				label.innerHTML = "商店 : "+name+"<br/>"+"種類 : "+category+"<br/>"+"地址 : "+adress+"<br/>"+"電話 : "+tel+"<br/>"+"營業時間 : "+open_time;
+		// 				container.appendChild(label);
+		// 				document.body.appendChild(container);
 		
-						setTimeout(() => {
-							container.parentElement.removeChild(container);
-						}, 3000);
-					}
-            	});
+		// 				setTimeout(() => {
+		// 					container.parentElement.removeChild(container);
+		// 				}, 3000);
+		// 			}
+    //         	});
 
-			}
-		}
+		// 	}
+		// }
 
-		function renderFood2(food2){
-			for(let i=0;i<=food2.length;i++){
-				let scene = document.querySelector('a-scene');
-				const latitude = food2[i].lat;
-				const longitude = food2[i].long;
+		// function renderFood2(food2){
+		// 	for(let i=0;i<=food2.length;i++){
+		// 		let scene = document.querySelector('a-scene');
+		// 		const latitude = food2[i].lat;
+		// 		const longitude = food2[i].long;
 				
-				// add place icon 
-            	const icon = document.createElement('a-image');
-            	icon.setAttribute('gps-entity-place', `latitude: ${latitude}; longitude: ${longitude}`);
-            	icon.setAttribute('name', food2[i].name);      
-				icon.setAttribute('category', food2[i].category);
-				icon.setAttribute('address', food2[i].address);
-				icon.setAttribute('tel', food2[i].tel);
-				icon.setAttribute('open_time', food2[i].open_time);
-				icon.setAttribute('src','https://dylan1211-hub.github.io/smalltest/bus_test/assets/soft-drink.png');
+		// 		// add place icon 
+    //         	const icon = document.createElement('a-image');
+    //         	icon.setAttribute('gps-entity-place', `latitude: ${latitude}; longitude: ${longitude}`);
+    //         	icon.setAttribute('name', food2[i].name);      
+		// 		icon.setAttribute('category', food2[i].category);
+		// 		icon.setAttribute('address', food2[i].address);
+		// 		icon.setAttribute('tel', food2[i].tel);
+		// 		icon.setAttribute('open_time', food2[i].open_time);
+		// 		icon.setAttribute('src','https://dylan1211-hub.github.io/smalltest/bus_test/assets/soft-drink.png');
 				
-				// for debug purposes, just show in a bigger scale, otherwise I have to personally go on places...
-				icon.setAttribute('scale','10, 10');
-				icon.addEventListener('loaded', () => window.dispatchEvent(new CustomEvent('gps-entity-place-loaded')));
+		// 		// for debug purposes, just show in a bigger scale, otherwise I have to personally go on places...
+		// 		icon.setAttribute('scale','10, 10');
+		// 		icon.addEventListener('loaded', () => window.dispatchEvent(new CustomEvent('gps-entity-place-loaded')));
 
-				icon.addEventListener('click', function () {
-                ev.stopPropagation();
-                ev.preventDefault();
+		// 		icon.addEventListener('click', function () {
+    //             ev.stopPropagation();
+    //             ev.preventDefault();
     
-					const name = ev.target.getAttribute('name');
-					const category = ev.target.getAttribute('category');
-					const adress = ev.target.getAttribute('adress');
-					const tel = ev.target.getAttribute('tel');
-					const open_time = ev.target.getAttribute('open_time');
+		// 			const name = ev.target.getAttribute('name');
+		// 			const category = ev.target.getAttribute('category');
+		// 			const adress = ev.target.getAttribute('adress');
+		// 			const tel = ev.target.getAttribute('tel');
+		// 			const open_time = ev.target.getAttribute('open_time');
 
-					const el = ev.detail.intersection && ev.detail.intersection.object.el;
+		// 			const el = ev.detail.intersection && ev.detail.intersection.object.el;
 		
-					if (el && el === ev.target) {
+		// 			if (el && el === ev.target) {
 		
-						const label = document.createElement('span');
-						const container = document.createElement('div');
-						container.setAttribute('id', 'place-label');
-						label.innerHTML = "商店 : "+name+"<br/>"+"種類 : "+category+"<br/>"+"地址 : "+adress+"<br/>"+"電話 : "+tel+"<br/>"+"營業時間 : "+open_time;
-						container.appendChild(label);
-						document.body.appendChild(container);
+		// 				const label = document.createElement('span');
+		// 				const container = document.createElement('div');
+		// 				container.setAttribute('id', 'place-label');
+		// 				label.innerHTML = "商店 : "+name+"<br/>"+"種類 : "+category+"<br/>"+"地址 : "+adress+"<br/>"+"電話 : "+tel+"<br/>"+"營業時間 : "+open_time;
+		// 				container.appendChild(label);
+		// 				document.body.appendChild(container);
 		
-						setTimeout(() => {
-							container.parentElement.removeChild(container);
-						}, 3000);
-					}
-            	});
+		// 				setTimeout(() => {
+		// 					container.parentElement.removeChild(container);
+		// 				}, 3000);
+		// 			}
+    //         	});
 
-			}
-		}
+		// 	}
+		// }
 		
-		function renderFood3(food3){
-			for(let i=0;i<=food3.length;i++){
-				let scene = document.querySelector('a-scene');
-				const latitude = food3[i].lat;
-				const longitude = food3[i].long;
+		// function renderFood3(food3){
+		// 	for(let i=0;i<=food3.length;i++){
+		// 		let scene = document.querySelector('a-scene');
+		// 		const latitude = food3[i].lat;
+		// 		const longitude = food3[i].long;
 				
-				// add place icon 
-            	const icon = document.createElement('a-image');
-            	icon.setAttribute('gps-entity-place', `latitude: ${latitude}; longitude: ${longitude}`);
-            	icon.setAttribute('name', food3[i].name);      
-				icon.setAttribute('category', food3[i].category);
-				icon.setAttribute('address', food3[i].address);
-				icon.setAttribute('tel', food3[i].tel);
-				icon.setAttribute('open_time', food3[i].open_time);
-				icon.setAttribute('src','https://dylan1211-hub.github.io/smalltest/bus_test/assets/coffee.png');
+		// 		// add place icon 
+    //         	const icon = document.createElement('a-image');
+    //         	icon.setAttribute('gps-entity-place', `latitude: ${latitude}; longitude: ${longitude}`);
+    //         	icon.setAttribute('name', food3[i].name);      
+		// 		icon.setAttribute('category', food3[i].category);
+		// 		icon.setAttribute('address', food3[i].address);
+		// 		icon.setAttribute('tel', food3[i].tel);
+		// 		icon.setAttribute('open_time', food3[i].open_time);
+		// 		icon.setAttribute('src','https://dylan1211-hub.github.io/smalltest/bus_test/assets/coffee.png');
 				
-				// for debug purposes, just show in a bigger scale, otherwise I have to personally go on places...
-				icon.setAttribute('scale','10, 10');
-				icon.addEventListener('loaded', () => window.dispatchEvent(new CustomEvent('gps-entity-place-loaded')));
+		// 		// for debug purposes, just show in a bigger scale, otherwise I have to personally go on places...
+		// 		icon.setAttribute('scale','10, 10');
+		// 		icon.addEventListener('loaded', () => window.dispatchEvent(new CustomEvent('gps-entity-place-loaded')));
 
-				icon.addEventListener('click', function () {
-                ev.stopPropagation();
-                ev.preventDefault();
+		// 		icon.addEventListener('click', function () {
+    //             ev.stopPropagation();
+    //             ev.preventDefault();
     
-					const name = ev.target.getAttribute('name');
-					const category = ev.target.getAttribute('category');
-					const adress = ev.target.getAttribute('adress');
-					const tel = ev.target.getAttribute('tel');
-					const open_time = ev.target.getAttribute('open_time');
+		// 			const name = ev.target.getAttribute('name');
+		// 			const category = ev.target.getAttribute('category');
+		// 			const adress = ev.target.getAttribute('adress');
+		// 			const tel = ev.target.getAttribute('tel');
+		// 			const open_time = ev.target.getAttribute('open_time');
 
-					const el = ev.detail.intersection && ev.detail.intersection.object.el;
+		// 			const el = ev.detail.intersection && ev.detail.intersection.object.el;
 		
-					if (el && el === ev.target) {
+		// 			if (el && el === ev.target) {
 		
-						const label = document.createElement('span');
-						const container = document.createElement('div');
-						container.setAttribute('id', 'place-label');
-						label.innerHTML = "商店 : "+name+"<br/>"+"種類 : "+category+"<br/>"+"地址 : "+adress+"<br/>"+"電話 : "+tel+"<br/>"+"營業時間 : "+open_time;
-						container.appendChild(label);
-						document.body.appendChild(container);
+		// 				const label = document.createElement('span');
+		// 				const container = document.createElement('div');
+		// 				container.setAttribute('id', 'place-label');
+		// 				label.innerHTML = "商店 : "+name+"<br/>"+"種類 : "+category+"<br/>"+"地址 : "+adress+"<br/>"+"電話 : "+tel+"<br/>"+"營業時間 : "+open_time;
+		// 				container.appendChild(label);
+		// 				document.body.appendChild(container);
 		
-						setTimeout(() => {
-							container.parentElement.removeChild(container);
-						}, 3000);
-					}
-            	});
+		// 				setTimeout(() => {
+		// 					container.parentElement.removeChild(container);
+		// 				}, 3000);
+		// 			}
+    //         	});
 
-			}
-		}
+		// 	}
+		// }
 
-		function renderFood4(food4){
-			for(let i=0;i<=food4.length;i++){
-				let scene = document.querySelector('a-scene');
-				const latitude = food4[i].lat;
-				const longitude = food4[i].long;
+		// function renderFood4(food4){
+		// 	for(let i=0;i<=food4.length;i++){
+		// 		let scene = document.querySelector('a-scene');
+		// 		const latitude = food4[i].lat;
+		// 		const longitude = food4[i].long;
 				
-				// add place icon 
-            	const icon = document.createElement('a-image');
-            	icon.setAttribute('gps-entity-place', `latitude: ${latitude}; longitude: ${longitude}`);
-            	icon.setAttribute('name', food4[i].name);      
-				icon.setAttribute('category', food4[i].category);
-				icon.setAttribute('address', food4[i].address);
-				icon.setAttribute('tel', food4[i].tel);
-				icon.setAttribute('open_time', food4[i].open_time);
-				icon.setAttribute('src','https://dylan1211-hub.github.io/smalltest/bus_test/assets/dessert.png');
+		// 		// add place icon 
+    //         	const icon = document.createElement('a-image');
+    //         	icon.setAttribute('gps-entity-place', `latitude: ${latitude}; longitude: ${longitude}`);
+    //         	icon.setAttribute('name', food4[i].name);      
+		// 		icon.setAttribute('category', food4[i].category);
+		// 		icon.setAttribute('address', food4[i].address);
+		// 		icon.setAttribute('tel', food4[i].tel);
+		// 		icon.setAttribute('open_time', food4[i].open_time);
+		// 		icon.setAttribute('src','https://dylan1211-hub.github.io/smalltest/bus_test/assets/dessert.png');
 				
-				// for debug purposes, just show in a bigger scale, otherwise I have to personally go on places...
-				icon.setAttribute('scale','10, 10');
-				icon.addEventListener('loaded', () => window.dispatchEvent(new CustomEvent('gps-entity-place-loaded')));
+		// 		// for debug purposes, just show in a bigger scale, otherwise I have to personally go on places...
+		// 		icon.setAttribute('scale','10, 10');
+		// 		icon.addEventListener('loaded', () => window.dispatchEvent(new CustomEvent('gps-entity-place-loaded')));
 
-				icon.addEventListener('click', function () {
-                ev.stopPropagation();
-                ev.preventDefault();
+		// 		icon.addEventListener('click', function () {
+    //             ev.stopPropagation();
+    //             ev.preventDefault();
     
-					const name = ev.target.getAttribute('name');
-					const category = ev.target.getAttribute('category');
-					const adress = ev.target.getAttribute('adress');
-					const tel = ev.target.getAttribute('tel');
-					const open_time = ev.target.getAttribute('open_time');
+		// 			const name = ev.target.getAttribute('name');
+		// 			const category = ev.target.getAttribute('category');
+		// 			const adress = ev.target.getAttribute('adress');
+		// 			const tel = ev.target.getAttribute('tel');
+		// 			const open_time = ev.target.getAttribute('open_time');
 
-					const el = ev.detail.intersection && ev.detail.intersection.object.el;
+		// 			const el = ev.detail.intersection && ev.detail.intersection.object.el;
 		
-					if (el && el === ev.target) {
+		// 			if (el && el === ev.target) {
 		
-						const label = document.createElement('span');
-						const container = document.createElement('div');
-						container.setAttribute('id', 'place-label');
-						label.innerHTML = "商店 : "+name+"<br/>"+"種類 : "+category+"<br/>"+"地址 : "+adress+"<br/>"+"電話 : "+tel+"<br/>"+"營業時間 : "+open_time;
-						container.appendChild(label);
-						document.body.appendChild(container);
+		// 				const label = document.createElement('span');
+		// 				const container = document.createElement('div');
+		// 				container.setAttribute('id', 'place-label');
+		// 				label.innerHTML = "商店 : "+name+"<br/>"+"種類 : "+category+"<br/>"+"地址 : "+adress+"<br/>"+"電話 : "+tel+"<br/>"+"營業時間 : "+open_time;
+		// 				container.appendChild(label);
+		// 				document.body.appendChild(container);
 		
-						setTimeout(() => {
-							container.parentElement.removeChild(container);
-						}, 3000);
-					}
-            	});
+		// 				setTimeout(() => {
+		// 					container.parentElement.removeChild(container);
+		// 				}, 3000);
+		// 			}
+    //         	});
 
-			}
-		}
+		// 	}
+		// }
 
-		function renderFood5(food5){
-			for(let i=0;i<=food5.length;i++){
-				let scene = document.querySelector('a-scene');
-				const latitude = food5[i].lat;
-				const longitude = food5[i].long;
+		// function renderFood5(food5){
+		// 	for(let i=0;i<=food5.length;i++){
+		// 		let scene = document.querySelector('a-scene');
+		// 		const latitude = food5[i].lat;
+		// 		const longitude = food5[i].long;
 				
-				// add place icon 
-            	const icon = document.createElement('a-image');
-            	icon.setAttribute('gps-entity-place', `latitude: ${latitude}; longitude: ${longitude}`);
-            	icon.setAttribute('name', food5[i].name);      
-				icon.setAttribute('category', food5[i].category);
-				icon.setAttribute('address', food5[i].address);
-				icon.setAttribute('tel', food5[i].tel);
-				icon.setAttribute('open_time', food5[i].open_time);
-				icon.setAttribute('src','https://dylan1211-hub.github.io/smalltest/bus_test/assets/online-shopping.png');
+		// 		// add place icon 
+    //         	const icon = document.createElement('a-image');
+    //         	icon.setAttribute('gps-entity-place', `latitude: ${latitude}; longitude: ${longitude}`);
+    //         	icon.setAttribute('name', food5[i].name);      
+		// 		icon.setAttribute('category', food5[i].category);
+		// 		icon.setAttribute('address', food5[i].address);
+		// 		icon.setAttribute('tel', food5[i].tel);
+		// 		icon.setAttribute('open_time', food5[i].open_time);
+		// 		icon.setAttribute('src','https://dylan1211-hub.github.io/smalltest/bus_test/assets/online-shopping.png');
 				
-				// for debug purposes, just show in a bigger scale, otherwise I have to personally go on places...
-				icon.setAttribute('scale','10, 10');
-				icon.addEventListener('loaded', () => window.dispatchEvent(new CustomEvent('gps-entity-place-loaded')));
+		// 		// for debug purposes, just show in a bigger scale, otherwise I have to personally go on places...
+		// 		icon.setAttribute('scale','10, 10');
+		// 		icon.addEventListener('loaded', () => window.dispatchEvent(new CustomEvent('gps-entity-place-loaded')));
 
-				icon.addEventListener('click', function () {
-                ev.stopPropagation();
-                ev.preventDefault();
+		// 		icon.addEventListener('click', function () {
+    //             ev.stopPropagation();
+    //             ev.preventDefault();
     
-					const name = ev.target.getAttribute('name');
-					const category = ev.target.getAttribute('category');
-					const adress = ev.target.getAttribute('adress');
-					const tel = ev.target.getAttribute('tel');
-					const open_time = ev.target.getAttribute('open_time');
+		// 			const name = ev.target.getAttribute('name');
+		// 			const category = ev.target.getAttribute('category');
+		// 			const adress = ev.target.getAttribute('adress');
+		// 			const tel = ev.target.getAttribute('tel');
+		// 			const open_time = ev.target.getAttribute('open_time');
 
-					const el = ev.detail.intersection && ev.detail.intersection.object.el;
+		// 			const el = ev.detail.intersection && ev.detail.intersection.object.el;
 		
-					if (el && el === ev.target) {
+		// 			if (el && el === ev.target) {
 		
-						const label = document.createElement('span');
-						const container = document.createElement('div');
-						container.setAttribute('id', 'place-label');
-						label.innerHTML = "商店 : "+name+"<br/>"+"種類 : "+category+"<br/>"+"地址 : "+adress+"<br/>"+"電話 : "+tel+"<br/>"+"營業時間 : "+open_time;
-						container.appendChild(label);
-						document.body.appendChild(container);
+		// 				const label = document.createElement('span');
+		// 				const container = document.createElement('div');
+		// 				container.setAttribute('id', 'place-label');
+		// 				label.innerHTML = "商店 : "+name+"<br/>"+"種類 : "+category+"<br/>"+"地址 : "+adress+"<br/>"+"電話 : "+tel+"<br/>"+"營業時間 : "+open_time;
+		// 				container.appendChild(label);
+		// 				document.body.appendChild(container);
 		
-						setTimeout(() => {
-							container.parentElement.removeChild(container);
-						}, 3000);
-					}
-            	});
+		// 				setTimeout(() => {
+		// 					container.parentElement.removeChild(container);
+		// 				}, 3000);
+		// 			}
+    //         	});
 
-			}
-		}
-		*/
+		// 	}
+		// }
+		
 		
 		// OSM leaflet(web map)的part
 		document.addEventListener('DOMContentLoaded', () => {  
