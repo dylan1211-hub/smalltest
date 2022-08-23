@@ -110,10 +110,6 @@
 		vr-mode-ui='enabled: false' 
 		arjs='sourceType: webcam; sourceWidth:1280; sourceHeight:960; displayWidth: 1280; displayHeight: 960; debugUIEnabled: false;'>
 
-		<a-entity gltf-model="https://dylan1211-hub.github.io/smalltest/bus_test/assets/arrow1/scene.gltf" rotation="0 0 0" scale="0.08 0.08 0.08" 
-			position="1 1.2 1" animation-mixer >
-		</a-entity>
-
 		<img id="compass" src="https://dylan1211-hub.github.io/smalltest/bus_test/assets/arrow1.png" rotation="30 0 0" scale="0.01 0.01 0.01"
 			style="width:150px ; height:40px ; position:fixed; left: 25px; top: 525px;display: block;"/>
 		<script src="https://unpkg.com/@joeyklee/compass.js@latest/dist/compass.js"></script>
@@ -191,16 +187,17 @@
 
 		let convData;
 		async function getConv(conv) {
+			
+
 			if (conv.checked === true) {
 				console.log(conv.value);
 				const conv_res = await fetch(conv.value);
 				const convData = await conv_res.json();
 				var constores = convData.rows;
+
 				function renderConstores(constores) {
 					console.log("renderConstores");
 					for(let i = 0 ; i < constores.length ; i++) {
-						console.log(constores[i]); // for test
-						console.log(i); // for test
 						let scene = document.querySelector('a-scene');
 						const latitude = constores[i].lat;
 						const longitude = constores[i].lon;
@@ -210,27 +207,47 @@
 						icon.setAttribute('gps-entity-place', `latitude: ${latitude}; longitude: ${longitude}`);
 						icon.setAttribute('name', constores[i].category);      
 						// icon.setAttribute('building', constores[i].USER_分_1,C,254);
-						icon.setAttribute('address', constores[i].addess_name);
-						if(constores[i].店名=="seven"){
+						icon.setAttribute('address', constores[i].address_name);
+						if(constores[i].category == "seven     ") {
 							icon.setAttribute('src','https://dylan1211-hub.github.io/smalltest/bus_test/assets/seven.png');
 						}
-						else if(constores[i].店名=="全家"){
+						if(constores[i].category == "全家        ") {
 							icon.setAttribute('src','https://dylan1211-hub.github.io/smalltest/bus_test/assets/FamilyMart.png');
 						}
-						else if(constores[i].店名=="全聯"){
+						if(constores[i].category == "全聯        ") {
 							icon.setAttribute('src','https://dylan1211-hub.github.io/smalltest/bus_test/assets/ch.png');
 						}
-						else if(constores[i].店名=="萊爾富"){
+						if(constores[i].category == "萊爾富       ") {
 							icon.setAttribute('src','https://dylan1211-hub.github.io/smalltest/bus_test/assets/Hi-Life.png');
 						}
-						else if(constores[i].店名=="OK"){
+						if(constores[i].category == "OK        ") {
 							icon.setAttribute('src','https://dylan1211-hub.github.io/smalltest/bus_test/assets/OK-kogo.png');
 						}
 						
 						// for debug purposes, just show in a bigger scale, otherwise I have to personally go on places...
-						icon.setAttribute('scale','50, 50');
-						icon.addEventListener('loaded', () => window.dispatchEvent(new CustomEvent('gps-entity-place-loaded')));
+						icon.setAttribute('scale','10, 10');
+						icon.addEventListener('loaded', () => {
+							window.dispatchEvent(new CustomEvent('gps-entity-place-loaded'));
+							console.log("render");
+						});
+						// console.log("appendChild");
+						scene.appendChild(icon);	// This is Crucial!!!
 
+						// For test 1
+						// const checkEvent = new CustomEvent('checkBoxStatus', {
+						// 	detail: { 
+						// 		status: conv.checked 
+						// 	}
+						// });
+						// icon.dispatchEvent(checkEvent);
+
+						// For test 2
+						// icon.addEventListener('newEvent', () => {
+						// 	console.log('render');
+						// });
+						// const newEvent = new CustomEvent('gps-entity-place-loaded');
+						// window.dispatchEvent(newEvent);
+						
 						icon.addEventListener('click', function() {
 							ev.stopPropagation();
 							ev.preventDefault();
@@ -259,6 +276,7 @@
 				console.log(convData.rows);
 				renderConstores(constores);
 			} else {
+				scene.removeChild(icon);
 				console.log(conv.value+" unchecked");
 			}
 		}
@@ -307,23 +325,22 @@
 		// 	billboard.setAttribute('rotation','0 ,0 ,0');
 		// 	billboard.setAttribute('scale','10,10,10');
 		// 	billboard.setAttribute('animation-mixer','')
-
 		// 	billboard.addEventListener('loaded', () => window.dispatchEvent(new CustomEvent('gps-entity-place-loaded')));
 
 		// 	const title = document.createElement('a-text');
-		// 		title.setAttribute('value', places[i].name);
-		// 		title.setAttribute('scale', '0.3 0.3 0.3');
-		// 		title.setAttribute('color','gray');
-		// 		title.setAttribute('zOffset','9999');
-		// 		title.setAttribute('anchor','left');
-		// 		title.setAttribute('baseline','top');
-		// 		title.setAttribute('position','-0.3 0.65 1')
+		//  title.setAttribute('value', places[i].name);
+		// 	title.setAttribute('scale', '0.3 0.3 0.3');
+		// 	title.setAttribute('color','gray');
+		// 	title.setAttribute('zOffset','9999');
+		// 	title.setAttribute('anchor','left');
+		// 	title.setAttribute('baseline','top');
+		// 	title.setAttribute('position','-0.3 0.65 1')
 
-		// 		title.addEventListener('loaded', () => window.dispatchEvent(new CustomEvent('gps-entity-place-loaded')));
+		// 	title.addEventListener('loaded', () => window.dispatchEvent(new CustomEvent('gps-entity-place-loaded')));
 		
 		
-		// 		scene.appendChild(billboard);
-		// 		billboard.appendChild(title);
+		// 	scene.appendChild(billboard);
+		// 	billboard.appendChild(title);
 		// }
 
 		//渲染便利商店
