@@ -104,3 +104,14 @@ app.get('/mxmart', (request, response) => {
   );
 });
 
+// Handle Restaurant
+app.get('/snacks', (request, response) => {
+  pool.query(
+    `SELECT * FROM restaurant WHERE category LIKE '%中式美食%' OR category LIKE '%安心餐廳%' 
+    OR category LIKE '%異國料理%' OR category LIKE '%素食主義%' OR category LIKE '%景觀餐廳%'
+    OR category LIKE '%地方美食%' OR category LIKE '%其他美食%' OR category LIKE '%麵食醬料%'`, (err, res) => {
+      if (err) { response.end(); return; }
+      else { response.json(res); }
+    }
+  );
+})
