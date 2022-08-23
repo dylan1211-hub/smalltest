@@ -187,8 +187,6 @@
 
 		let convData;
 		async function getConv(conv) {
-			
-
 			if (conv.checked === true) {
 				console.log(conv.value);
 				const conv_res = await fetch(conv.value);
@@ -281,10 +279,64 @@
 			}
 		}
 
-		function getRest(restaurant) {
+		async function getRest(restaurant) {
 			if (restaurant.checked === true) {
 				console.log(restaurant.value);
+				const restaurant_res = await fetch(restaurant.value);
+				const restaurantData = await restaurant_res.json();
+				console.log(restaurantData);
+				const food1 = restaurantData.rows;
 				
+				function renderFood1(food1) {
+					console.log("render_snacks");
+					for(let i = 0; i < food1.length; i++) {
+						let scene = document.querySelector('a-scene');
+						const latitude = food1[i].lat;
+						const longitude = food1[i].long;
+						
+						// add place icon 
+						const icon = document.createElement('a-image');
+						icon.setAttribute('gps-entity-place', `latitude: ${latitude}; longitude: ${longitude}`);
+						icon.setAttribute('name', food1[i].name);      
+						icon.setAttribute('category', food1[i].category);
+						icon.setAttribute('address', food1[i].address);
+						icon.setAttribute('tel', food1[i].tel);
+						icon.setAttribute('open_time', food1[i].open_time);
+						icon.setAttribute('src','https://dylan1211-hub.github.io/smalltest/bus_test/assets/dish.png');
+						
+						// for debug purposes, just show in a bigger scale, otherwise I have to personally go on places...
+						icon.setAttribute('scale','10, 10');
+						icon.addEventListener('loaded', () => window.dispatchEvent(new CustomEvent('gps-entity-place-loaded')));
+						scene.appendChild(icon);
+
+						icon.addEventListener('click', function () {
+							ev.stopPropagation();
+							ev.preventDefault();
+				
+							const name = ev.target.getAttribute('name');
+							const category = ev.target.getAttribute('category');
+							const adress = ev.target.getAttribute('adress');
+							const tel = ev.target.getAttribute('tel');
+							const open_time = ev.target.getAttribute('open_time');
+
+							const el = ev.detail.intersection && ev.detail.intersection.object.el;
+				
+							if (el && el === ev.target) {
+								const label = document.createElement('span');
+								const container = document.createElement('div');
+								container.setAttribute('id', 'place-label');
+								label.innerHTML = "商店 : "+name+"<br/>"+"種類 : "+category+"<br/>"+"地址 : "+adress+"<br/>"+"電話 : "+tel+"<br/>"+"營業時間 : "+open_time;
+								container.appendChild(label);
+								document.body.appendChild(container);
+				
+								setTimeout(() => {
+									container.parentElement.removeChild(container);
+								}, 3000);
+							}
+						});
+					}
+				}
+				renderFood1(food1)
 			} else {
 				console.log(restaurant.value+" unchecked");
 			}
