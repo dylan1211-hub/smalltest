@@ -47,4 +47,18 @@ CREATE TABLE allRoute(
   RouteDistance INT
 );
 
--- 
+-- Stops (static data)
+CREATE TABLE stops(
+  fid SERIAL PRIMARY KEY,
+  StopUID CHAR(50),
+  StopID CHAR(50),
+  StopName_zh CHAR(50),
+  StopName_en CHAR(50),
+  StopPosition_lon FLOAT,
+  StopPosition_lat FLOAT,
+  RoadName CHAR(50),
+  CityCode CHAR(20),
+  StopAddress CHAR(50),
+  StationUID CHAR(50),
+  StationID CHAR(50)
+);

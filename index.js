@@ -25,6 +25,40 @@ const pool = new Pool ({
   database: "ar_bus_test"
 });
 
+// TDX Bus data
+// Get Author-Header first
+async function getAuthorizationHeader() {
+  const parameter = {
+    grant_type: "client_credentials",
+    client_id: "f64074031-039f6d9b-6271-4196",
+    client_secret: "266d1796-9aed-458a-b6f0-1bf6f12e43af",
+  };
+
+  let auth_url = "https://tdx.transportdata.tw/auth/realms/TDXConnect/protocol/openid-connect/token";
+
+  try {
+    let res = await axios({
+      method: "POST",
+      url: auth_url,
+      data: qs.stringify(parameter),
+      headers: { "content-type": "application/x-www-form-urlencoded" },
+    });
+    accessToken = res.data;
+    // test
+    console.log("accessToken:");
+    console.log(accessToken);
+    return {
+      authorization: `Bearer ${accessToken.access_token}`,
+    }
+  } catch (err) {
+    return err;
+  }
+};
+
+
+
+
+// Handle Convenience Store data.
 app.get('/seven', (request, response) => {
   pool.query(
     `SELECT * FROM ConvenienceStore WHERE category = 'seven'`, (err, res) => {
@@ -69,3 +103,4 @@ app.get('/mxmart', (request, response) => {
     }
   );
 });
+
