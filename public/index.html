@@ -229,7 +229,7 @@
 							console.log("render");
 						});
 						// console.log("appendChild");
-						scene.appendChild(icon);	// This is Crucial!!!
+							// This is Crucial!!!
 
 						// For test 1
 						// const checkEvent = new CustomEvent('checkBoxStatus', {
@@ -246,9 +246,10 @@
 						// const newEvent = new CustomEvent('gps-entity-place-loaded');
 						// window.dispatchEvent(newEvent);
 						
-						icon.addEventListener('click', function() {
+						const clickListener = function (ev){
 							ev.stopPropagation();
 							ev.preventDefault();
+
 							const name = ev.target.getAttribute('name');
 							// const building = ev.target.getAttribute('building');
 							const address = ev.target.getAttribute('address');
@@ -263,12 +264,16 @@
 								label.innerHTML = "商店 : " + name + "<br/>" + "地址 : " + address;
 								container.appendChild(label);
 								document.body.appendChild(container);
-				
+								console.log("有點到");
 								setTimeout(() => {
 									container.parentElement.removeChild(container);
 								}, 3000);
 							}
-						});
+
+						};
+						icon.addEventListener('click', clickListener);
+							
+						scene.appendChild(icon);
 					}
 				}
 				console.log(convData.rows);
@@ -323,9 +328,9 @@
 							window.dispatchEvent(new CustomEvent('gps-entity-place-loaded'));
 							console.log('render');
 						});
-						scene.appendChild(icon);
+						
 
-						icon.addEventListener('click', function () {
+						const clickListener = function (ev) {
 							ev.stopPropagation();
 							ev.preventDefault();
 				
@@ -349,7 +354,10 @@
 									container.parentElement.removeChild(container);
 								}, 3000);
 							}
-						});
+						};
+
+						icon.addEventListener('click', clickListener);
+						scene.appendChild(icon);
 					}
 				}
 				renderFood1(food1)
