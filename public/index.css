@@ -256,10 +256,11 @@ input[type="checkbox"] {
   display: flex;
   justify-content: center;
   width: 100%;
+  z-index: 999999;
 }
 
 #place-label > span {
-  z-index: 99999;
+  z-index: 999999;
   padding: 0.25em;
   color: #1ea5e4;
   text-align: left;
