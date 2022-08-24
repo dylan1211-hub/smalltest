@@ -199,7 +199,7 @@ function renderPlaces(places) {
     
             icon.addEventListener('loaded', () => window.dispatchEvent(new CustomEvent('gps-entity-place-loaded')));
     
-            //const touchListener = ;
+            // const touchListener = ;
     
             icon.addEventListener('click', function () {
                 ev.stopPropagation();
@@ -218,7 +218,6 @@ function renderPlaces(places) {
                 const el = ev.detail.intersection && ev.detail.intersection.object.el;
     
                 if (el && el === ev.target) {
-    
                     const label = document.createElement('span');
                     const container = document.createElement('div');
                     container.setAttribute('id', 'place-label');
