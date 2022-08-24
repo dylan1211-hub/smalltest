@@ -107,9 +107,7 @@ app.get('/mxmart', (request, response) => {
 // Handle Restaurant
 app.get('/snacks', (request, response) => {
   pool.query(
-    `SELECT * FROM restaurant WHERE category LIKE '%中式美食%' OR category LIKE '%安心餐廳%' 
-    OR category LIKE '%異國料理%' OR category LIKE '%素食主義%' OR category LIKE '%景觀餐廳%'
-    OR category LIKE '%地方美食%' OR category LIKE '%其他美食%' OR category LIKE '%麵食醬料%'`, (err, res) => {
+    `SELECT * FROM restaurant WHERE consume = 'snack'`, (err, res) => {
       if (err) { response.end(); return; }
       else { response.json(res); console.log(res); }
     }
@@ -118,7 +116,7 @@ app.get('/snacks', (request, response) => {
 
 app.get('/dessert', (request, response) => {
   pool.query(
-    `SELECT * FROM restaurant WHERE category LIKE '%甜點糕餅%'`, (err, res) => {
+    `SELECT * FROM restaurant WHERE consume = 'desrt'`, (err, res) => {
       if (err) { response.end(); return; }
       else { response.json(res); console.log(res); }
     }
@@ -127,7 +125,7 @@ app.get('/dessert', (request, response) => {
 
 app.get('/drinks', (request, response) => {
   pool.query(
-    `SELECT * FROM restaurant WHERE category LIKE '%飲料冰品%'`, (err, res) => {
+    `SELECT * FROM restaurant WHERE consume = 'drink'`, (err, res) => {
       if (err) { response.end(); return; }
       else { response.json(res); console.log(res); }
     }
@@ -136,7 +134,7 @@ app.get('/drinks', (request, response) => {
 
 app.get('/cafe', (request, response) => {
   pool.query(
-    `SELECT * FROM restaurant WHERE category LIKE '%咖啡茶鋪%'`, (err, res) => {
+    `SELECT * FROM restaurant WHERE consume = 'cafe'`, (err, res) => {
       if (err) { response.end(); return; }
       else { response.json(res); console.log(res); }
     }
@@ -145,8 +143,7 @@ app.get('/cafe', (request, response) => {
 
 app.get('/gift', (request, response) => {
   pool.query(
-    `SELECT * FROM restaurant WHERE category LIKE '%伴手好禮%' OR category LIKE '%農產好物%'
-      OR category LIKE '%柑仔店%'`, (err, res) => {
+    `SELECT * FROM restaurant WHERE consume = 'gift'`, (err, res) => {
       if (err) { response.end(); return; }
       else { response.json(res); console.log(res); }
     }
