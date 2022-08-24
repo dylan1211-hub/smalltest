@@ -111,7 +111,44 @@ app.get('/snacks', (request, response) => {
     OR category LIKE '%異國料理%' OR category LIKE '%素食主義%' OR category LIKE '%景觀餐廳%'
     OR category LIKE '%地方美食%' OR category LIKE '%其他美食%' OR category LIKE '%麵食醬料%'`, (err, res) => {
       if (err) { response.end(); return; }
-      else { response.json(res); }
+      else { response.json(res); console.log(res); }
     }
   );
-})
+});
+
+app.get('/dessert', (request, response) => {
+  pool.query(
+    `SELECT * FROM restaurant WHERE category LIKE '%甜點糕餅%'`, (err, res) => {
+      if (err) { response.end(); return; }
+      else { response.json(res); console.log(res); }
+    }
+  );
+});
+
+app.get('/drinks', (request, response) => {
+  pool.query(
+    `SELECT * FROM restaurant WHERE category LIKE '%飲料冰品%'`, (err, res) => {
+      if (err) { response.end(); return; }
+      else { response.json(res); console.log(res); }
+    }
+  );
+});
+
+app.get('/cafe', (request, response) => {
+  pool.query(
+    `SELECT * FROM restaurant WHERE category LIKE '%咖啡茶鋪%'`, (err, res) => {
+      if (err) { response.end(); return; }
+      else { response.json(res); console.log(res); }
+    }
+  );
+});
+
+app.get('/gift', (request, response) => {
+  pool.query(
+    `SELECT * FROM restaurant WHERE category LIKE '%伴手好禮%' OR category LIKE '%農產好物%'
+      OR category LIKE '%柑仔店%'`, (err, res) => {
+      if (err) { response.end(); return; }
+      else { response.json(res); console.log(res); }
+    }
+  );
+});
