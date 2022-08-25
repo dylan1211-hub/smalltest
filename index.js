@@ -19,14 +19,22 @@ app.listen(PORT, function (err) {
 
 const pool = new Pool ({
   user: "postgres",
-  password: "1211",
+  password: "postgres",
   host: "localhost",
   port: 5432,
   database: "ar_bus_test"
 });
 
+// TDX API
+let apiResponse;
+let accessToken;
+const cronJob = sche.scheduleJob('*/1 * * * *', function() {
+  getApiResponse();
+  console.log("do job");
+});
+
 // TDX Bus data
-// Get Author-Header first
+// Get Authorization-Header first
 async function getAuthorizationHeader() {
   const parameter = {
     grant_type: "client_credentials",
@@ -53,9 +61,45 @@ async function getAuthorizationHeader() {
   } catch (err) {
     return err;
   }
-};
+}
 
+// Then fetch data from TDX API (after we get the header)
+async function getApiResponse() {
+  let apiUrl = "https://tdx.transportdata.tw/api/basic/v3/Bus/EstimatedTimeOfArrival/City/Tainan";
+  try {
+    let res = await axios.get(apiUrl, {
+      headers: await getAuthorizationHeader(),  // 獲取accessToken
+    });
+    console.log(res.data.N1Datas);
+    // 存預估到站時間進資料庫
+    apiResponse = res.data.N1Datas;
+    console.log("apiResponse:");
+    console.log(apiResponse);
+    for (let i = 0; i < apiResponse.length; i++) {
+			pool.query(
+        `INSERT INTO estimateTime (RouteUID, RouteID, RouteName_zh, RouteName_en, Direction, DestinationStopID, StopUID, StopID, StopName_zh, StopName_en, EstimateTime, IsLastBus, CurrentStop, StopStatus, StopCountDown, DataTime, RecTime, TransTime)
+        VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18)`,
+        [
+          apiResponse[i].RouteUID, apiResponse[i].RouteID, apiResponse[i].RouteName.Zh_tw,
+          apiResponse[i].RouteName.En, apiResponse[i].Direction, apiResponse[i].DestinationStopID,
+          apiResponse[i].StopUID, apiResponse[i].StopID, apiResponse[i].StopName.Zh_tw,
+          apiResponse[i].StopName.En, apiResponse[i].EstimateTime, apiResponse[i].IsLastBus,
+          apiResponse[i].CurrentStop, apiResponse[i].StopStatus, apiResponse[i].StopCountDown,
+          apiResponse[i].DataTime, apiResponse[i].RecTime, apiResponse[i].TransTime
+        ]
+      );
+		}
+    // return await res.data;
+  } catch (err) {
+    console.log(err);
+  }
+}
 
+app.get('/estimateTime', (request, response) => {
+  pool.query(
+    
+  );
+});
 
 
 // Handle Convenience Store data.
