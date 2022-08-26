@@ -30,6 +30,10 @@ let apiResponse;
 let accessToken;
 const cronJob = sche.scheduleJob('*/1 * * * *', function() {
   getApiResponse();
+  // Delete data farer than 1 hour
+  pool.query(
+    `DELETE FROM estimateTime WHERE datatime <= NOW() - INTERVAL '1 HOUR'`
+  );
   console.log("do job");
 });
 
@@ -70,11 +74,11 @@ async function getApiResponse() {
     let res = await axios.get(apiUrl, {
       headers: await getAuthorizationHeader(),  // 獲取accessToken
     });
-    console.log(res.data.N1Datas);
+    // console.log(res.data.N1Datas);
     // 存預估到站時間進資料庫
     apiResponse = res.data.N1Datas;
     console.log("apiResponse:");
-    console.log(apiResponse);
+    // console.log(apiResponse);
     for (let i = 0; i < apiResponse.length; i++) {
 			pool.query(
         `INSERT INTO estimateTime (RouteUID, RouteID, RouteName_zh, RouteName_en, Direction, DestinationStopID, StopUID, StopID, StopName_zh, StopName_en, EstimateTime, IsLastBus, CurrentStop, StopStatus, StopCountDown, DataTime, RecTime, TransTime)
@@ -95,11 +99,15 @@ async function getApiResponse() {
   }
 }
 
-app.get('/estimateTime', (request, response) => {
-  pool.query(
-    
-  );
-});
+
+// Dynamic render html content
+// sche.scheduleJob('*/1 * * * *', function() {
+//   app.get('/estimateTime', (request, response) => {
+//     pool.query(
+//       `SELECT estimateTime FROM estimateTime WHERE routename_en = '19'`
+//     );
+//   });
+// });
 
 
 // Handle Convenience Store data.
