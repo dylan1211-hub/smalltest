@@ -128,10 +128,13 @@
 					$compass.style.transform = `rotate(${Math.round(angleToStop)}deg)`;
 				}, 100);
 			});
+
+		 //倒數計時的part
+
 		</script>
 
-		<a-entity gltf-model="https://dylan1211-hub.github.io/smalltest/bus_test/assets/billboard/scene.gltf" rotation="0 -30 0" scale="3 2 2" 
-				gps-entity-place="longitude:120.22093319574124; latitude:22.990544235195003 " animation-mixer >
+		<a-entity gltf-model="https://dylan1211-hub.github.io/smalltest/bus_test/assets/billboard/scene.gltf" rotation="0 -90 0" scale="3 2 2" 
+				gps-entity-place="longitude:120.22769574719251; latitude:22.998325236106428 " animation-mixer >
 			<a-text value="Private Chang Jung" color="#70C1CF" zOffset="9999" anchor="left" baseline="top" scale="0.3 0.3 0.3" position="-0.35 0.83 1"></a-text>
 			<a-text value="Girls' Senior High School" color="#70C1CF" zOffset="9999" anchor="left" baseline="top" scale="0.3 0.3 0.3" position="-0.35 0.77 1"></a-text>
 			<a-text value="- - - - - - - - - - - - - - - - - - - - " color="gray" zOffset="9999" anchor="left" baseline="top" scale="0.3 0.3 0.3" position="-0.35 0.72 1"></a-text>
@@ -141,7 +144,7 @@
 			<a-text value="Dadong Night Market -> " color="#528B40" zOffset="9999" anchor="left" baseline="top" scale="0.3 0.3 0.3" position="-0.37 0.53 1"></a-text>
 			<a-text value="Shengli School" color="#528B40" zOffset="9999" anchor="left" baseline="top" scale="0.3 0.3 0.3" position="-0.37 0.44 1"></a-text>
 			<a-text value="Estimate Time" color="gray" zOffset="9999" anchor="left" baseline="top" scale="0.3 0.3 0.3" position="-0.35 0.36 1"></a-text>
-			<a-text id="minA" value="5" color="#CD5C5C" zOffset="9999" anchor="left" baseline="top" scale="0.4 0.4 0.4" position="0.14 0.37 1"></a-text>
+			<a-text id="minA" value="5" color="#CD5C5C" zOffset="9999" anchor="left" baseline="top" scale="1 1 1" position="0.14 0.37 1"></a-text>
 			<a-text value="min" color="gray" zOffset="9999" anchor="left" baseline="top" scale="0.3 0.3 0.3" position="0.22 0.36 1"></a-text>
 			<a-text value="---------------------------------------" color="gray" zOffset="9999" anchor="left" baseline="top" scale="0.3 0.3 0.3" position="-0.37 0.31 1"></a-text>
 			<a-text value="Route Name" color="gray" zOffset="9999" anchor="left" baseline="top" scale="0.3 0.3 0.3" position="-0.35 0.26 1"></a-text>
@@ -150,10 +153,9 @@
 			<a-text value="Carrefour ->" color="#528B40" zOffset="9999" anchor="left" baseline="top" scale="0.3 0.3 0.3" position="-0.35 0.13 1"></a-text>
 			<a-text value="wennan rd. intersection" color="#528B40" zOffset="9999" anchor="left" baseline="top" scale="0.3 0.3 0.3" position="-0.35 0.06 1"></a-text>
 			<a-text value="Estimate Time" color="gray" zOffset="9999" anchor="left" baseline="top" scale="0.3 0.3 0.3" position="-0.35 -0.01 1"></a-text>
-			<a-text id="minB" value="6" color="#CD5C5C" zOffset="9999" anchor="left" baseline="top" scale="0.4 0.4 0.4" position="0.09 0 1"></a-text>
+			<a-text id="minB" value="6" color="#CD5C5C" zOffset="9999" anchor="left" baseline="top" scale="1 1 1" position="0.09 0 1"></a-text>
 			<a-text value="min" color="gray" zOffset="9999" anchor="left" baseline="top" scale="0.3 0.3 0.3" position="0.22 -0.01 1"></a-text>
 		</a-entity>
-
 		<a-camera gps-camera rotation-reader>
 			<!---<input type="checkbox"  id="side-menu-switch">
 			<div class="side-menu">
@@ -489,27 +491,31 @@
 		// console.log(minB.components.text.data.value);
 
 		function countDown (min) {
-			if (min === 0) {
-				return;
+			if (min === '0') {
+				minA.setAttribute('value',"arrival!!");
+				clearInterval(count1);
 			} else {
 				min--;
 				minA.components.text.data.value = min;
 				console.log(minA.components.text.data.value);
+				minA.setAttribute('value',minA.components.text.data.value);
 			}
 		}
 
 		function countDown2 (min2) {
-			if (min2 === 0) {
-				return;
+			if (min2 === '0') {
+				minB.setAttribute('value',"arrival!!");
+				clearInterval(count2);
 			} else {
 				min2--;
 				minB.components.text.data.value = min2;
 				console.log(minB.components.text.data.value);
+				minB.setAttribute('value',minB.components.text.data.value);
 			}
 		}
 
-		setInterval(function() { countDown(minA.components.text.data.value); }, 60000);
-		setInterval(function() { countDown2(minB.components.text.data.value); }, 60000);
+		var count1 = setInterval(function() { countDown(minA.components.text.data.value); }, 60000);
+		var count2 = setInterval(function() { countDown2(minB.components.text.data.value); }, 60000);
 
 
 	</script>
