@@ -58,7 +58,7 @@ async function getAuthorizationHeader() {
     accessToken = res.data;
     // test
     console.log("accessToken:");
-    console.log(accessToken);
+    // console.log(accessToken);
     return {
       authorization: `Bearer ${accessToken.access_token}`,
     }
@@ -108,6 +108,19 @@ async function getApiResponse() {
 //     );
 //   });
 // });
+var minA = 6;
+const scheA = sche.scheduleJob('*/10 * * * * *', function() {
+  if (minA > 0) {
+    minA--;
+    console.log('scheA');
+    console.log(minA);
+    app.get('/minA', (request, response) => {
+      response.json(minA);
+    });
+  } else {
+    return;
+  }
+});
 
 
 // Handle Convenience Store data.
