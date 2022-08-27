@@ -29,7 +29,7 @@
 			<span class="info3">  晴時多雲 </span><br><br>
 			<span class="info3">溫度:31℃ 濕度: 20%  </span><br><br>
 			<span class="info3">降雨機率 : 30%</span><br><br>
-			<span class="info3"> AQI : 10  </span><br><br><br> 
+			<span class="info3"> AQI : 10  </span><br><br><br>
 	</div>
 
 	<div class="panel2" style="display:none" id="mySidebar2" position="relative" z-index="2">
@@ -100,7 +100,7 @@
 				// 跟使用者拿所在位置的權限
 				navigator.geolocation.getCurrentPosition(success, error);
 			} else {
-				alert('Sorry, 你的裝置不支援地理位置功能。')
+				alert('Sorry, 你的裝置不支援地理位置功能。');
 			}
 		};
 	</script>
@@ -141,7 +141,7 @@
 			<a-text value="Dadong Night Market -> " color="#528B40" zOffset="9999" anchor="left" baseline="top" scale="0.3 0.3 0.3" position="-0.37 0.53 1"></a-text>
 			<a-text value="Shengli School" color="#528B40" zOffset="9999" anchor="left" baseline="top" scale="0.3 0.3 0.3" position="-0.37 0.44 1"></a-text>
 			<a-text value="Estimate Time" color="gray" zOffset="9999" anchor="left" baseline="top" scale="0.3 0.3 0.3" position="-0.35 0.36 1"></a-text>
-			<a-text value="5" color="#CD5C5C" zOffset="9999" anchor="left" baseline="top" scale="0.4 0.4 0.4" position="0.14 0.37 1"></a-text>
+			<a-text id="minA" value="5" color="#CD5C5C" zOffset="9999" anchor="left" baseline="top" scale="0.4 0.4 0.4" position="0.14 0.37 1"></a-text>
 			<a-text value="min" color="gray" zOffset="9999" anchor="left" baseline="top" scale="0.3 0.3 0.3" position="0.22 0.36 1"></a-text>
 			<a-text value="---------------------------------------" color="gray" zOffset="9999" anchor="left" baseline="top" scale="0.3 0.3 0.3" position="-0.37 0.31 1"></a-text>
 			<a-text value="Route Name" color="gray" zOffset="9999" anchor="left" baseline="top" scale="0.3 0.3 0.3" position="-0.35 0.26 1"></a-text>
@@ -150,7 +150,7 @@
 			<a-text value="Carrefour ->" color="#528B40" zOffset="9999" anchor="left" baseline="top" scale="0.3 0.3 0.3" position="-0.35 0.13 1"></a-text>
 			<a-text value="wennan rd. intersection" color="#528B40" zOffset="9999" anchor="left" baseline="top" scale="0.3 0.3 0.3" position="-0.35 0.06 1"></a-text>
 			<a-text value="Estimate Time" color="gray" zOffset="9999" anchor="left" baseline="top" scale="0.3 0.3 0.3" position="-0.35 -0.01 1"></a-text>
-			<a-text value="6" color="#CD5C5C" zOffset="9999" anchor="left" baseline="top" scale="0.4 0.4 0.4" position="0.09 0 1"></a-text>
+			<a-text id="minB" value="6" color="#CD5C5C" zOffset="9999" anchor="left" baseline="top" scale="0.4 0.4 0.4" position="0.09 0 1"></a-text>
 			<a-text value="min" color="gray" zOffset="9999" anchor="left" baseline="top" scale="0.3 0.3 0.3" position="0.22 -0.01 1"></a-text>
 		</a-entity>
 
@@ -364,6 +364,7 @@
 				console.log(restaurant.value+" unchecked");
 			}
 		}
+
 		
 		
 		// OSM leaflet(web map)的part
@@ -412,7 +413,6 @@
 				panBy(map); // 移動 x, y 位置
 			}
 			map.on('locationfound', foundHandler);
-
 
 			// 移動到指定座標（平滑 || 縮放 效果）
 			function moveTo(map) {
@@ -477,5 +477,40 @@
 			L.geoJson(stores,{icon: MyIcon}).addTo(map);
 
 		});
+
+		const minA = document.querySelector('#minA');
+		const minB = document.querySelector('#minB');
+		console.log(minA.components.text.data.value);
+		console.log(minB.components.text.data.value);
+		// async function refreshMinA('')
+		// minA.components.text.data.value = 10;
+		// minB.components.text.data.value = 15;
+		// console.log(minA.components.text.data.value);
+		// console.log(minB.components.text.data.value);
+
+		function countDown (min) {
+			if (min === 0) {
+				return;
+			} else {
+				min--;
+				minA.components.text.data.value = min;
+				console.log(minA.components.text.data.value);
+			}
+		}
+
+		function countDown2 (min2) {
+			if (min2 === 0) {
+				return;
+			} else {
+				min2--;
+				minB.components.text.data.value = min2;
+				console.log(minB.components.text.data.value);
+			}
+		}
+
+		setInterval(function() { countDown(minA.components.text.data.value); }, 60000);
+		setInterval(function() { countDown2(minB.components.text.data.value); }, 60000);
+
+
 	</script>
 </body>
