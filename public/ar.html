@@ -20,12 +20,12 @@
 
 	<div class="panel" style="display:none" id="mySidebar" position="relative" z-index="2">
 		<button onclick="w3_close()" class="close">X</button>&emsp;&emsp;&emsp;&emsp;<button onclick="open_sidebar2()" class="os2b" >周邊休息據點→</button>
-		<h2 style="color: rgb(113, 113, 113);" class="let_space">起點</h2>
+		<h2 style="color: rgb(113, 113, 113);" class="let_space">台中市南區</h2>
 			<span class="info1">     晴天    </span><br><br>
 			<span class="info1">溫度:33℃ 濕度: 10%  </span><br><br>
 			<span class="info1">降雨機率 : 10%</span><br><br>
 			<span class="info1"> AQI : 19  </span>
-		<h2 style="color: rgb(113, 113, 113);" class="let_space">終點</h2>
+		<h2 style="color: rgb(113, 113, 113);" class="let_space">台中市北屯區</h2>
 			<span class="info3">  晴時多雲 </span><br><br>
 			<span class="info3">溫度:31℃ 濕度: 20%  </span><br><br>
 			<span class="info3">降雨機率 : 30%</span><br><br>
@@ -38,7 +38,6 @@
 			<p><label for="7-11"><input type="checkbox" name="7-11" value="seven" id="seven" onchange="getConv(this)"/><span class="info5">7-11</span></label></p>
 			<p><label for="全家"><input type="checkbox" name="全家" value="fami" id="fami" onchange="getConv(this)"/><span class="info5">全家</span></label></p>
 			<p><label for="萊爾富"><input type="checkbox" name="萊爾富" value="hilife" id="hilife" onchange="getConv(this)"/><span class="info5">萊爾富</span></label></p>
-			<p><label for="OK"><input type="checkbox" name="OK" value="ok" id="ok" onchange="getConv(this)"/><span class="info5">OK</span></label></p>
 			<p><label for="全聯"><input type="checkbox" name="全聯" value="mxmart" id="mxmart" onchange="getConv(this)"/><span class="info5">全聯</span></label></p>
 		<h2 style="color: rgb(113, 113, 113);" class="let_space">༼ つ ◕_◕ ༽つ美食餐飲</h2>
 			<p><label for="美食小吃"><input type="checkbox" name="美食小吃" value="snacks" id="snacks" onchange="getRest(this)"/><span class="info4">美食小吃</span></label></p>
@@ -73,7 +72,7 @@
 					console.log(position.coords.latitude, position.coords.longitude);
 
 					// 設定目的地的點
-					let destination = new google.maps.LatLng(25.009821579761535, 121.50627815277606);
+					let destination = new google.maps.LatLng(24.121757179406796, 120.67642667799385);
 
 					// 所在位置跟各點的距離
 					const service = new google.maps.DistanceMatrixService();
@@ -124,7 +123,7 @@
 				
 				setInterval( () => {
 						const currentPosition = { lat: compass.position.coords.latitude, lng: compass.position.coords.longitude };
-						const angleToStop = compass.getBearingToDestination(currentPosition, { lat: 22.990544235195003, lng: 120.22093319574124 });
+						const angleToStop = compass.getBearingToDestination(currentPosition, { lat: 24.121757179406796, lng: 120.67642667799385 });
 						$compass.style.transform = `rotate(${Math.round(angleToStop)}deg)`;
 					}, 100);
 				});
@@ -143,24 +142,24 @@
 		</script>
 
 		<a-entity gltf-model="https://dylan1211-hub.github.io/smalltest/bus_test/assets/billboard/scene.gltf" rotation="0 -90 0" scale="3 2 2" 
-				gps-entity-place="longitude:120.22769574719251; latitude:22.998325236106428 " animation-mixer>
-			<a-text value="Private Chang Jung" color="#70C1CF" zOffset="9999" anchor="left" baseline="top" scale="0.3 0.3 0.3" position="-0.35 0.83 1"></a-text>
-			<a-text value="Girls' Senior High School" color="#70C1CF" zOffset="9999" anchor="left" baseline="top" scale="0.3 0.3 0.3" position="-0.35 0.77 1"></a-text>
+				gps-entity-place="longitude:120.67642667799385; latitude:24.121757179406796 " animation-mixer>
+			<a-text value="3S" color="#70C1CF" zOffset="9999" anchor="left" baseline="top" scale="0.3 0.3 0.3" position="-0.35 0.83 1"></a-text>
+			<a-text value="Maker Competition" color="#70C1CF" zOffset="9999" anchor="left" baseline="top" scale="0.3 0.3 0.3" position="-0.35 0.77 1"></a-text>
 			<a-text value="- - - - - - - - - - - - - - - - - - - - " color="gray" zOffset="9999" anchor="left" baseline="top" scale="0.3 0.3 0.3" position="-0.35 0.72 1"></a-text>
 			<a-text value="Route Name" color="gray" zOffset="9999" anchor="left" baseline="top" scale="0.3 0.3 0.3" position="-0.35 0.67 1"></a-text>
-			<a-text value="70" color="#E6C35C" zOffset="9999" anchor="left" baseline="top" scale="0.4 0.4 0.4" position="0.16 0.68 1"></a-text>
+			<a-text value="100" color="#E6C35C" zOffset="9999" anchor="left" baseline="top" scale="0.4 0.4 0.4" position="0.16 0.68 1"></a-text>
 			<a-text value="Now at" color="gray" zOffset="9999" anchor="left" baseline="top" scale="0.3 0.3 0.3" position="-0.35 0.60 1"></a-text>
-			<a-text value="Dadong Night Market -> " color="#528B40" zOffset="9999" anchor="left" baseline="top" scale="0.3 0.3 0.3" position="-0.37 0.53 1"></a-text>
-			<a-text value="Shengli School" color="#528B40" zOffset="9999" anchor="left" baseline="top" scale="0.3 0.3 0.3" position="-0.37 0.44 1"></a-text>
+			<a-text value="There -> " color="#528B40" zOffset="9999" anchor="left" baseline="top" scale="0.3 0.3 0.3" position="-0.37 0.53 1"></a-text>
+			<a-text value="Here" color="#528B40" zOffset="9999" anchor="left" baseline="top" scale="0.3 0.3 0.3" position="-0.37 0.44 1"></a-text>
 			<a-text value="Estimate Time" color="gray" zOffset="9999" anchor="left" baseline="top" scale="0.3 0.3 0.3" position="-0.35 0.36 1"></a-text>
 			<a-text id="minA" value="5" color="#CD5C5C" zOffset="9999" anchor="left" baseline="top" scale="1 1 1" position="0.14 0.37 1"></a-text>
 			<a-text value="min" color="gray" zOffset="9999" anchor="left" baseline="top" scale="0.3 0.3 0.3" position="0.22 0.36 1"></a-text>
 			<a-text value="---------------------------------------" color="gray" zOffset="9999" anchor="left" baseline="top" scale="0.3 0.3 0.3" position="-0.37 0.31 1"></a-text>
 			<a-text value="Route Name" color="gray" zOffset="9999" anchor="left" baseline="top" scale="0.3 0.3 0.3" position="-0.35 0.26 1"></a-text>
-			<a-text value="0" color="#E6C35C" zOffset="9999" anchor="left" baseline="top" scale="0.4 0.4 0.4" position="0.16 0.27 1"></a-text>
+			<a-text value="001" color="#E6C35C" zOffset="9999" anchor="left" baseline="top" scale="0.4 0.4 0.4" position="0.16 0.27 1"></a-text>
 			<a-text value="Now at" color="gray" zOffset="9999" anchor="left" baseline="top" scale="0.3 0.3 0.3" position="-0.35 0.20 1"></a-text>
-			<a-text value="Carrefour ->" color="#528B40" zOffset="9999" anchor="left" baseline="top" scale="0.3 0.3 0.3" position="-0.35 0.13 1"></a-text>
-			<a-text value="wennan rd. intersection" color="#528B40" zOffset="9999" anchor="left" baseline="top" scale="0.3 0.3 0.3" position="-0.35 0.06 1"></a-text>
+			<a-text value="Here ->" color="#528B40" zOffset="9999" anchor="left" baseline="top" scale="0.3 0.3 0.3" position="-0.35 0.13 1"></a-text>
+			<a-text value="There" color="#528B40" zOffset="9999" anchor="left" baseline="top" scale="0.3 0.3 0.3" position="-0.35 0.06 1"></a-text>
 			<a-text value="Estimate Time" color="gray" zOffset="9999" anchor="left" baseline="top" scale="0.3 0.3 0.3" position="-0.35 -0.01 1"></a-text>
 			<a-text id="minB" value="6" color="#CD5C5C" zOffset="9999" anchor="left" baseline="top" scale="1 1 1" position="0.09 0 1"></a-text>
 			<a-text value="min" color="gray" zOffset="9999" anchor="left" baseline="top" scale="0.3 0.3 0.3" position="0.22 -0.01 1"></a-text>
