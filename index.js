@@ -6,11 +6,13 @@ const cors = require('cors');
 const sche = require('node-schedule');
 const Pool = require('pg').Pool;
 const qs = require('qs');
+const tool_base = require('./urlchineseroute.js');
 const { request, response } = require('express');
 
 app.use(cors());
 app.use(express.json());
 app.use(express.static('public'));
+app.use(tool_base);
 
 app.listen(PORT, function (err) {
   if (err) console.log(err);
@@ -100,7 +102,7 @@ async function getApiResponse() {
 }
 
 
-// Dynamic render html content
+// Dynamic estimateTime
 // sche.scheduleJob('*/1 * * * *', function() {
 //   app.get('/estimateTime', (request, response) => {
 //     pool.query(
@@ -108,20 +110,16 @@ async function getApiResponse() {
 //     );
 //   });
 // });
-var minA = 6;
-const scheA = sche.scheduleJob('*/10 * * * * *', function() {
-  if (minA > 0) {
-    minA--;
-    console.log('scheA');
-    console.log(minA);
-    app.get('/minA', (request, response) => {
-      response.json(minA);
-    });
-  } else {
-    return;
-  }
-});
 
+app.get('*區', (request, response) => {
+  console.log(request.url);
+  const sql = "SELECT DISTINCT ON (stopname_zh) * FROM stops WHERE stopaddress LIKE $1";
+  const startDistrict = ["%"+request.url.substring(1)+"%"];
+  pool.query(sql, startDistrict, (err, res) => {
+    if (err) { response.end(); return; } 
+    else { console.log(res.rows); response.json(res.rows); }
+  });
+});
 
 // Handle Convenience Store data.
 app.get('/seven', (request, response) => {
