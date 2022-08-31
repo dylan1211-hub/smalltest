@@ -50,15 +50,38 @@ CREATE TABLE allRoute(
 -- Stops (static data)
 CREATE TABLE stops(
   fid SERIAL PRIMARY KEY,
-  StopUID CHAR(50),
-  StopID CHAR(50),
-  StopName_zh CHAR(50),
-  StopName_en CHAR(50),
+  StopUID CHAR(100),
+  StopID CHAR(100),
+  StopName_zh CHAR(100),
+  StopName_en CHAR(100),
   StopPosition_lon FLOAT,
   StopPosition_lat FLOAT,
-  RoadName CHAR(50),
+  RoadName CHAR(100),
   CityCode CHAR(20),
-  StopAddress CHAR(50),
-  StationUID CHAR(50),
-  StationID CHAR(50)
+  StopAddress CHAR(100),
+  StationUID CHAR(100),
+  StationID CHAR(100)
+);
+
+-- EstimateTime
+CREATE TABLE EstimateTime (
+  fid SERIAL PRIMARY KEY,
+  RouteUID CHAR(100),
+  RouteID CHAR(100),
+  RouteName_zh CHAR(100),
+  RouteName_en CHAR(100),
+  Direction INT,
+  DestinationStopID CHAR(100),
+  StopUID CHAR(100),
+  StopID CHAR(100),
+  StopName_zh CHAR(100),
+  StopName_en CHAR(100),
+  EstimateTime INT,
+  IsLastBus BOOLEAN,
+  CurrentStop CHAR(100),
+  StopStatus INT,
+  StopCountDown INT,
+  DataTime TIMESTAMP,
+  RecTime TIMESTAMP,
+  TransTime TIMESTAMP
 );

@@ -161153,12 +161153,12 @@ let jsonFile = {
   ]
 }
 
-for (let i = 0; i < 7667; i++) {
+for (let i = 0; i < 9578; i++) {
   pool.query(
     `INSERT INTO stops (StopUID, StopID, StopName_zh, StopName_en, StopPosition_lon, StopPosition_lat, 
       RoadName, CityCode, StopAddress, StationUID, StationID)
     VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)`,
-    [jsonFile.Stops[i].StationUID, jsonFile.Stops[i].StopID, jsonFile.Stops[i].StopName.Zh_tw,
+    [jsonFile.Stops[i].StopUID, jsonFile.Stops[i].StopID, jsonFile.Stops[i].StopName.Zh_tw,
     jsonFile.Stops[i].StopName.En, jsonFile.Stops[i].StopPosition.PositionLon, 
     jsonFile.Stops[i].StopPosition.PositionLat,jsonFile.Stops[i].RoadName, 
     jsonFile.Stops[i].CityCode, jsonFile.Stops[i].StopAddress, jsonFile.Stops[i].StationUID,
