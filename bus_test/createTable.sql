@@ -23,6 +23,16 @@ CREATE TABLE ConvenienceStore (
   category CHAR(10)
 );
 
+CREATE TABLE allRoutesContent (
+  fid SERIAL PRIMARY KEY,
+  StopName_zh CHAR(100),
+  StopName_en CHAR(100),
+  RouteUID CHAR(100),
+  RouteID CHAR(100),
+  RouteName_zh CHAR(100),
+  RouteName_en CHAR(100)
+);
+
 -- Routes (static data)
 CREATE TABLE allRoute(
   fid SERIAL PRIMARY KEY,

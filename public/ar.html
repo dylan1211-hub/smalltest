@@ -21,16 +21,46 @@
 	<div class="panel" style="display:none" id="mySidebar" position="relative" z-index="2">
 		<button onclick="w3_close()" class="close">X</button>&emsp;&emsp;&emsp;&emsp;<button onclick="open_sidebar2()" class="os2b" >周邊休息據點→</button>
 		<h2 style="color: rgb(113, 113, 113);" class="let_space">台中市南區</h2>
-			<span class="info1">     晴天    </span><br><br>
-			<span class="info1">溫度:33℃ 濕度: 10%  </span><br><br>
-			<span class="info1">降雨機率 : 10%</span><br><br>
-			<span class="info1"> AQI : 19  </span>
+			<span class="info1" id="startWeather">     晴天    </span><br><br>
+			<span class="info1" id="startTemperature">溫度:33℃ 濕度: 10%  </span><br><br>
+			<span class="info1" id="startRain">降雨機率 : 10%</span><br><br>
+			<span class="info1" id="startAir"> AQI : 19  </span>
 		<h2 style="color: rgb(113, 113, 113);" class="let_space">台中市北屯區</h2>
-			<span class="info3">  晴時多雲 </span><br><br>
-			<span class="info3">溫度:31℃ 濕度: 20%  </span><br><br>
-			<span class="info3">降雨機率 : 30%</span><br><br>
-			<span class="info3"> AQI : 10  </span><br><br><br>
+			<span class="info3" id="endWeather">  晴時多雲 </span><br><br>
+			<span class="info3" id="endTemperature">溫度:31℃ 濕度: 20%  </span><br><br>
+			<span class="info3" id="endRain">降雨機率 : 30%</span><br><br>
+			<span class="info3" id="endAir"> AQI : 10  </span><br><br><br>
 	</div>
+
+	<script>
+		async function refreshWeather() {
+			var urlStart = 'https://opendata.cwb.gov.tw/api/v1/rest/datastore/F-D0047-073?Authorization=CWB-33803A80-A6AD-4C14-B990-6AB669778C73&locationName=%E5%8D%97%E5%8D%80';
+			var urlEnd = 'https://opendata.cwb.gov.tw/api/v1/rest/datastore/F-D0047-073?Authorization=CWB-33803A80-A6AD-4C14-B990-6AB669778C73&locationName=%E5%8C%97%E5%B1%AF%E5%8D%80';
+			const resWeather = await fetch(urlStart);
+			const resWeather2 = await fetch(urlEnd);
+			const json_resWeather = await resWeather.json();
+			const json_resWeather2 = await resWeather2.json();
+			
+			console.log(document.getElementById('startWeather').innerHTML);
+			console.log(document.getElementById('startTemperature').innerHTML);
+			console.log(json_resWeather.records.locations[0].location[0].weatherElement);
+			console.log(json_resWeather.records.locations[0].location[0].weatherElement[1].time[0].elementValue[0].value); // 天氣狀況
+			console.log(json_resWeather.records.locations[0].location[0].weatherElement[3].time[0].elementValue[0].value); // 溫度
+			console.log(json_resWeather.records.locations[0].location[0].weatherElement[4].time[0].elementValue[0].value); // 相對溼度
+			console.log(json_resWeather.records.locations[0].location[0].weatherElement[7].time[0].elementValue[0].value); // 6小時降雨機率
+			var startTemp = json_resWeather.records.locations[0].location[0].weatherElement[3].time[0].elementValue[0].value;
+			var startHumid = json_resWeather.records.locations[0].location[0].weatherElement[4].time[0].elementValue[0].value;
+			document.getElementById('startWeather').innerHTML = json_resWeather.records.locations[0].location[0].weatherElement[1].time[0].elementValue[0].value;
+			document.getElementById('startTemperature').innerHTML = "溫: " + startTemp + "溼: " + startHumid;
+			document.getElementById('startRain').innerHTML = "降雨機率: " + json_resWeather.records.locations[0].location[0].weatherElement[7].time[0].elementValue[0].value;
+			document.getElementById('startAir').innerHTML = "AQI: ";
+
+			document.getElementsById('endWeather').innerHTML = json_resWeather2.records.locations[0].location[0].weatherElement[1].time[0].elementValue[0].value;
+			
+		}
+		// setInterval(function() { refreshWeather(); }, 3600000);
+		refreshWeather();
+	</script>
 
 	<div class="panel2" style="display:none" id="mySidebar2" position="relative" z-index="2">
 		<button onclick="open_sidebar()" class="back">←</button>
