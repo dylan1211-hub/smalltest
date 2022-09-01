@@ -36,7 +36,9 @@
 		async function refreshWeather() {
 			var urlStart = 'https://opendata.cwb.gov.tw/api/v1/rest/datastore/F-D0047-073?Authorization=CWB-33803A80-A6AD-4C14-B990-6AB669778C73&locationName=%E5%8D%97%E5%8D%80';
 			var urlEnd = 'https://opendata.cwb.gov.tw/api/v1/rest/datastore/F-D0047-073?Authorization=CWB-33803A80-A6AD-4C14-B990-6AB669778C73&locationName=%E5%8C%97%E5%B1%AF%E5%8D%80';
-			const resWeather = await fetch(urlStart);
+			var urlAirStart = 'https://pm25.lass-net.org/API-1.0.0/device/08BEAC028C50/latest/?format=JSON';
+			var urlAirEnd = '';
+ 			const resWeather = await fetch(urlStart);
 			const resWeather2 = await fetch(urlEnd);
 			const json_resWeather = await resWeather.json();
 			const json_resWeather2 = await resWeather2.json();
@@ -172,7 +174,7 @@
 		</script>
 
 		<a-entity gltf-model="https://dylan1211-hub.github.io/smalltest/bus_test/assets/billboard/scene.gltf" rotation="0 -90 0" scale="3 2 2" 
-				gps-entity-place="longitude:120.67642667799385; latitude:24.121757179406796 " animation-mixer>
+				gps-entity-place="longitude:120.6575458; latitude:24.1539879" animation-mixer>
 			<a-text value="3S" color="#70C1CF" zOffset="9999" anchor="left" baseline="top" scale="0.3 0.3 0.3" position="-0.35 0.83 1"></a-text>
 			<a-text value="Maker Competition" color="#70C1CF" zOffset="9999" anchor="left" baseline="top" scale="0.3 0.3 0.3" position="-0.35 0.77 1"></a-text>
 			<a-text value="- - - - - - - - - - - - - - - - - - - - " color="gray" zOffset="9999" anchor="left" baseline="top" scale="0.3 0.3 0.3" position="-0.35 0.72 1"></a-text>
