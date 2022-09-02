@@ -23,6 +23,14 @@ CREATE TABLE ConvenienceStore (
   category CHAR(10)
 );
 
+CREATE TABLE TC_ConvenienceStore (
+  fid SERIAL PRIMARY KEY,
+  address_name CHAR(100),
+  lat FLOAT,
+  lon FLOAT,
+  category CHAR(10)
+);
+
 CREATE TABLE allRoutesContent (
   fid SERIAL PRIMARY KEY,
   StopName_zh CHAR(100),
