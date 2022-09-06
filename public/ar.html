@@ -21,16 +21,59 @@
 	<div class="panel" style="display:none" id="mySidebar" position="relative" z-index="2">
 		<button onclick="w3_close()" class="close">X</button>&emsp;&emsp;&emsp;&emsp;<button onclick="open_sidebar2()" class="os2b" >周邊休息據點→</button>
 		<h2 style="color: rgb(113, 113, 113);" class="let_space">台中市南區</h2>
-			<span class="info1">     晴天    </span><br><br>
-			<span class="info1">溫度:33℃ 濕度: 10%  </span><br><br>
-			<span class="info1">降雨機率 : 10%</span><br><br>
-			<span class="info1"> AQI : 19  </span>
+			<span class="info1" id="startWeather">     晴天    </span><br><br>
+			<span class="info1" id="startTemperature">溫度:33℃ 濕度: 10%  </span><br><br>
+			<span class="info1" id="startRain">降雨機率 : 10%</span><br><br>
+			<span class="info1" id="startAir"> AQI : 19  </span>
 		<h2 style="color: rgb(113, 113, 113);" class="let_space">台中市北屯區</h2>
-			<span class="info3">  晴時多雲 </span><br><br>
-			<span class="info3">溫度:31℃ 濕度: 20%  </span><br><br>
-			<span class="info3">降雨機率 : 30%</span><br><br>
-			<span class="info3"> AQI : 10  </span><br><br><br>
+			<span class="info3" id="endWeather">  晴時多雲 </span><br><br>
+			<span class="info3" id="endTemperature">溫度:31℃ 濕度: 20%  </span><br><br>
+			<span class="info3" id="endRain">降雨機率 : 30%</span><br><br>
+			<span class="info3" id="endAir"> AQI : 10  </span><br><br><br>
 	</div>
+
+	<script>
+		async function refreshWeather() {
+			var urlStart = 'https://opendata.cwb.gov.tw/api/v1/rest/datastore/F-D0047-073?Authorization=CWB-33803A80-A6AD-4C14-B990-6AB669778C73&locationName=%E5%8D%97%E5%8D%80';
+			var urlEnd = 'https://opendata.cwb.gov.tw/api/v1/rest/datastore/F-D0047-073?Authorization=CWB-33803A80-A6AD-4C14-B990-6AB669778C73&locationName=%E5%8C%97%E5%B1%AF%E5%8D%80';
+			var urlAirStart = 'https://pm25.lass-net.org/API-1.0.0/device/08BEAC028C50/latest/?format=JSON';
+			var urlAirEnd = 'https://pm25.lass-net.org/API-1.0.0/device/74DA38AF47C4/latest/?format=JSON';
+ 			const resWeather = await fetch(urlStart);
+			const resWeather2 = await fetch(urlEnd);
+			const json_resWeather = await resWeather.json();
+			const json_resWeather2 = await resWeather2.json();
+			const resAirStart = await fetch(urlAirStart);
+			const resAirEnd = await fetch(urlAirEnd);
+			const json_resAir = await resAirStart.json();
+			const json_resAir2 = await resAirEnd.json();
+
+			console.log(json_resAir.feeds[0].AirBox.s_d0);
+			console.log(json_resAir2.feeds[0].AirBox.s_d0);
+
+			
+			console.log(document.getElementById('startWeather').innerHTML);
+			console.log(document.getElementById('startTemperature').innerHTML);
+			console.log(json_resWeather.records.locations[0].location[0].weatherElement);
+			console.log(json_resWeather.records.locations[0].location[0].weatherElement[1].time[0].elementValue[0].value); // 天氣狀況
+			console.log(json_resWeather.records.locations[0].location[0].weatherElement[3].time[0].elementValue[0].value); // 溫度
+			console.log(json_resWeather.records.locations[0].location[0].weatherElement[4].time[0].elementValue[0].value); // 相對溼度
+			console.log(json_resWeather.records.locations[0].location[0].weatherElement[7].time[0].elementValue[0].value); // 6小時降雨機率
+			var startTemp = json_resWeather.records.locations[0].location[0].weatherElement[3].time[0].elementValue[0].value;
+			var startHumid = json_resWeather.records.locations[0].location[0].weatherElement[4].time[0].elementValue[0].value;
+			document.getElementById('startWeather').innerHTML = json_resWeather.records.locations[0].location[0].weatherElement[1].time[0].elementValue[0].value;
+			document.getElementById('startTemperature').innerHTML = "溫度: " + startTemp + "℃  溼度: " + startHumid + "%";
+			document.getElementById('startRain').innerHTML = "降雨機率: " + json_resWeather.records.locations[0].location[0].weatherElement[7].time[0].elementValue[0].value;
+			document.getElementById('startAir').innerHTML = "AQI: " + json_resAir.feeds[0].AirBox.s_d0;
+
+			document.getElementById('startWeather').innerHTML = json_resWeather2.records.locations[0].location[0].weatherElement[1].time[0].elementValue[0].value;
+			document.getElementById('startTemperature').innerHTML = "溫度: " + startTemp + "℃  溼度: " + startHumid + "%";
+			document.getElementById('startRain').innerHTML = "降雨機率: " + json_resWeather2.records.locations[0].location[0].weatherElement[7].time[0].elementValue[0].value;
+			document.getElementById('startAir').innerHTML = "AQI: " + json_resAir2.feeds[0].AirBox.s_d0;
+			
+		}
+		setInterval(function() { refreshWeather(); }, 60000);
+		// refreshWeather();
+	</script>
 
 	<div class="panel2" style="display:none" id="mySidebar2" position="relative" z-index="2">
 		<button onclick="open_sidebar()" class="back">←</button>
@@ -72,7 +115,7 @@
 					console.log(position.coords.latitude, position.coords.longitude);
 
 					// 設定目的地的點
-					let destination = new google.maps.LatLng(24.121757179406796, 120.67642667799385);
+					let destination = new google.maps.LatLng(24.12178000092712, 120.67642794443776);
 
 					// 所在位置跟各點的距離
 					const service = new google.maps.DistanceMatrixService();
@@ -123,7 +166,7 @@
 				
 				setInterval( () => {
 						const currentPosition = { lat: compass.position.coords.latitude, lng: compass.position.coords.longitude };
-						const angleToStop = compass.getBearingToDestination(currentPosition, { lat: 24.121757179406796, lng: 120.67642667799385 });
+						const angleToStop = compass.getBearingToDestination(currentPosition, { lat: 24.12178000092712, lng: 120.67642794443776 }); 
 						$compass.style.transform = `rotate(${Math.round(angleToStop)}deg)`;
 					}, 100);
 				});
@@ -141,8 +184,8 @@
 
 		</script>
 
-		<a-entity gltf-model="https://dylan1211-hub.github.io/smalltest/bus_test/assets/billboard/scene.gltf" rotation="0 -90 0" scale="3 2 2" 
-				gps-entity-place="longitude:120.67642667799385; latitude:24.121757179406796 " animation-mixer>
+		<a-entity gltf-model="https://dylan1211-hub.github.io/smalltest/bus_test/assets/billboard/scene.gltf" rotation="0 45 0" scale="3 2 2" 
+				gps-entity-place="longitude:120.67642794443776; latitude:24.12178000092712" animation-mixer>
 			<a-text value="3S" color="#70C1CF" zOffset="9999" anchor="left" baseline="top" scale="0.3 0.3 0.3" position="-0.35 0.83 1"></a-text>
 			<a-text value="Maker Competition" color="#70C1CF" zOffset="9999" anchor="left" baseline="top" scale="0.3 0.3 0.3" position="-0.35 0.77 1"></a-text>
 			<a-text value="- - - - - - - - - - - - - - - - - - - - " color="gray" zOffset="9999" anchor="left" baseline="top" scale="0.3 0.3 0.3" position="-0.35 0.72 1"></a-text>
@@ -152,7 +195,7 @@
 			<a-text value="There -> " color="#528B40" zOffset="9999" anchor="left" baseline="top" scale="0.3 0.3 0.3" position="-0.37 0.53 1"></a-text>
 			<a-text value="Here" color="#528B40" zOffset="9999" anchor="left" baseline="top" scale="0.3 0.3 0.3" position="-0.37 0.44 1"></a-text>
 			<a-text value="Estimate Time" color="gray" zOffset="9999" anchor="left" baseline="top" scale="0.3 0.3 0.3" position="-0.35 0.36 1"></a-text>
-			<a-text id="minA" value="5" color="#CD5C5C" zOffset="9999" anchor="left" baseline="top" scale="1 1 1" position="0.14 0.37 1"></a-text>
+			<a-text id="minA" value="5" color="#CD5C5C" zOffset="9999" anchor="left" baseline="top" scale="0.4 0.4 0.4" position="0.14 0.37 1"></a-text>
 			<a-text value="min" color="gray" zOffset="9999" anchor="left" baseline="top" scale="0.3 0.3 0.3" position="0.22 0.36 1"></a-text>
 			<a-text value="---------------------------------------" color="gray" zOffset="9999" anchor="left" baseline="top" scale="0.3 0.3 0.3" position="-0.37 0.31 1"></a-text>
 			<a-text value="Route Name" color="gray" zOffset="9999" anchor="left" baseline="top" scale="0.3 0.3 0.3" position="-0.35 0.26 1"></a-text>
@@ -161,7 +204,7 @@
 			<a-text value="Here ->" color="#528B40" zOffset="9999" anchor="left" baseline="top" scale="0.3 0.3 0.3" position="-0.35 0.13 1"></a-text>
 			<a-text value="There" color="#528B40" zOffset="9999" anchor="left" baseline="top" scale="0.3 0.3 0.3" position="-0.35 0.06 1"></a-text>
 			<a-text value="Estimate Time" color="gray" zOffset="9999" anchor="left" baseline="top" scale="0.3 0.3 0.3" position="-0.35 -0.01 1"></a-text>
-			<a-text id="minB" value="6" color="#CD5C5C" zOffset="9999" anchor="left" baseline="top" scale="1 1 1" position="0.09 0 1"></a-text>
+			<a-text id="minB" value="6" color="#CD5C5C" zOffset="9999" anchor="left" baseline="top" scale="0.4 0.4 0.4" position="0.09 0 1"></a-text>
 			<a-text value="min" color="gray" zOffset="9999" anchor="left" baseline="top" scale="0.3 0.3 0.3" position="0.22 -0.01 1"></a-text>
 		</a-entity>
 		<a-camera gps-camera rotation-reader>
